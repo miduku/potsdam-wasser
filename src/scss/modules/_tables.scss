@@ -1,0 +1,25 @@
+//----------------------------------*\
+// Tables
+//----------------------------------*/
+
+table {
+  width: 100%;
+
+  tr {
+    &:focus,
+    &:hover{
+      background: lighten($color-primary, 45%);
+    }
+  }
+
+  th,
+  td {
+    padding: 5px;
+    text-align: left;
+  }
+
+  th {
+    border-bottom: 1px solid $color-tertiary;
+    border-top: 1px solid $color-tertiary;
+  }
+}

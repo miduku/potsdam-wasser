@@ -1,0 +1,39 @@
+{
+  "name": "potsdam-wasser",
+  "title": "",
+  "url": "",
+  "author": "Dustin Kummer",
+  "copyright": "2016",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miduku/potsdam-wasser.git"
+  },
+  "devDependencies": {
+    "bower": "1.4.x",
+    "grunt": "0.4.x",
+    "grunt-contrib-concat": "0.5.x",
+    "grunt-contrib-sass": "0.5.x",
+    "grunt-contrib-uglify": "0.9.x",
+    "grunt-contrib-connect": "0.3.x",
+    "grunt-contrib-jshint": "0.11.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-bower": "0.20.x",
+    "grunt-autoprefixer": "3.0.x",
+    "grunt-contrib-cssmin": "0.13.x",
+    "grunt-contrib-clean": "0.6.x",
+    "connect-livereload": "0.5.x",
+    "grunt-open": "0.2.x",
+    "matchdep": "0.3.x"
+  },
+  "scripts": {
+    "postinstall": "node_modules/.bin/bower install"
+  },
+  "dependencies": {
+    "config": "^1.19.0",
+    "express": "^4.13.3",
+    "fb": "^1.0.2",
+    "socket.io": "^1.4.4"
+  }
+}

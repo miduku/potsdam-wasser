@@ -1,0 +1,59 @@
+//----------------------------------*\
+// Project Variables
+//----------------------------------*/
+
+// Consistency settings
+$br: 2px; // Border-radius
+$br-btn: 2px; // Button border-radius
+$padding: 40px; // Padding and margins
+$line-height: 45px; // Consistent height for buttons, inputs etc.
+
+
+// Default colors
+// Cool
+$indigo:      #3f51b5;
+$blue:        #2196f3;
+$light-blue:  #03a9f4;
+$cyan:        #00bcd4;
+$teal:        #009688;
+$green:       #4caf50;
+$light-green: #8bc34a;
+$lime:        #cddc39;
+
+// Warm
+$yellow:      #ffdc00;
+$amber:       #ffc107;
+$orange:      #ff9800;
+$deep-orange: #ff5722;
+$red:         #f44336;
+$pink:        #e91e63;
+$purple:      #9c27b0;
+$deep-purple: #673ab7;
+$brown:       #795548;
+
+// Grey Scale
+$white:       #fff;
+$silver:      #ddd;
+$grey:        #9e9e9e;
+$blue-grey:   #607d8b;
+$black:       #000;
+
+
+// Potsdam Wasser colors
+$pw-blue:      #0D47A1;
+$pw-lightblue: #1976D2;
+$pw-brown:     #5D4037;
+
+// Project color variables
+$text-black:      #333;
+$color-primary:   $text-black;
+$color-secondary: complement($color-primary);
+$color-tertiary:  $silver;
+
+
+// Alert colors
+$color-danger: $red; // Bad color for errors, validation etc.
+$color-success: $green; // Good color for success etc.
+$color-info: $blue; // Good color for success etc.
+$color-warning: $orange; // Good color for success etc.
+$color-subtle: $grey; // Subtle color for subtle text

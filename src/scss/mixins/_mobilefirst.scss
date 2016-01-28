@@ -1,0 +1,30 @@
+//----------------------------------*\
+// Mobile first media query mixins
+//----------------------------------*/
+
+// Responsive breakpoints
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+
+@mixin mobilefirst($res) {
+  @media screen and (min-width: $res) {
+    @content;
+  }
+}
+
+body {
+  @include mobilefirst($bp-mobile) {
+    overflow-x: hidden;
+  }
+
+  @include mobilefirst($bp-tablet) {
+    overflow-x: auto;
+  }
+}
+
+// Use:
+// @include mobilefirst($RESOLUTION) {
+//  ##
+// }

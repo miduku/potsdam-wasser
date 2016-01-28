@@ -1,0 +1,44 @@
+//----------------------------------*\
+// Media
+//----------------------------------*/
+
+img,
+video,
+audio,
+iframe,
+object {
+  max-width: 100%;
+}
+
+// Responsive Fluid Layout for Videos
+%embed {
+  display: inline-block;
+  overflow: hidden;
+  padding-top: 0;
+  position: relative;
+
+  iframe {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  }
+}
+.embed-video {
+  &-16by9{
+    @include maintain-ratio(16 9);
+    @extend %embed;
+  }
+
+  &-21by9{
+    @include maintain-ratio(21 9);
+    @extend %embed;
+  }
+
+  &-4by3{
+    @include maintain-ratio(4 3);
+    @extend %embed;
+  }
+}

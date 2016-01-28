@@ -1,0 +1,47 @@
+//----------------------------------*\
+// Alerts & Notifications
+//----------------------------------*/
+
+.alert {
+	border-radius: $br*2;
+	border: 1px solid;
+	margin-bottom: $padding;
+	padding: 10px 15px;
+	@extend .clear;
+
+	&.alert-danger {
+		background: lighten($color-danger, 35%);
+		color: darken($color-danger, 15%);
+		border-color: $color-danger;
+	}
+
+	&.alert-success {
+		background: lighten($color-success, 35%);
+		color: darken($color-success, 15%);
+		border-color: $color-success;
+	}
+
+	&.alert-warning {
+		background: lighten($color-warning, 35%);
+		color: darken($color-warning, 15%);
+		border-color: $color-warning;
+	}
+
+	&.alert-info {
+		background: lighten($color-info, 35%);
+		color: darken($color-info, 15%);
+		border-color: $color-info;
+	}
+
+	&.alert-empty {
+		text-align: center;
+		border-style: dashed;
+		background: lighten($grey, 35%);
+		color: darken($grey, 15%);
+		border-color: $grey;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}

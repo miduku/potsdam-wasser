@@ -1,0 +1,103 @@
+//----------------------------------*\
+// Buttons
+//----------------------------------*/
+
+// Default button
+a.btn {
+  padding-top: 9px;
+  &.btn-sm {
+    padding-top: 3px;
+  }
+  &.btn-lg {
+    padding-top: 15px;
+  }
+}
+
+.btn {
+  border-radius: $br-btn;
+  background: transparent;
+  border: 1px solid $color-primary;
+  color: $color-primary;
+  display: block;
+  height: $line-height;
+  outline: none;
+  padding: 0 25px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  width: 100%;
+  cursor: pointer;
+  white-space: nowrap;
+
+  // Mobile first styles
+  @include mobilefirst($bp-tablet) {
+    display: inline-block;
+    margin-bottom: 0;
+    width: auto;
+  }
+
+  &:hover,
+  &:focus {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:active {
+    background: darken($color-primary, 10);
+    border-color: darken($color-primary, 10);
+  }
+
+  // Primary action button
+  &.btn-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      background: darken($color-primary, 5);
+      border-color: darken($color-primary, 5);
+      color: #fff;
+    }
+
+    &:active {
+      background: darken($color-primary, 10);
+      border-color: darken($color-primary, 10);
+      color: #fff;
+    }
+  }
+
+  // Larger button
+  &.btn-lg {
+    font-size: 1.4em;
+    height: $line-height*1.5;
+    padding: 0 60px;
+  }
+
+  // Smaller button
+  &.btn-sm {
+    font-size: .85em;
+    height: $line-height*.7;
+    padding: 0 10px;
+  }
+
+  // Link button - a button that looks like a link
+  &.btn-link {
+    box-shadow: none;
+    background: transparent;
+    border: 0;
+    color: $color-primary;
+    text-shadow: none;
+    text-transform: none;
+
+    &:hover,
+    &:focus {
+      background: transparent;
+      color: $color-primary;
+      text-decoration: underline;
+    }
+  }
+}
