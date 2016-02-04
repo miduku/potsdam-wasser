@@ -1,4 +1,4 @@
-.nav {
+nav {
 
   ul {
     list-style: none;
@@ -10,5 +10,19 @@
 
   a {
 
+  }
+}
+
+.nav-header {
+  ul {
+    max-height: 80px;
+    background: #234234;
+    li {
+      display: inline-block;
+
+      a {
+        padding: 0 $padding/4;
+      }
+    }
   }
 }

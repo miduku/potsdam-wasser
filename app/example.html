@@ -1,0 +1,368 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>FirePlate - Examples</title>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  <link href="//ajax.googleapis.com" rel="dns-prefetch">
+  <link href="assets/css/style.min.css" rel="stylesheet">
+
+  <script src="assets/components/modernizr.min.js"></script>
+  <!--[if lt IE 9]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="container">
+      <div class="logo">FirePlate</div>
+      <nav class="nav" role="navigation">
+        <ul>
+          <li><a href="#ac-typography">Typography</a></li>
+          <li>
+            <a href="#ac-content">Content</a>
+            <ul>
+              <li><a href="#ac-tables">Tables</a></li>
+              <li><a href="#ac-lists">Lists</a></li>
+              <li><a href="#ac-images">Images</a></li>
+              <li><a href="#ac-videos">Videos</a></li>
+            </ul>
+          </li>
+          <li><a href="#ac-interaction">Interaction</a>
+            <ul>
+              <li><a href="#ac-buttons">Buttons</a></li>
+              <li><a href="#ac-alerts">Alerts</a></li>
+            </ul>
+          </li>
+          <li><a href="#ac-forms">Forms</a></li>
+          <li><a href="#ac-grid">Grid</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" role="main">
+    <section class="container">
+      <h1 id="ac-typography" class="ac">Typography</h1>
+      <h1>Heading 1</h1>
+      <p>Lorem ipsum <a href="">link</a> dolor sit amet, <code>inline code</code> consectetur adipisicing elit. Commodi itaque recusandae odit, quam quidem a. Nobis, suscipit, blanditiis? Asperiores laudantium molestiae vero, tempore commodi molestias. Fugit voluptate quae hic ipsa. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore omnis dolor, at excepturi a beatae maxime ullam provident, necessitatibus sapiente, laboriosam illo voluptatibus eos harum possimus, quos rem perferendis laudantium.</p>
+      <blockquote>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, aliquid totam rerum cumque laborum ex repellendus, eum deleniti explicabo alias et ducimus nam, nesciunt perspiciatis consectetur velit in, accusamus tenetur.</p>
+      </blockquote>
+<pre>
+// Code
+&lt;script&gt;
+  alert('Hello, World!')
+&lt;/script&gt;
+</pre>
+
+      <h2>Heading 2</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi itaque recusandae odit, quam quidem a. Nobis, suscipit, blanditiis? Asperiores laudantium molestiae vero, tempore commodi molestias. Fugit voluptate quae hic ipsa. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore omnis dolor, at excepturi a beatae maxime ullam provident, necessitatibus sapiente, laboriosam illo voluptatibus eos harum possimus, quos rem perferendis laudantium.</p>
+
+
+      <h3>Heading 3</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi itaque recusandae odit, quam quidem a. Nobis, suscipit, blanditiis? Asperiores laudantium molestiae vero, tempore commodi molestias. Fugit voluptate quae hic ipsa. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore omnis dolor, at excepturi a beatae maxime ullam provident, necessitatibus sapiente, laboriosam illo voluptatibus eos harum possimus, quos rem perferendis laudantium.</p>
+
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+
+      <hr>
+    </section>
+
+    <section class="container">
+      <h1 id="ac-content" class="ac">Content</h1>
+      <h2 id="ac-tables" class="ac">Tables</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Column 1</th>
+            <th scope="col">Column 2</th>
+            <th scope="col" class="text-right">Column 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td class="text-right">Data 3</td>
+          </tr>
+          <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td class="text-right">Data 3</td>
+          </tr>
+          <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td class="text-right">Data 3</td>
+          </tr>
+          <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td class="text-right">Data 3</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="ac-lists" class="ac">Lists</h2>
+      <ul>
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+      </ul>
+
+      <ol>
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+      </ol>
+
+      <ul class="list-unstyled">
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+      </ul>
+
+      <h2 id="ac-images" class="ac">Images</h2>
+      <!-- Example using picture element -->
+      <div class="group">
+        <div class="span12">
+          <picture>
+            <source media="(min-width: 1000px)" srcset="assets/img/img@2x.jpg">
+            <source media="(min-width: 640px)" srcset="assets/img/img.jpg">
+            <img src="assets/img/img@2x.jpg" alt="img">
+          </picture>
+        </div>
+      </div>
+
+      <!-- Examples using srcset -->
+      <div class="group">
+        <div class="span6">
+          <img src="assets/img/img.jpg" alt="img" srcset="assets/img/img@2x.jpg 2x, assets/img/img.jpg 1x" sizes="(min-width:480px) 100vw, 50vw">
+        </div>
+        <div class="span4">
+          <img src="assets/img/img.jpg" alt="img" srcset="assets/img/img@2x.jpg 2x, assets/img/img.jpg 1x" sizes="(min-width:480px) 100vw, 50vw">
+        </div>
+        <div class="span2">
+          <img src="assets/img/img.jpg" alt="img" srcset="assets/img/img@2x.jpg 2x, assets/img/img.jpg 1x" sizes="(min-width:480px) 100vw, 50vw">
+        </div>
+      </div>
+
+      <h2 id="ac-videos" class="ac">Videos</h2>
+      <div class="group">
+        <div class="span12">
+          <h3>Youtube 4:3</h3>
+          <div class="embed-video-4by3">
+            <iframe src="https://www.youtube.com/embed/QILiHiTD3uc" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="span6">
+          <p>Youtube 16:9</p>
+          <div class="embed-video-16by9">
+            <iframe  src="https://www.youtube.com/embed/QILiHiTD3uc" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="span6">
+          <p>Vimeo 16:9</p>
+          <div class="embed-video-16by9">
+            <iframe src="https://player.vimeo.com/video/66140585?color=ffffff" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/66140585">Depeche Mode - Enjoy The Silence (cover version)</a> from <a href="https://vimeo.com/kristofluyckx">Kristof Luyckx</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+    </section>
+
+    <section class="container">
+      <h1 id="ac-interaction" class="ac">Interaction</h1>
+      <h2 id="ac-buttons" class="ac">Buttons</h2>
+      <p>Buttons as <code>&lt;button&gt;.../&lt;button&gt;</code></p>
+      <p>
+        <button class="btn btn-primary">Primary button</button>
+        <button class="btn">Default button</button>
+        <button class="btn btn-link">Link button</button>
+      </p>
+      <p>
+        <button class="btn btn-primary btn-lg">Large button</button>
+        <button class="btn btn-sm">Small button</button>
+      </p>
+
+      <br>
+      <br>
+      <p>Buttons as <code>&lt;a&gt;.../&lt;a&gt;</code></p>
+      <p>
+        <a class="btn btn-primary">Primary button</a>
+        <a class="btn">Default button</a>
+        <a class="btn btn-link">Link button</a>
+      </p>
+      <p>
+        <a class="btn btn-primary btn-lg">Large button</a>
+        <a class="btn btn-sm">Small button</a>
+      </p>
+
+      <br>
+      <br>
+      <p>Buttons with <a href="http://fortawesome.github.io/Font-Awesome/examples/" target="_blank">Font Awesome Icons</a></p>
+      <p>
+        <button class="btn btn-primary btn-lg"><i class="fa fa-bomb"></i>Destroy!</button>
+        <button class="btn btn-primary"><i class="fa fa-check"></i>Alrighty</button>
+        <button class="btn btn-sm"><i class="fa fa-bookmark"></i>Bookmark</button>
+        <button class="btn btn-link"><i class="fa fa-cog"></i>Settings</button>
+      </p>
+
+      <h2 id="ac-alerts" class="ac">Notifications & Alerts (with Icons)</h2>
+      <div class="alert alert-danger">
+        <i class="fa fa-times"></i>
+        <p>There was a problem.</p>
+      </div>
+
+      <div class="alert alert-success">
+        <i class="fa fa-check"></i>
+        <p>Successs! Something succeeded.</p>
+      </div>
+
+      <div class="alert alert-warning">
+        <i class="fa fa-warning"></i>
+        <p>Watch out, here's a warning.</p>
+      </div>
+
+      <div class="alert alert-info text-center">
+        <i class="fa fa-info-circle"></i>
+        <p>Here's some useful information. Text aligned center.</p>
+      </div>
+
+      <div class="alert alert-empty">
+        <p>This is an empty state. You should probably add something to get started.</p>
+      </div>
+
+      <hr>
+    </section>
+
+    <section class="container">
+      <h1 id="ac-forms" class="ac">Forms</h1>
+        <form>
+          <div class="field">
+            <label for="">Text label</label>
+            <input type="text">
+            <p class="hint">Hint/help</p>
+          </div>
+          <div class="field">
+            <label for="">Email</label>
+            <input type="email">
+          </div>
+          <div class="field">
+            <label for="">Search</label>
+            <input type="search">
+          </div>
+          <div class="field">
+            <label for="">Password <span class="is-required">(required)</span></label>
+            <input type="password">
+          </div>
+          <div class="field has-error">
+            <label for="">Text label <span class="req">(required)</span></label>
+            <input type="text">
+            <p class="error-description">This field is required</p>
+          </div>
+          <div class="field">
+            <label for="">Textarea</label>
+            <textarea></textarea>
+          </div>
+          <div class="field">
+            <label for="">Full width</label>
+            <input type="text" class="full-width">
+          </div>
+          <div class="field">
+            <label><input type="checkbox"> Option 1</label>
+            <label><input type="checkbox"> Option 2</label>
+            <label><input type="checkbox"> Option 3</label>
+          </div>
+          <div class="field">
+            <label><input type="radio" name="radio"> Option 1</label>
+            <label><input type="radio" name="radio"> Option 2</label>
+            <label><input type="radio" name="radio"> Option 3</label>
+          </div>
+          <button>Submit</button>
+        </form>
+        <input type="text"> <button class="btn btn-primary">Submit</button>
+
+        <hr>
+    </section>
+
+    <section class="container">
+      <h1 id="ac-grid" class="ac">Grid</h1>
+      <div class="group">
+        <div class="span6 grid-style-helper">.span6</div>
+        <div class="span6 grid-style-helper">.span6</div>
+      </div>
+      <div class="group">
+        <div class="span8 grid-style-helper">.span8</div>
+        <div class="span4 grid-style-helper">.span4 <br> Extra long piece of text to see what happens when one column is longer than the other...</div>
+      </div>
+      <div class="group">
+        <div class="span3 grid-style-helper">.span3</div>
+        <div class="span3 grid-style-helper">.span3</div>
+        <div class="span3 grid-style-helper">.span3</div>
+        <div class="span3 grid-style-helper">.span3</div>
+      </div>
+      <div class="group">
+        <div class="span12 grid-style-helper">.span12</div>
+      </div>
+
+      <div class="group">
+        <div class="span11 offset1 grid-style-helper">.span11 .offset1</div>
+        <div class="span10 offset2 grid-style-helper">.span10 .offset2</div>
+
+        <div class="span9 offset3 grid-style-helper">.span9 .offset3</div>
+        <div class="span8 offset4 grid-style-helper">.span8 .offset4</div>
+
+        <div class="span7 offset5 grid-style-helper">.span7 .offset5</div>
+        <div class="span6 offset6 grid-style-helper">.span6 .offset6</div>
+        <div class="span5 offset7 grid-style-helper">.span5 .offset7</div>
+        <div class="span4 offset8 grid-style-helper">.span4 .offset8</div>
+
+        <div class="span3 offset9 grid-style-helper">.span3 .offset9</div>
+        <div class="span2 offset10 grid-style-helper">.span2 .offset10</div>
+        <div class="span1 offset11 grid-style-helper">.span1 .offset11</div>
+      </div>
+
+      <div class="group">
+        <div class="span3 grid-style-helper">.span3</div>
+      </div>
+
+      <div class="group">
+        <div class="span7 grid-style-helper">.span7</div>
+      </div>
+
+    </section>
+  </main>
+
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p>Copyright (c) 2015 Dustin Kummer
+      <br><a href="https://github.com/miduku/fireplate" target="_blank"><i class="fa fa-github"></i> GitHub</a></p>
+    </div>
+  </footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="assets/components/dist/jquery.min.js"><\/script>');</script>
+  <script src="assets/js/scripts.min.js"></script>
+
+  <script>
+  (function(f,i,r,e,s,h,l){i['GoogleAnalyticsObject']=s;f[s]=f[s]||function(){
+  (f[s].q=f[s].q||[]).push(arguments)},f[s].l=1*new Date();h=i.createElement(r),
+  l=i.getElementsByTagName(r)[0];h.async=1;h.src=e;l.parentNode.insertBefore(h,l)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-XXXXXXXX-XX');
+  ga('send', 'pageview');
+  </script>
+
+</body>
+</html>
