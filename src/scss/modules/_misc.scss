@@ -1,28 +1,16 @@
 @include selection($selection-bg: #333, $selection-c: #fff, $selection-ts: none);
 
-.tab{
-  // &:before{
-  //   content: '\00a0\00a0';
-  // }
-  padding-left: 21.2667px;
+
+// Kellum Image Replacement
+// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+.kellumIR {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.fb-user,
-.fb-time,
-.fb-like,
-.fb-comment,
-.fb-comments,
-.fb-reply {
-  @extend .tab;
-}
 
-.fb-time {
-  margin-top: -$padding/2;
-  margin-bottom: $padding/2;
-  display: block;
-  font-size: .75em;
-}
-
-.fb-comments {
-  padding-top: $padding/2;
+// Simple transition animation
+.transition-all {
+  transition: all $duration ease;
 }

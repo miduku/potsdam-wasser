@@ -14,14 +14,21 @@ nav {
 }
 
 .nav-header {
+  display: inline-block;
+  width: 50%-(2.1277%*2);
+  margin-left: 2.1277%;
+
   ul {
     max-height: 80px;
-    background: #234234;
+    // background: #234234;
+    text-align: right;
+
     li {
       display: inline-block;
 
       a {
         padding: 0 $padding/4;
+        color: #fff;
       }
     }
   }

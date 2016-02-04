@@ -35,7 +35,8 @@
   $margin: 2.1277%; // Margin between the grid columns
 
   .container {
-    padding: 0 40px;
+    padding: 0 $padding/2;
+    // padding: 0 40px;
   }
 
   .group {

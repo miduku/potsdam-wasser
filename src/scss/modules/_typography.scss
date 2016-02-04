@@ -11,7 +11,7 @@
 // }
 
 blockquote {
-  font-family: Georgia, Times, "Times New Roman", serif;
+  font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
   font-size: 1.4em;
   font-style: italic;
   font-weight: 400;
@@ -37,46 +37,76 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Roboto Slab", "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  line-height: 1.1;
+
+  .kv & {
+    text-transform: uppercase;
+  }
+
+  .txt & {
+    padding: 0 $padding*2;
+    font-weight: 400;
+  }
+
+  .marginalia & {
+    font-size: 0.778em;
+    margin: 0 0 $padding/6;
+    font-weight: 700;
+  }
 }
 
 h1 {
-  font-size: 4.250em;
+  font-size: 2.667em; // 48px
   font-style: normal;
   font-weight: 400;
   margin: 0 0 25px;
 }
 
 h2 {
-  font-size: 2.625em;
+  font-size: 2em; // 36px
   font-style: normal;
   font-weight: 400;
   margin: 0 0 25px;
 }
 
 h3 {
-  font-size: 1.625em;
+  font-size: 1.667em; // 30px
   font-style: normal;
   font-weight: 400;
   margin: 0 0 25px;
 }
 
 h4 {
-  font-size: 1.125em;
+  font-size: 1.333em; // 24px
   font-style: normal;
   font-weight: 400;
   margin: 0 0 25px;
 }
 
 h5 {
-  font-size: 1em;
+  font-size: 1em; // 18px
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   margin: 0 0 25px;
 }
 
 p {
   margin: 0 0 $padding/2;
+  font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
+
+  .kv & {
+    font-size: 1.167em;
+  }
+
+  .txt & {
+    padding: 0 $padding*2;
+  }
+
+  .marginalia & {
+    font-size: 0.778em;
+    margin: 0 0 $padding/6;
+  }
 }
 
 pre {

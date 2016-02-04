@@ -8,6 +8,8 @@ $br-btn: 2px; // Button border-radius
 $padding: 40px; // Padding and margins
 $line-height: 45px; // Consistent height for buttons, inputs etc.
 
+// Animation
+$duration: 0.5s;
 
 // Default colors
 // Cool
@@ -45,10 +47,13 @@ $pw-lightblue: #1976D2;
 $pw-brown:     #5D4037;
 
 // Project color variables
-$text-black:      #333;
+$text-black:      #2e363a;
 $color-primary:   $text-black;
 $color-secondary: complement($color-primary);
 $color-tertiary:  $silver;
+$color-gewinnung:  #1276d2;
+$color-versorgung: #0d47a1;
+$color-reinigung:  #5d4037;
 
 
 // Alert colors

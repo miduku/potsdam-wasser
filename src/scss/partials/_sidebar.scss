@@ -1,3 +1,80 @@
-.sidebar {
+.container-sidebar {
+  position: relative;
+}
 
+.sidebar {
+  position: absolute;
+  top: 680px;
+  left: 0;
+  font-size: 0.778em; // 14px
+  width: 100%;
+  z-index: 999;
+  @extend .span2;
+
+  .nav-sidebar {
+    width: 100%;
+    background: #fff;
+    padding: 15px 10px;
+
+    &.stick {
+      width: 14.53897% !important;
+      max-width: 174.467px !important;
+      position: fixed;
+      top: 80px;
+    }
+  }
+
+  nav {
+    > ul {
+
+      > li:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+
+  li {
+    padding-top: 2em;
+
+    a {
+      background-position: 0 1px;
+      background-repeat: no-repeat;
+      padding-left: 15%;
+      background-size: 14px;
+      display: block;
+      line-height: 1.2;
+    }
+
+    &.side-gewinnung {
+      color: $color-gewinnung;
+
+       a {
+        background-image: url(../img/side-gewinnung.svg);
+        color: $color-gewinnung;
+      }
+    }
+
+    &.side-versorgung {
+      color: $color-versorgung;
+
+       a {
+        background-image: url(../img/side-versorgung.svg);
+        color: $color-versorgung;
+      }
+    }
+
+    &.side-reinigung {
+      color: $color-reinigung;
+
+       a {
+        background-image: url(../img/side-reinigung.svg);
+        color: $color-reinigung;
+      }
+    }
+
+    li {
+      font-size: 0.929em;
+      // margin-left: -15%;
+    }
+  }
 }

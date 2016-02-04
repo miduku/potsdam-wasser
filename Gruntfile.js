@@ -155,7 +155,8 @@ module.exports = function (grunt) {
           preserveComments: 'some'
         },
         files: {
-          '<%= project.assets %>/components/modernizr.min.js': '<%= project.assets %>/components/modernizr.js'
+          '<%= project.assets %>/components/modernizr.min.js': '<%= project.assets %>/components/modernizr.js',
+          '<%= project.assets %>/components/jquery.waypoints.min.js': '<%= project.assets %>/components/jquery.waypoints.js'
         }
       }
     },
@@ -169,7 +170,8 @@ module.exports = function (grunt) {
       dev: {
         options: {
           style: 'expanded',
-          banner: '<%= tag.banner %>'
+          banner: '<%= tag.banner %>',
+          lineNumbers: true
         },
         files: {
           '<%= project.assets %>/css/style.unprefixed.css': '<%= project.css %>'
@@ -178,7 +180,8 @@ module.exports = function (grunt) {
       dist: {
         options: {
           style: 'expanded',
-          banner: '<%= tag.banner %>'
+          banner: '<%= tag.banner %>',
+          sourcemap: 'none'
         },
         files: {
           '<%= project.assets %>/css/style.unprefixed.css': '<%= project.css %>'
@@ -260,6 +263,12 @@ module.exports = function (grunt) {
                 'modernizr.js'
               ]
             },
+            waypoints: {
+              files: [
+                'lib/jquery.waypoints.js'
+              ],
+              keepExpandedHierarchy: false
+            },
 
 
             'normalize-css': {
@@ -284,6 +293,12 @@ module.exports = function (grunt) {
               files: [
                 'modernizr.js'
               ]
+            },
+            waypoints: {
+              files: [
+                'lib/jquery.waypoints.js'
+              ],
+              keepExpandedHierarchy: false
             },
 
 

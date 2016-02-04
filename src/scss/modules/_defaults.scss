@@ -8,8 +8,13 @@
   text-rendering: optimizeLegibility;
 }
 
+html {
+  background: $color-primary;
+}
+
 body {
   margin: 0;
+  background: #fff;
 }
 
 body,
@@ -23,7 +28,7 @@ input {
   color: $text-black;
 
   @include mobilefirst($bp-tablet) {
-    font-size: 100%; // 16px (tablet, desktop)
+    font-size: 112.5%; // 18px (tablet, desktop)
   }
 }
 

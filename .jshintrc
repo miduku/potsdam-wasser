@@ -21,6 +21,7 @@
   "globals" : {
     "jQuery": true,
     "Modernizr": true,
-    "io": true
+    "io": true,
+    "waypoint": true
   }
 }

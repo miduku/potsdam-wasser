@@ -5,3 +5,14 @@
 .list-unstyled {
   list-style: none;
 }
+
+ul {
+  .txt & {
+    font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
+    padding: 0 $padding*2 0 $padding*2+20px;
+
+    li {
+      margin-bottom: .5em;
+    }
+  }
+}

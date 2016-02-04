@@ -1,8 +1,36 @@
 body > header {
-  min-height: 18px;
-  background: #123123;
+  position: fixed;
+  top: 0;
+  min-height: 80px;
+  width: 100%;
+  background: $color-primary;
+  color: #fff;
+  padding: 1.1em 2.1277%;
+  text-transform: uppercase;
+  font-weight: 300;
+  z-index: 99999;
+  @extend .transition-all;
+
+  &.shrink {
+    min-height: 40px;
+    padding-top: .5em;
+    padding-bottom: .5em;
+  }
 }
+
 .logo {
+  display: inline-block;
+  width: 50%;
+
+  .logo-pw {
+    font-size: 1.333em;
+
+    span {
+      font-weight: 700;
+      margin-left: -.2em;
+    }
+  }
+
   img {
 
   }

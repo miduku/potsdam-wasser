@@ -1,3 +1,78 @@
-.main {
+// KEY VISUALS
+//
+.kv {
+  // min-height: 600px;
+  margin-bottom: 80px;
+  padding: 200px 0;
+  text-align: center;
+  color: #fff;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 
+  h1:after {
+    content: '';
+    background: #fff;
+    display: block;
+    width: 15%;
+    height: 2px;
+    margin: .5em auto;
+  }
+
+  .sec-gewinnung & {
+    background-color: #1976d2;
+    background-image: url(../img/kv-gewinnung.jpg);
+  }
+
+  .sec-versorgung & {
+    background-color: #1976d2;
+    background-image: url(../img/kv-versorgung.jpg);
+  }
+
+  .sec-reinigung & {
+    background-color: #1976d2;
+    background-image: url(../img/kv-reinigung.jpg);
+  }
+
+  > div {
+    max-width: 50%;
+    // max-width: 64.53897%;
+    margin: 0 auto;
+    padding: 0 2.1277%;
+  }
+}
+
+// MAIN
+//
+.main {
+  position: relative;
+
+  section {
+    margin-top: $padding*4;
+
+    &.first {
+      margin-top: 80px;
+    }
+  }
+  article {
+    .txt {
+      @extend .span8;
+      @extend .offset2;
+    }
+
+    .marginalia {
+      @extend .span2;
+      color: lighten($color-primary, 20%);
+
+      .border {
+        padding: 10px 0 4px 8%;
+        border-left: 1px solid lighten($color-primary, 20%);
+      }
+    }
+
+    .group {
+      margin-bottom: $padding;
+    }
+  }
 }
