@@ -36,13 +36,11 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.1;
-
-  .kv & {
-    text-transform: uppercase;
-  }
+  margin: 0 0 ($padding/2)+5;
 
   .txt & {
     padding: 0 $padding*2;
@@ -56,39 +54,53 @@ h5 {
   }
 }
 
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: $padding;
+
+  .group:first-child & {
+    margin-top: 0;
+  }
+}
+
 h1 {
   font-size: 2.667em; // 48px
   font-style: normal;
   font-weight: 400;
-  margin: 0 0 25px;
+  text-transform: uppercase;
 }
 
 h2 {
-  font-size: 2em; // 36px
+  font-size: 2.222em; // 40px
   font-style: normal;
   font-weight: 400;
-  margin: 0 0 25px;
 }
 
 h3 {
-  font-size: 1.667em; // 30px
+  font-size: 2em; // 36px
   font-style: normal;
   font-weight: 400;
-  margin: 0 0 25px;
 }
 
 h4 {
-  font-size: 1.333em; // 24px
+  font-size: 1.667em; // 30px
   font-style: normal;
   font-weight: 400;
-  margin: 0 0 25px;
 }
 
 h5 {
+  font-size: 1.333em; // 24px
+  font-style: normal;
+  font-weight: 400;
+}
+
+h6 {
   font-size: 1em; // 18px
   font-style: normal;
   font-weight: 400;
-  margin: 0 0 25px;
 }
 
 p {

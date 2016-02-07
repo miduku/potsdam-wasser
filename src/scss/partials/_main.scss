@@ -36,10 +36,9 @@
   }
 
   > div {
-    max-width: 50%;
-    // max-width: 64.53897%;
     margin: 0 auto;
-    padding: 0 2.1277%;
+    padding: 0 2.1277%*2;
+    max-width: 1000px;
   }
 }
 
@@ -47,32 +46,48 @@
 //
 .main {
   position: relative;
+  padding-top: $padding*2;
+  height: 100%;
+
+  .progress-wrapper {
+    // height: 100%;
+    display: block;
+    // position: relative;
+
+    .progressbar {
+      position: absolute;
+      // top: 0;
+      // height: 100%;
+      width: 4px;
+      background: green;
+      z-index: 99;
+    }
+  }
 
   section {
-    margin-top: $padding*4;
-
-    &.first {
-      margin-top: 80px;
-    }
+    // margin-top: $padding*4;
+    background: #fff;
+    padding-bottom: $padding*2;
+    @extend .clear;
   }
-  article {
-    .txt {
-      @extend .span8;
-      @extend .offset2;
-    }
 
-    .marginalia {
-      @extend .span2;
-      color: lighten($color-primary, 20%);
+    article {
+      .txt {
+        @extend .span9;
+      }
 
-      .border {
-        padding: 10px 0 4px 8%;
-        border-left: 1px solid lighten($color-primary, 20%);
+      .marginalia {
+        @extend .span3;
+        color: lighten($color-primary, 20%);
+
+        .border {
+          padding: 10px 0 4px 8%;
+          border-left: 1px solid lighten($color-primary, 20%);
+        }
+      }
+
+      .group {
+        // margin-bottom: $padding;
       }
     }
-
-    .group {
-      margin-bottom: $padding;
-    }
-  }
 }
