@@ -22,6 +22,6 @@
     "jQuery": true,
     "Modernizr": true,
     "io": true,
-    "waypoint": true
+    "ScrollMagic": true
   }
 }

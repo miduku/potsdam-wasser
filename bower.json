@@ -5,6 +5,6 @@
     "modernizr": "2.8.x",
     "jquery": "1.11.x",
     "normalize-css": "3.0.x",
-    "waypoints": "4.0.x"
+    "scrollmagic": "2.0.x"
   }
 }

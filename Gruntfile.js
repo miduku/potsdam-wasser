@@ -155,8 +155,7 @@ module.exports = function (grunt) {
           preserveComments: 'some'
         },
         files: {
-          '<%= project.assets %>/components/modernizr.min.js': '<%= project.assets %>/components/modernizr.js',
-          '<%= project.assets %>/components/jquery.waypoints.min.js': '<%= project.assets %>/components/jquery.waypoints.js'
+          '<%= project.assets %>/components/modernizr.min.js': '<%= project.assets %>/components/modernizr.js'
         }
       }
     },
@@ -263,9 +262,9 @@ module.exports = function (grunt) {
                 'modernizr.js'
               ]
             },
-            waypoints: {
+            scrollmagic: {
               files: [
-                'lib/jquery.waypoints.js'
+                'scrollmagic/minified/ScrollMagic.min.js'
               ],
               keepExpandedHierarchy: false
             },
@@ -294,9 +293,9 @@ module.exports = function (grunt) {
                 'modernizr.js'
               ]
             },
-            waypoints: {
+            scrollmagic: {
               files: [
-                'lib/jquery.waypoints.js'
+                'scrollmagic/minified/ScrollMagic.min.js'
               ],
               keepExpandedHierarchy: false
             },
