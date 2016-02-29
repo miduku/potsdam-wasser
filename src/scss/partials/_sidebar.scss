@@ -8,7 +8,7 @@
   height: 100%;
   padding: $padding*2 0 $padding;
   background: #fff;
-  z-index: 9;
+  z-index: 99;
   overflow-x: auto;
   @extend .transition-all;
 
@@ -80,13 +80,13 @@
         background: $color-gewinnung;
 
         a {
-          background-image: url(../img/side-active.svg);
+          // background-image: url(../img/side-active.svg);
           color: #fff;
         }
       }
 
       a {
-        background-image: url(../img/side-gewinnung.svg);
+        // background-image: url(../img/side-gewinnung.svg);
         color: $color-gewinnung;
       }
     }
@@ -98,13 +98,13 @@
         background: $color-versorgung;
 
         a {
-          background-image: url(../img/side-active.svg);
+          // background-image: url(../img/side-active.svg);
           color: #fff;
         }
       }
 
       a {
-        background-image: url(../img/side-versorgung.svg);
+        // background-image: url(../img/side-versorgung.svg);
         color: $color-versorgung;
       }
     }
@@ -116,13 +116,13 @@
         background: $color-reinigung;
 
         a {
-          background-image: url(../img/side-active.svg);
+          // background-image: url(../img/side-active.svg);
           color: #fff;
         }
       }
 
       a {
-        background-image: url(../img/side-reinigung.svg);
+        // background-image: url(../img/side-reinigung.svg);
         color: $color-reinigung;
       }
     }

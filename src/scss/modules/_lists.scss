@@ -7,12 +7,26 @@
 }
 
 ul {
-  .txt & {
+  .group-9-3 .l &,
+  .group-6-6 .l &,
+  .group-6-6 .r & {
     font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
-    padding: 0 $padding*2 0 $padding*2+20px;
 
     li {
       margin-bottom: .5em;
     }
   }
+
+  .group-9-3 .l {
+    padding: 0 $padding*2 0 $padding*2+20px;
+  }
+
+  .group-6-6 .r & {
+    padding: 0 $padding 0 $padding*2;
+  }
+
+  .group-6-6 .r & {
+    padding: 0 $padding*2 0 $padding;
+  }
+
 }

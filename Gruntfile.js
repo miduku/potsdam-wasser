@@ -93,7 +93,8 @@ module.exports = function (grunt) {
     clean: {
       dist: [
         '<%= project.assets %>/css/style.unprefixed.css',
-        '<%= project.assets %>/css/style.prefixed.css'
+        '<%= project.assets %>/css/style.prefixed.css',
+        '<%= project.assets %>/components/js/debug.addIndicators.min.js'
       ]
     },
 
@@ -264,7 +265,8 @@ module.exports = function (grunt) {
             },
             scrollmagic: {
               files: [
-                'scrollmagic/minified/ScrollMagic.min.js'
+                'scrollmagic/minified/ScrollMagic.min.js',
+                'scrollmagic/minified/plugins/debug.addIndicators.min.js'
               ],
               keepExpandedHierarchy: false
             },

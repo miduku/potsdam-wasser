@@ -42,15 +42,28 @@ h6 {
   line-height: 1.1;
   margin: 0 0 ($padding/2)+5;
 
-  .txt & {
-    padding: 0 $padding*2;
+  .group-9-3 .l &,
+  .group-6-6 .l &,
+  .group-6-6 .r & {
     font-weight: 400;
   }
 
-  .marginalia & {
+  .group-9-3 .l & {
+    padding: 0 $padding*2;
+  }
+
+  .group-9-3 .r & {
     font-size: 0.778em;
     margin: 0 0 $padding/6;
     font-weight: 700;
+  }
+
+  .group-6-6 .r & {
+    padding: 0 $padding 0 $padding*2;
+  }
+
+  .group-6-6 .r & {
+    padding: 0 $padding*2 0 $padding;
   }
 }
 
@@ -111,13 +124,21 @@ p {
     font-size: 1.167em;
   }
 
-  .txt & {
+  .group-9-3 .l & {
     padding: 0 $padding*2;
   }
 
-  .marginalia & {
+  .group-9-3 .r & {
     font-size: 0.778em;
     margin: 0 0 $padding/6;
+  }
+
+  .group-6-6 .r & {
+    padding: 0 $padding 0 $padding*2;
+  }
+
+  .group-6-6 .r & {
+    padding: 0 $padding*2 0 $padding;
   }
 }
 
@@ -149,16 +170,17 @@ code {
 }
 
 a {
-  .pw1 & {
-    color: $pw-lightblue;
+  .sec-gewinnung .container & {
+    color: $color-gewinnung;
   }
-  .pw2 & {
-    color: $pw-blue;
+  .sec-versorgung .container & {
+    color: $color-versorgung;
   }
-  .pw3 & {
-    color: $pw-brown;
+  .sec-reinigung .container & {
+    color: $color-reinigung;
   }
   text-decoration: none;
+
   &:hover,
   &:focus {
     text-decoration: underline;
