@@ -56,24 +56,22 @@ h6 {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.1;
   margin: 0 0 ($padding/2)+5;
+  font-weight: 400;
+  padding: 0 $padding*2;
 
-  .group-9-3 .l &,
-  .group-6-6 .l &,
-  .group-6-6 .r & {
-    font-weight: 400;
-  }
-
-  .group-9-3 .l & {
-    padding: 0 $padding*2;
+  .group-intro .l &,
+  .group-intro .r & {
+    text-align: center;
   }
 
   .group-9-3 .r & {
     font-size: 0.778em;
     margin: 0 0 $padding/6;
+    padding: 0;
     font-weight: 700;
   }
 
-  .group-6-6 .r & {
+  .group-6-6 .l & {
     padding: 0 $padding 0 $padding*2;
   }
 
@@ -134,21 +132,24 @@ h6 {
 p {
   margin: 0 0 $padding/2;
   font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
+  padding: 0 $padding*2;
 
   .kv & {
     font-size: 1.167em;
   }
 
-  .group-9-3 .l & {
-    padding: 0 $padding*2;
+  .group-intro .l &,
+  .group-intro .r & {
+    text-align: center;
   }
 
   .group-9-3 .r & {
     font-size: 0.778em;
     margin: 0 0 $padding/6;
+    padding: 0;
   }
 
-  .group-6-6 .r & {
+  .group-6-6 .l & {
     padding: 0 $padding 0 $padding*2;
   }
 

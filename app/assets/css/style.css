@@ -534,13 +534,13 @@ nav ul {
     height: 2px;
     margin: .5em auto; }
   .sec-gewinnung .kv {
-    background-color: #1976d2;
+    background-color: #357b91;
     background-image: url(../img/kv-gewinnung.jpg); }
   .sec-versorgung .kv {
-    background-color: #1976d2;
+    background-color: #3873b9;
     background-image: url(../img/kv-versorgung.jpg); }
   .sec-reinigung .kv {
-    background-color: #1976d2;
+    background-color: #87786d;
     background-image: url(../img/kv-reinigung.jpg); }
   .kv > div {
     margin: 0 auto;
@@ -551,14 +551,20 @@ nav ul {
   position: relative;
   padding-top: 80px; }
   .main .progress-wrapper {
-    display: block; }
+    display: block;
+    position: relative; }
     .main .progress-wrapper .progressbar {
       position: absolute;
       width: 4px;
       z-index: 9; }
   .main section {
     background: #fff;
-    padding-bottom: 80px; }
+    padding-bottom: 80px;
+    position: relative; }
+  .main article .container {
+    padding-top: 80px; }
+  .main article .kv + .container {
+    padding-top: 0; }
   .main article .group-9-3 .r {
     color: #5b6b73; }
     .main article .group-9-3 .r .border {
@@ -804,43 +810,27 @@ h5,
 h6 {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.1;
-  margin: 0 0 25px; }
-  .group-9-3 .l h1,
-  .group-6-6 .l h1,
-  .group-6-6 .r h1, .group-9-3 .l
+  margin: 0 0 25px;
+  font-weight: 400;
+  padding: 0 80px; }
+  .group-intro .l h1,
+  .group-intro .r h1, .group-intro .l
   h2,
-  .group-6-6 .l
-  h2,
-  .group-6-6 .r
-  h2, .group-9-3 .l
+  .group-intro .r
+  h2, .group-intro .l
   h3,
-  .group-6-6 .l
-  h3,
-  .group-6-6 .r
-  h3, .group-9-3 .l
+  .group-intro .r
+  h3, .group-intro .l
   h4,
-  .group-6-6 .l
-  h4,
-  .group-6-6 .r
-  h4, .group-9-3 .l
+  .group-intro .r
+  h4, .group-intro .l
   h5,
-  .group-6-6 .l
-  h5,
-  .group-6-6 .r
-  h5, .group-9-3 .l
+  .group-intro .r
+  h5, .group-intro .l
   h6,
-  .group-6-6 .l
-  h6,
-  .group-6-6 .r
+  .group-intro .r
   h6 {
-    font-weight: 400; }
-  .group-9-3 .l h1, .group-9-3 .l
-  h2, .group-9-3 .l
-  h3, .group-9-3 .l
-  h4, .group-9-3 .l
-  h5, .group-9-3 .l
-  h6 {
-    padding: 0 80px; }
+    text-align: center; }
   .group-9-3 .r h1, .group-9-3 .r
   h2, .group-9-3 .r
   h3, .group-9-3 .r
@@ -849,12 +839,13 @@ h6 {
   h6 {
     font-size: 0.778em;
     margin: 0 0 6.66667px;
+    padding: 0;
     font-weight: 700; }
-  .group-6-6 .r h1, .group-6-6 .r
-  h2, .group-6-6 .r
-  h3, .group-6-6 .r
-  h4, .group-6-6 .r
-  h5, .group-6-6 .r
+  .group-6-6 .l h1, .group-6-6 .l
+  h2, .group-6-6 .l
+  h3, .group-6-6 .l
+  h4, .group-6-6 .l
+  h5, .group-6-6 .l
   h6 {
     padding: 0 40px 0 80px; }
   .group-6-6 .r h1, .group-6-6 .r
@@ -911,15 +902,18 @@ h6 {
 
 p {
   margin: 0 0 20px;
-  font-family: "PT Serif", Georgia, Times, "Times New Roman", serif; }
+  font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
+  padding: 0 80px; }
   .kv p {
     font-size: 1.167em; }
-  .group-9-3 .l p {
-    padding: 0 80px; }
+  .group-intro .l p,
+  .group-intro .r p {
+    text-align: center; }
   .group-9-3 .r p {
     font-size: 0.778em;
-    margin: 0 0 6.66667px; }
-  .group-6-6 .r p {
+    margin: 0 0 6.66667px;
+    padding: 0; }
+  .group-6-6 .l p {
     padding: 0 40px 0 80px; }
   .group-6-6 .r p {
     padding: 0 80px 0 40px; }
@@ -1072,6 +1066,8 @@ table {
 .span4,
 .span5,
 .span6,
+.main .group-intro .l,
+.main .group-intro .r,
 .main .group-6-6 .l,
 .main .group-6-6 .r,
 .span7,
@@ -1112,6 +1108,8 @@ table {
   .span4,
   .span5,
   .span6,
+  .main .group-intro .l,
+  .main .group-intro .r,
   .main .group-6-6 .l,
   .main .group-6-6 .r,
   .span7,
@@ -1146,7 +1144,8 @@ table {
             flex-basis: 22.8723%;
     margin-left: 2.1277%;
     max-width: 22.8723%; }
-  .offset3 {
+  .offset3, .main .group-intro .l,
+  .main .group-intro .r {
     margin-left: 27.1277% !important; }
   .span4 {
     -webkit-flex-basis: 31.20563%;
@@ -1164,7 +1163,8 @@ table {
     max-width: 39.53897%; }
   .offset5 {
     margin-left: 43.79437% !important; }
-  .span6, .main .group-6-6 .l,
+  .span6, .main .group-intro .l,
+  .main .group-intro .r, .main .group-6-6 .l,
   .main .group-6-6 .r {
     -webkit-flex-basis: 47.8723%;
         -ms-flex-preferred-size: 47.8723%;

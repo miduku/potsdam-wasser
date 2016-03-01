@@ -107,8 +107,6 @@
   .setPin('.progressbar');
 
 
-
-
   // Accordion menu
   //
   var resizeId;
@@ -177,18 +175,34 @@
     ScrollBar
   ]);
 
+
+  // intro
+  //
+  $('.sec-intro')
+    .css('min-height', $(window).height()*3 - $('.header').outerHeight())
+      .children()
+      .children()
+      .children('.content')
+      .css({
+        position: 'absolute',
+        top: 100/3 + '%'
+      });
+
   $(window).on('resize', function() {
     // resize progressbar
     $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height()});
+    ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
 
     // hide sidebar if windows resize
     if (sidebar.hasClass('open')) {
       menuItems.removeClass('open');
     }
 
-    ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
+    // resize intro
+    $('.sec-intro')
+      .css('min-height', $(window).height()*3 - $('.header').outerHeight());
+
  });
-    console.log(ScrollBar.duration);
 
 
   /*
