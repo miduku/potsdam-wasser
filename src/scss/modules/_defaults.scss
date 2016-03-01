@@ -22,21 +22,6 @@ body {
   background: #fff;
 }
 
-body,
-button,
-input {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 87.5%; // 14px (mobile)
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.6;
-  color: $text-black;
-
-  @include mobilefirst($bp-tablet) {
-    font-size: 112.5%; // 18px (tablet, desktop)
-  }
-}
-
 nav {
   ul {
     margin: 0;

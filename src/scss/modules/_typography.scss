@@ -10,6 +10,21 @@
 //   font-style: normal;
 // }
 
+body,
+button,
+input {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 87.5%; // 14px (mobile)
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  color: $text-black;
+
+  @include mobilefirst($bp-tablet) {
+    font-size: 112.5%; // 18px (tablet, desktop)
+  }
+}
+
 blockquote {
   font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
   font-size: 1.4em;

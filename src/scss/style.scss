@@ -15,6 +15,7 @@
 @import 'modules/_vars.scss';
 @import 'modules/_clearfix.scss';
 @import 'modules/_defaults.scss';
+@import 'modules/_normalize';
 
 //----------------------------------*\
 // PARTIALS
@@ -35,13 +36,13 @@
 @import 'modules/_lists.scss';
 @import 'modules/_typography.scss';
 @import 'modules/_misc.scss';
-// @import 'modules/_app.scss';
-// @import 'modules/_alerts.scss';
+@import 'modules/_app.scss';
+@import 'modules/_alerts.scss';
 @import 'modules/_media.scss';
 @import 'modules/_tables.scss';
 
 // Enhancement modules
-// @import 'modules/_breakpoints.scss';
+@import 'modules/_breakpoints.scss';
 @import 'modules/_grid.scss';
 @import 'modules/_print.scss';
 
@@ -49,4 +50,4 @@
 // VENDOR
 //----------------------------------*/
 
-// @import 'vendor/_external.scss';
+@import 'vendor/_external.scss';

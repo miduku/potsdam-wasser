@@ -1,12 +1,7 @@
-# FireShell
-# http://getfireshell.com
-# @author Todd Motto
+# FastShell
+# https://HosseinKarami.github.io/fastshell
+# @author Hossein Karami
 
-## FireShell
-style.min.css
-style.unprefixed.css
-style.prefixed.css
-scripts.min.js
 
 ## Node.js
 lib-cov
@@ -43,11 +38,3 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
-
-## Sublime Text
-*.sublime-workspace
-
-## App
-##config/
-cache/
-.phpintel
