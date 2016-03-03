@@ -479,39 +479,45 @@ nav ul {
     background-position: 0 18px;
     background-repeat: no-repeat;
     padding: 16px 4.2554% 16px 8.5108%;
-    background-size: 12px;
+    background-size: 18px;
     display: block;
     line-height: 1.2; }
+  .sidebar li.side-intro.active a, .sidebar li.side-gewinnung.active a, .sidebar li.side-versorgung.active a, .sidebar li.side-reinigung.active a {
+    color: #fff; }
   .sidebar li.side-intro {
     color: #2e363a; }
     .sidebar li.side-intro.active {
       background: #2e363a; }
-      .sidebar li.side-intro.active a {
-        color: #fff; }
     .sidebar li.side-intro a {
       color: #2e363a; }
   .sidebar li.side-gewinnung {
     color: #357b91; }
     .sidebar li.side-gewinnung.active {
       background: #357b91; }
-      .sidebar li.side-gewinnung.active a {
-        color: #fff; }
+      .sidebar li.side-gewinnung.active > a {
+        background-image: url(../img/icon-gewinnung-active-32.svg); }
+    .sidebar li.side-gewinnung > a {
+      background-image: url(../img/icon-gewinnung-32.svg); }
     .sidebar li.side-gewinnung a {
       color: #357b91; }
   .sidebar li.side-versorgung {
     color: #3873b9; }
     .sidebar li.side-versorgung.active {
       background: #3873b9; }
-      .sidebar li.side-versorgung.active a {
-        color: #fff; }
+      .sidebar li.side-versorgung.active > a {
+        background-image: url(../img/icon-versorgung-active-32.svg); }
+    .sidebar li.side-versorgung > a {
+      background-image: url(../img/icon-versorgung-32.svg); }
     .sidebar li.side-versorgung a {
       color: #3873b9; }
   .sidebar li.side-reinigung {
     color: #87786d; }
     .sidebar li.side-reinigung.active {
       background: #87786d; }
-      .sidebar li.side-reinigung.active a {
-        color: #fff; }
+      .sidebar li.side-reinigung.active > a {
+        background-image: url(../img/icon-reinigung-active-32.svg); }
+    .sidebar li.side-reinigung > a {
+      background-image: url(../img/icon-reinigung-32.svg); }
     .sidebar li.side-reinigung a {
       color: #87786d; }
   .sidebar li li {
@@ -570,6 +576,8 @@ nav ul {
     .main article .group-9-3 .r .border {
       padding: 10px 0 4px 8%;
       border-left: 1px solid #5b6b73; }
+  .main .pin {
+    display: block; }
 
 footer {
   background-color: #654654;

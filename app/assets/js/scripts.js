@@ -63,7 +63,7 @@
   function createIndicator(triggerElem, progElem, rgbStart, rgbEnd) {
     return new ScrollMagic.Scene({
       triggerElement: triggerElem,
-      triggerHook: $(window).height(),
+      triggerHook: 1, // window height
       duration: $(triggerElem).outerHeight()
     })
     .addIndicators({name: triggerElem})
@@ -94,11 +94,12 @@
   var IndicatorReinigung = createIndicator('.sec-reinigung', '.indicator-reinigung', [56, 115, 185], [134, 120, 109]);
 
 
+
   // Progessbar pinning
   //
   // pin scrollbar
   var ScrollBar = new ScrollMagic.Scene({
-    triggerElement: '.sec-gewinnung',
+    triggerElement: '.progress-wrapper',
     triggerHook: 0, //don't trigger until triggerElement hits the top of the viewport
     duration: ($('.progress-wrapper').outerHeight() - $(window).height()),
     reverse: true // allows the effect to trigger when scrolled in the reverse direction
@@ -107,75 +108,137 @@
   .setPin('.progressbar');
 
 
-  // Accordion menu
+  // Accordion menu & image pins (Reinigung)
   //
-  var resizeId;
+  // while scrolling, open accordion menu accordingly
+  $('section').each(function(index, el) {
+    // console.log($(this).children());
+    var height = $(this).outerHeight();
 
-  // add delay for resize event
-  clearTimeout(resizeId);
+    new ScrollMagic.Scene({
+      triggerElement: el,
+      duration: height
+    })
+    .on('enter', function() {
+      if (index === 0) {
+        $('.side-intro').addClass('active')
+          .siblings('li')
+          .removeClass('active')
+            .children('ul')
+            .slideUp();
+      }
+      if (index === 1) {
+        $('.side-gewinnung > ul').slideDown()
+          .parent('li')
+          .addClass('active')
+          .siblings('li')
+          .removeClass('active')
+            .children('ul')
+            .slideUp();
+      }
+      else if (index === 2) {
+        $('.side-versorgung > ul').slideDown()
+          .parent('li')
+          .addClass('active')
+          .siblings('li')
+          .removeClass('active')
+            .children('ul')
+            .slideUp();
+      }
+      else if (index === 3) {
+        $('.side-reinigung > ul').slideDown()
+          .parent('li')
+          .addClass('active')
+          .siblings('li')
+          .removeClass('active')
+            .children('ul')
+            .slideUp();
+      }
+    })
+    .addTo(Controller);
+  });
 
-  // resize event
-  resizeId = setTimeout(function(){
+  // var resizeId;
 
-    $('section').each(function(index, element) {
-      // console.log($(this).children());
-      var height = $(this).outerHeight();
+  // // add delay for resize event
+  // clearTimeout(resizeId);
 
-      new ScrollMagic.Scene({
-        triggerElement: element,
-        duration: height
-      })
-      .on('enter', function() {
-        if (index === 0) {
-          $('.side-intro').addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-        if (index === 1) {
-          $('.side-gewinnung > ul').slideDown()
-            .parent('li')
-            .addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-        else if (index === 2) {
-          $('.side-versorgung > ul').slideDown()
-            .parent('li')
-            .addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-        else if (index === 3) {
-          $('.side-reinigung > ul').slideDown()
-            .parent('li')
-            .addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-      })
-      // .addIndicators({name: 'Accordion' + index})
-      .addTo(Controller);
-    });
+  // // resize event
+  // resizeId = setTimeout(function(){
 
-  },250); // end delay
+  //   // for accordion
+  // },250); // end delay
+
+  // // for pinning of images in .group-6-6 layout
+  // //
+  // $('.group[data-set-pin]').each(function(index, el) {
+  //   var duration = $(this).outerHeight();
+  //   var setPin = $(this).attr('data-set-pin');
+  //   var pinParentW = $(setPin).parent().width();
+
+  //   $('img' + setPin).css('width', pinParentW);
+
+  //   console.log(pinParentW);
+  //   new ScrollMagic.Scene({
+  //     triggerElement: el,
+  //     triggerHook: 0.079/*$('.header').outerHeight()*/,
+  //     duration: duration,
+  //     pushFollowers: true,
+  //     reverse: true // allows the effect to trigger when scrolled in the reverse direction
+  //   })
+  //   .addIndicators({name: index + setPin})
+  //   .setPin(setPin)
+  //   .addTo(Controller);
+  // });
+
+  // for pinning of images in .group-6-6 layout
+  //
+  // $(triggerElem).parent().parent('.group').outerHeight()
+  function scrollMagicPin(triggerElem, triggerHook, duration, pushFollowers) {
+    if (triggerHook === null || triggerHook === undefined) {
+      triggerHook = 1 / $(window).height() * $('.header').outerHeight(); // Dreisatz baby!
+    }
+
+    if (duration === null || duration === undefined) {
+      duration = $(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20;
+    }
+
+    if (pushFollowers === null || pushFollowers === undefined) {
+      pushFollowers = false;
+    }
+    else {
+      pushFollowers = true;
+    }
+
+    console.log($($(triggerElem).attr('data-set-pin')).outerHeight());
+    return new ScrollMagic.Scene({
+      triggerElement: triggerElem,
+      triggerHook: triggerHook, //don't trigger until triggerElement hits the top of the viewport
+      duration: duration,
+      pushFollowers: pushFollowers,
+      reverse: true // allows the effect to trigger when scrolled in the reverse direction
+    })
+    .addIndicators({name: triggerElem})
+    .setPin($(triggerElem).attr('data-set-pin'));
+  }
+  var reinigungLageplan = scrollMagicPin('#trigger-reinigung-lageplan');
+  var reinigungMechanisch = scrollMagicPin('#trigger-reinigung-mechanische-reinigung');
+  var reinigungBiologisch = scrollMagicPin('#trigger-reinigung-biologische-reinigung');
 
   // add ScrollMagic scenes to controller to init them
   Controller.addScene([
     IndicatorGewinnung,
     IndicatorVersorgung,
     IndicatorReinigung,
-    ScrollBar
+
+    ScrollBar,
+
+    reinigungLageplan,
+    reinigungMechanisch,
+    reinigungBiologisch
   ]);
 
-
+  // console.log($(window).height());
   // intro
   //
   $('.sec-intro')
@@ -185,13 +248,19 @@
       .children('.content')
       .css({
         position: 'absolute',
-        top: 100/3 + '%'
+        top: 100/3 + '%',
+        left: 0
       });
 
   $(window).on('resize', function() {
     // resize progressbar
     $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height()});
     ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
+
+    reinigungLageplan.duration($(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20);
+    reinigungMechanisch.duration($(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20);
+    reinigungBiologisch.duration($(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20);
+
 
     // hide sidebar if windows resize
     if (sidebar.hasClass('open')) {

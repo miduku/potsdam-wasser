@@ -44,9 +44,18 @@
       background-position: 0 18px;
       background-repeat: no-repeat;
       padding: 16px (2.1277% * 2) 16px (2.1277% * 4);
-      background-size: 12px;
+      background-size: 18px;
       display: block;
       line-height: 1.2;
+    }
+
+    &.side-intro.active,
+    &.side-gewinnung.active,
+    &.side-versorgung.active,
+    &.side-reinigung.active {
+      a {
+          color: #fff;
+      }
     }
 
     &.side-intro {
@@ -55,14 +64,16 @@
       &.active {
         background: $color-primary;
 
-        a {
+        > a {
           // background-image: url(../img/side-active.svg);
-          color: #fff;
         }
       }
 
-      a {
+      > a {
         // background-image: url(../img/side-gewinnung.svg);
+      }
+
+      a {
         color: $color-primary;
       }
     }
@@ -73,14 +84,16 @@
       &.active {
         background: $color-gewinnung;
 
-        a {
-          // background-image: url(../img/side-active.svg);
-          color: #fff;
+        > a {
+          background-image: url(../img/icon-gewinnung-active-32.svg);
         }
       }
 
+      > a {
+        background-image: url(../img/icon-gewinnung-32.svg);
+      }
+
       a {
-        // background-image: url(../img/side-gewinnung.svg);
         color: $color-gewinnung;
       }
     }
@@ -91,14 +104,16 @@
       &.active {
         background: $color-versorgung;
 
-        a {
-          // background-image: url(../img/side-active.svg);
-          color: #fff;
+        > a {
+          background-image: url(../img/icon-versorgung-active-32.svg);
         }
       }
 
+      > a {
+        background-image: url(../img/icon-versorgung-32.svg);
+      }
+
       a {
-        // background-image: url(../img/side-versorgung.svg);
         color: $color-versorgung;
       }
     }
@@ -109,14 +124,16 @@
       &.active {
         background: $color-reinigung;
 
-        a {
-          // background-image: url(../img/side-active.svg);
-          color: #fff;
+        > a {
+          background-image: url(../img/icon-reinigung-active-32.svg);
         }
       }
 
+      > a {
+        background-image: url(../img/icon-reinigung-32.svg);
+      }
+
       a {
-        // background-image: url(../img/side-reinigung.svg);
         color: $color-reinigung;
       }
     }
