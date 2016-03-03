@@ -257,10 +257,6 @@
     $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height()});
     ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
 
-    reinigungLageplan.duration($(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20);
-    reinigungMechanisch.duration($(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20);
-    reinigungBiologisch.duration($(triggerElem).outerHeight() - $($(triggerElem).attr('data-set-pin')).outerHeight() - 20);
-
 
     // hide sidebar if windows resize
     if (sidebar.hasClass('open')) {
