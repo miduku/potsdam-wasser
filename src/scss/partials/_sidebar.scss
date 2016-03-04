@@ -51,7 +51,7 @@
 
     &.side-intro.active,
     &.side-gewinnung.active,
-    &.side-versorgung.active,
+    &.side-verbrauch.active,
     &.side-reinigung.active {
       a {
           color: #fff;
@@ -98,23 +98,23 @@
       }
     }
 
-    &.side-versorgung {
-      color: $color-versorgung;
+    &.side-verbrauch {
+      color: $color-verbrauch;
 
       &.active {
-        background: $color-versorgung;
+        background: $color-verbrauch;
 
         > a {
-          background-image: url(../img/icon-versorgung-active-32.svg);
+          background-image: url(../img/icon-verbrauch-active-32.svg);
         }
       }
 
       > a {
-        background-image: url(../img/icon-versorgung-32.svg);
+        background-image: url(../img/icon-verbrauch-32.svg);
       }
 
       a {
-        color: $color-versorgung;
+        color: $color-verbrauch;
       }
     }
 

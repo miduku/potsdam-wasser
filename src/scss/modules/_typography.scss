@@ -66,6 +66,7 @@ h6 {
 
   .group-9-3 .r & {
     font-size: 0.778em;
+    line-height: 1.35;
     margin: 0 0 $padding/6;
     padding: 0;
     font-weight: 700;
@@ -145,6 +146,7 @@ p {
 
   .group-9-3 .r & {
     font-size: 0.778em;
+    line-height: 1.4;
     margin: 0 0 $padding/6;
     padding: 0;
   }
@@ -189,8 +191,8 @@ a {
   .sec-gewinnung .container & {
     color: $color-gewinnung;
   }
-  .sec-versorgung .container & {
-    color: $color-versorgung;
+  .sec-verbrauch .container & {
+    color: $color-verbrauch;
   }
   .sec-reinigung .container & {
     color: $color-reinigung;

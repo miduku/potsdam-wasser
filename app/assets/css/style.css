@@ -396,6 +396,192 @@ td,
 th {
   padding: 0; }
 
+.drip-wrapper {
+  position: absolute;
+  margin: -75px 0 0 -50px;
+  top: 50%;
+  left: 50%; }
+
+.drip {
+  width: 100px;
+  height: 150px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: auto;
+  position: relative; }
+  .drip:before {
+    position: absolute;
+    left: 45px;
+    top: 0;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #3873b9;
+    border-radius: 50%;
+    opacity: 0;
+    -webkit-animation: drip 4s ease infinite;
+            animation: drip 4s ease infinite; }
+  .drip:after {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border: solid 4px #3873b9;
+    border-radius: 50%;
+    opacity: 0;
+    -webkit-animation: splash 4s ease infinite;
+            animation: splash 4s ease infinite; }
+
+@-webkit-keyframes drip {
+  10% {
+    top: 0;
+    opacity: 1;
+    -webkit-animation-timing-function: cubic-bezier(0.24, 0, 0.76, 0.14);
+            animation-timing-function: cubic-bezier(0.24, 0, 0.76, 0.14); }
+  25% {
+    opacity: 1;
+    top: 125px;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    width: 10px;
+    height: 10px;
+    left: 45px; }
+  30% {
+    opacity: 1;
+    top: 95px;
+    width: 5px;
+    height: 5px;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    left: 47.5px; }
+  33% {
+    top: 125px;
+    opacity: 0;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    left: 47.5px; }
+  33.001% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+
+@keyframes drip {
+  10% {
+    top: 0;
+    opacity: 1;
+    -webkit-animation-timing-function: cubic-bezier(0.24, 0, 0.76, 0.14);
+            animation-timing-function: cubic-bezier(0.24, 0, 0.76, 0.14); }
+  25% {
+    opacity: 1;
+    top: 125px;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    width: 10px;
+    height: 10px;
+    left: 45px; }
+  30% {
+    opacity: 1;
+    top: 95px;
+    width: 5px;
+    height: 5px;
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+    left: 47.5px; }
+  33% {
+    top: 125px;
+    opacity: 0;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+    left: 47.5px; }
+  33.001% {
+    opacity: 0; }
+  100% {
+    opacity: 0; } }
+
+@-webkit-keyframes splash {
+  0% {
+    opacity: 0; }
+  25% {
+    bottom: 25px;
+    left: 50px;
+    opacity: 0;
+    width: 0px;
+    height: 0px; }
+  25.001% {
+    opacity: 1; }
+  33% {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 100px;
+    height: 50px; }
+  33.001% {
+    bottom: 25px;
+    left: 50px;
+    opacity: 1;
+    width: 0px;
+    height: 0px; }
+  43% {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 100px;
+    height: 50px; }
+  43.001% {
+    opacity: 0; } }
+
+@keyframes splash {
+  0% {
+    opacity: 0; }
+  25% {
+    bottom: 25px;
+    left: 50px;
+    opacity: 0;
+    width: 0px;
+    height: 0px; }
+  25.001% {
+    opacity: 1; }
+  33% {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 100px;
+    height: 50px; }
+  33.001% {
+    bottom: 25px;
+    left: 50px;
+    opacity: 1;
+    width: 0px;
+    height: 0px; }
+  43% {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 100px;
+    height: 50px; }
+  43.001% {
+    opacity: 0; } }
+
+.js .loader {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 99999; }
+
 body > header {
   position: fixed;
   top: 0;
@@ -482,7 +668,7 @@ nav ul {
     background-size: 18px;
     display: block;
     line-height: 1.2; }
-  .sidebar li.side-intro.active a, .sidebar li.side-gewinnung.active a, .sidebar li.side-versorgung.active a, .sidebar li.side-reinigung.active a {
+  .sidebar li.side-intro.active a, .sidebar li.side-gewinnung.active a, .sidebar li.side-verbrauch.active a, .sidebar li.side-reinigung.active a {
     color: #fff; }
   .sidebar li.side-intro {
     color: #2e363a; }
@@ -500,15 +686,15 @@ nav ul {
       background-image: url(../img/icon-gewinnung-32.svg); }
     .sidebar li.side-gewinnung a {
       color: #357b91; }
-  .sidebar li.side-versorgung {
+  .sidebar li.side-verbrauch {
     color: #3873b9; }
-    .sidebar li.side-versorgung.active {
+    .sidebar li.side-verbrauch.active {
       background: #3873b9; }
-      .sidebar li.side-versorgung.active > a {
-        background-image: url(../img/icon-versorgung-active-32.svg); }
-    .sidebar li.side-versorgung > a {
-      background-image: url(../img/icon-versorgung-32.svg); }
-    .sidebar li.side-versorgung a {
+      .sidebar li.side-verbrauch.active > a {
+        background-image: url(../img/icon-verbrauch-active-32.svg); }
+    .sidebar li.side-verbrauch > a {
+      background-image: url(../img/icon-verbrauch-32.svg); }
+    .sidebar li.side-verbrauch a {
       color: #3873b9; }
   .sidebar li.side-reinigung {
     color: #87786d; }
@@ -542,9 +728,9 @@ nav ul {
   .sec-gewinnung .kv {
     background-color: #357b91;
     background-image: url(../img/kv-gewinnung.jpg); }
-  .sec-versorgung .kv {
+  .sec-verbrauch .kv {
     background-color: #3873b9;
-    background-image: url(../img/kv-versorgung.jpg); }
+    background-image: url(../img/kv-verbrauch.jpg); }
   .sec-reinigung .kv {
     background-color: #87786d;
     background-image: url(../img/kv-reinigung.jpg); }
@@ -846,6 +1032,7 @@ h6 {
   h5, .group-9-3 .r
   h6 {
     font-size: 0.778em;
+    line-height: 1.35;
     margin: 0 0 6.66667px;
     padding: 0;
     font-weight: 700; }
@@ -919,6 +1106,7 @@ p {
     text-align: center; }
   .group-9-3 .r p {
     font-size: 0.778em;
+    line-height: 1.4;
     margin: 0 0 6.66667px;
     padding: 0; }
   .group-6-6 .l p {
@@ -955,7 +1143,7 @@ a {
   text-decoration: none; }
   .sec-gewinnung .container a {
     color: #357b91; }
-  .sec-versorgung .container a {
+  .sec-verbrauch .container a {
     color: #3873b9; }
   .sec-reinigung .container a {
     color: #87786d; }
@@ -1086,6 +1274,11 @@ table {
 .span11,
 .span12 {
   margin-bottom: 20px; }
+
+figure {
+  margin: 0; }
+  figure.group {
+    padding-bottom: 20px; }
 
 .group {
   -webkit-flex-direction: column;

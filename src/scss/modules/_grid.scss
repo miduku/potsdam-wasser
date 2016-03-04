@@ -23,6 +23,15 @@
   margin-bottom: 20px;
 }
 
+// reset figure margins for figure.group
+figure {
+  margin: 0;
+
+  &.group {
+    padding-bottom: $padding/2;
+  }
+}
+
 .group {
   flex-direction: column;
 }

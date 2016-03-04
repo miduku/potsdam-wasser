@@ -25,9 +25,9 @@
     background-image: url(../img/kv-gewinnung.jpg);
   }
 
-  .sec-versorgung & {
-    background-color: $color-versorgung;
-    background-image: url(../img/kv-versorgung.jpg);
+  .sec-verbrauch & {
+    background-color: $color-verbrauch;
+    background-image: url(../img/kv-verbrauch.jpg);
   }
 
   .sec-reinigung & {
@@ -114,5 +114,9 @@
 
   .pin {
     display: block;
+  }
+
+  figure {
+    // display: flex;
   }
 }
