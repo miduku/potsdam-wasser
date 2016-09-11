@@ -50,7 +50,7 @@
      * Magical things with ScrollMagic
      */
     // init ScrollMagic controller
-    var Controller = new ScrollMagic.Controller();
+    var Controller = new ScrollMagic.Controller({loglevel: 3});
 
 
     // create indicators for the sections which will display in the progressbar
@@ -152,17 +152,6 @@
       .addTo(Controller);
     });
 
-    // var resizeId;
-
-    // // add delay for resize event
-    // clearTimeout(resizeId);
-
-    // // resize event
-    // resizeId = setTimeout(function(){
-
-    //   // for accordion
-    // },250); // end delay
-
 
     // for pinning of images in .group-6-6 layout
     //
@@ -173,7 +162,7 @@
 
       var dur;
       var trigEl = $(triggerElem).attr('data-set-pin');
-     if (duration === null || duration === undefined) {
+      if (duration === null || duration === undefined) {
         dur = $(triggerElem).outerHeight() - $(trigEl).outerHeight() - 20;
       } else {
         dur = duration;
@@ -245,20 +234,52 @@
     });
 
 
+    // with resize delay
+    // http://stackoverflow.com/a/5490021
+    //
+    var resizeDelay;
+// !!!!!!
     $(window).on('resize', function() {
-      // resize progressbar
-      $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height() + 2});
-      ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
+
+      Controller.removeScene([
+        reinigungLageplan,
+        reinigungMechanisch,
+        reinigungBiologisch,
+        ScrollBar
+      ]);
+
+      // add delay for resize event
+      clearTimeout(resizeDelay);
+
+      // resize event
+      resizeDelay = setTimeout(function(){
+        console.log('log delay');
+
+        Controller.addScene([
+          reinigungLageplan,
+          reinigungMechanisch,
+          reinigungBiologisch,
+          ScrollBar
+        ]);
+        // resize progressbar
+        $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height() + 2});
+        ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
+
+        // hide sidebar if windows resize
+        if (sidebar.hasClass('open')) {
+          menuItems.removeClass('open');
+        }
+
+        // resize intro
+        $('.sec-intro')
+          .css('min-height', $(window).height()*3 - $('.header').outerHeight());
+
+        // refresh Scroll Magic Scenes
+
+        // for accordion
+      },250); // end delay
 
 
-      // hide sidebar if windows resize
-      if (sidebar.hasClass('open')) {
-        menuItems.removeClass('open');
-      }
-
-      // resize intro
-      $('.sec-intro')
-        .css('min-height', $(window).height()*3 - $('.header').outerHeight());
     });
 
     /*
