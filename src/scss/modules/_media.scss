@@ -10,35 +10,57 @@ object {
   max-width: 100%;
 }
 
+.group-img,
+.group-video {
+  @include vr(
+    $margin: 1 0
+  );
+}
+
 // Responsive Fluid Layout for Videos
-%embed {
+.embed-video {
   display: inline-block;
   overflow: hidden;
   padding-top: 0;
   position: relative;
 
   iframe {
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
   }
 }
-.embed-video {
+
+.video-ratio {
   &-16by9{
     @include maintain-ratio(16 9);
-    @extend %embed;
+    @extend .embed-video;
   }
 
   &-21by9{
     @include maintain-ratio(21 9);
-    @extend %embed;
+    @extend .embed-video;
   }
 
   &-4by3{
     @include maintain-ratio(4 3);
-    @extend %embed;
+    @extend .embed-video;
+  }
+}
+
+figure {
+  margin: 0;
+  @extend .group;
+
+  img {
+    @extend .span8;
+  }
+
+  figcaption {
+    @extend .span4;
+    @extend aside.r;
   }
 }

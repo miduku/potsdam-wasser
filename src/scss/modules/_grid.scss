@@ -5,7 +5,16 @@
 .container {
   margin: 0 auto;
   max-width: 1200px;
-  padding: 0 10px;
+  // padding: 0 10px;
+  @include vr(
+    $padding: 0 .25
+  );
+
+  @include mobilefirst($bp-tablet) {
+    @include vr(
+      $padding: 0 .5
+    );
+  }
 }
 
 .span1,
@@ -20,16 +29,9 @@
 .span10,
 .span11,
 .span12 {
-  margin-bottom: 20px;
-}
-
-// reset figure margins for figure.group
-figure {
-  margin: 0;
-
-  &.group {
-    padding-bottom: $padding/2;
-  }
+  @include vr(
+    $margin-bottom: 1
+  );
 }
 
 .group {
@@ -44,8 +46,6 @@ figure {
   $margin: 2.1277%; // Margin between the grid columns
 
   .container {
-    padding: 0 $padding/2;
-    // padding: 0 40px;
   }
 
   .group {

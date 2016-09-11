@@ -1,34 +1,30 @@
-nav {
+.nav {
 
-  ul {
+  $height-nav: 1.5;
+  background: #fff;
+  @extend .clear;
+
+  .logo {
+    display: block;
+    float: left;
+    @include vr(
+      $line-height: $height-nav
+    );
+  }
+
+  .nav-main {
     list-style: none;
-  }
-
-  li {
-
-  }
-
-  a {
-
-  }
-}
-
-.nav-header {
-  display: inline-block;
-  width: 50%-(2.1277%*2);
-  margin-left: 2.1277%;
-
-  ul {
-    max-height: 80px;
-    // background: #234234;
-    text-align: right;
+    text-align: center;
+    float: right;
 
     li {
       display: inline-block;
 
       a {
-        padding: 0 $padding/4;
-        color: #fff;
+        @include vr(
+          $line-height: $height-nav,
+          $padding: 0 .25
+        );
       }
     }
   }

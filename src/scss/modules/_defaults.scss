@@ -1,25 +1,16 @@
 //----------------------------------*\
-// Defaults (yes, also font defaults)
+// Defaults (yes, also default for font)
 //----------------------------------*/
 
 * {
-  box-sizing: border-box;
+  // box-sizing: border-box;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-html,
-body {
-  height: 100%;
-}
-
-html {
-  background: $color-primary;
-}
-
 body {
   margin: 0;
-  background: #fff;
+  padding: 0;
 }
 
 nav {
@@ -37,3 +28,10 @@ nav {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.m {
+  @extend .offset2;
+  @extend .span8;
+}
+.l { @extend .span8; }
+.r { @extend .span4; }

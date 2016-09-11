@@ -2,14 +2,33 @@
 // Project Variables
 //----------------------------------*/
 
+// font & vertical rhythm settings
+$vr-helpers:       false;
+$vr-box-sizing:    border-box;
+$vr-font-size:     14px;
+$vr-line-height:   2;
+$vr-modular-scale: augmented-fourth;
+$vr-breakpoints: (
+    $bp-tablet: (
+        font-size: 16px,
+        grid-color: purple
+    ),
+    $bp-desktop: (
+        font-size: 16px,
+        grid-color: hotpink
+    )
+);
+
+$font-sans:  "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$font-serif: "Playfair Display", "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$font-mono:  Monaco, Menlo, Consolas, "Courier New", monospace;
+
+
 // Consistency settings
 $br: 2px; // Border-radius
 $br-btn: 2px; // Button border-radius
-$padding: 40px; // Padding and margins
-$line-height: 45px; // Consistent height for buttons, inputs etc.
+$padding: 40px;
 
-// Animation
-$duration: 0.5s;
 
 // Default colors
 // Cool
@@ -41,24 +60,31 @@ $blue-grey:   #607d8b;
 $black:       #000;
 
 
-// Potsdam Wasser colors
-$pw-blue:      #0D47A1;
-$pw-lightblue: #1976D2;
-$pw-brown:     #5D4037;
+
 
 // Project color variables
-$text-black:      #2e363a;
-$color-primary:   $text-black;
+$text-black:      #333;
+$color-primary:   #2E363A;
 $color-secondary: complement($color-primary);
 $color-tertiary:  $silver;
-$color-gewinnung:  #357b91;
-$color-verbrauch: #3873b9;
-$color-reinigung:  #87786d;
 
 
 // Alert colors
-$color-danger: $red; // Bad color for errors, validation etc.
+$color-danger:  $red; // Bad color for errors, validation etc.
 $color-success: $green; // Good color for success etc.
-$color-info: $blue; // Good color for success etc.
+$color-info:    $blue; // Good color for success etc.
 $color-warning: $orange; // Good color for success etc.
-$color-subtle: $grey; // Subtle color for subtle text
+$color-subtle:  $grey; // Subtle color for subtle text
+
+
+// Your settings for Typesettings :)
+// $text-color:         $text-black;
+// $base-vertical-unit: 6px;
+// $base-line-multi:    5;
+// $base-font-size:     16px;
+// $ms-ratio:           1.414;
+// $paragraph-indent:   false;
+// $paragraph-justify:  false;
+// $load-typesetted:    false;
+// $ms-ratio:           1.2;
+

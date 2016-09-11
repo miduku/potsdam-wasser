@@ -1,122 +1,32 @@
-// KEY VISUALS
-//
-.kv {
-  // min-height: 600px;
-  margin-bottom: 80px;
-  padding: 200px 0;
-  text-align: center;
-  color: #fff;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-
-  h1:after {
-    content: '';
-    background: #fff;
-    display: block;
-    width: 15%;
-    height: 2px;
-    margin: .5em auto;
-  }
-
-  .sec-gewinnung & {
-    background-color: $color-gewinnung;
-    background-image: url(../img/kv-gewinnung.jpg);
-  }
-
-  .sec-verbrauch & {
-    background-color: $color-verbrauch;
-    background-image: url(../img/kv-verbrauch.jpg);
-  }
-
-  .sec-reinigung & {
-    background-color: $color-reinigung;
-    background-image: url(../img/kv-reinigung.jpg);
-  }
-
-  > div {
-    margin: 0 auto;
-    padding: 0 2.1277%*2;
-    max-width: 1000px;
-  }
-}
-
-// MAIN
-//
 .main {
-  position: relative;
-  padding-top: $padding*2;
-  // height: 100%;
+  .tall {
+    @include vr(
+      $height: 32
+    );
+  }
 
-  .progress-wrapper {
-    display: block;
-    position: relative;
+  aside.r {
+    @include vr(
+      $font-size: -1,
+      $padding-left: 1,
+      $padding-right: 1
+    );
 
-    .progressbar {
-      position: absolute;
-      width: 4px;
-      z-index: 9;
+    @include mobilefirst($bp-tablet) {
+      padding: 0;
     }
-  }
 
-  section {
-    // margin-top: $padding*4;
-    background: #fff;
-    padding-bottom: $padding*2;
-    @extend .clear;
-    position: relative;
-  }
+    .border {
+      @include vr(
+        $padding-left: 0
+      );
 
-    article {
-      .container {
-        padding-top: $padding*2;
-      }
-
-      .kv + .container {
-        padding-top: 0;
-      }
-
-      .group-9-3 .r {
-        color: lighten($color-primary, 20%);
-
-        .border {
-          padding: 10px 0 4px 8%;
-          border-left: 1px solid lighten($color-primary, 20%);
-        }
+      @include mobilefirst($bp-tablet) {
+        border-left: 1px solid lighten($color-primary, 25);
+        @include vr(
+          $padding-left: .5
+        );
       }
     }
-
-  .group-intro {
-    .l,
-    .r {
-      @extend .span6;
-      @extend .offset3;
-    }
-  }
-
-  .group-9-3 {
-    .l {
-      @extend .span9;
-    }
-
-    .r {
-      @extend .span3;
-    }
-  }
-
-  .group-6-6 {
-    .l,
-    .r {
-      @extend .span6;
-    }
-  }
-
-  .pin {
-    display: block;
-  }
-
-  figure {
-    // display: flex;
   }
 }

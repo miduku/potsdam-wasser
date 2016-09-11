@@ -21,7 +21,6 @@
   "smarttabs": true,
   "globals" : {
     "jQuery": true,
-    "Modernizr": true,
-    "ScrollMagic": true
+    "Modernizr": true
   }
 }

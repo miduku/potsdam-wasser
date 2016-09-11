@@ -2,71 +2,19 @@
 // Input & Form elements
 //----------------------------------*/
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type=text],
-input[type=email],
-input[type=phone],
-input[type=password],
-input[type=number],
-input[type=search],
-textarea {
-  // box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
-  // border-radius: $br-btn;
-  // border: 1px solid #ccc;
-  border-top: none;
-  border-bottom: none;
-  border-left: 2px solid $text-black;
-  border-right: 2px solid $text-black;
-  background: transparent;
-  height: $line-height* 4/5;
-  outline: none;
-  padding: 2px 10px;
-  margin-left: 2px;
-  width: 100%;
-  font-size: 1em;
-
-  @include mobilefirst($bp-tablet) {
-    width: 300px;
-  }
-
-  &:focus {
-    border-color: $color-primary;
-  }
-
-  &.full-width {
-    width: 100%;
-  }
-
-  + button,
-  + a{
-    margin-top: 10px;
-
-    @include mobilefirst($bp-tablet) {
-      margin-top: 0;
-    }
-  }
-}
-
-textarea {
-  height: $line-height*3;
-}
 
 form {
-  margin-bottom: $padding;
 
   // Wrap each form input/element in a field div
   .field {
-    margin-bottom: $padding/2;
+    @include vr(
+      $margin-bottom: 1
+    );
   }
 
   // Notes go under the input fields
   .hint {
     color: $color-subtle;
-    margin-top: 5px;
   }
 
   // Required label
@@ -80,17 +28,67 @@ form {
     // Validation reason
     .error-description {
       color: $color-danger;
-      margin-top: 5px;
     }
 
-    input[type=text],
-    input[type=email],
-    input[type=phone],
-    input[type=password],
-    input[type=number],
-    input[type=search],
+    input:not([type="radio"]):not([type="checkbox"]),
     textarea {
       border-color: $color-danger;
     }
   }
+
+  .hint,
+  .is-required,
+  .error-description {
+    @include vr(
+      $font-size: -1,
+      $margin: 0
+    );
+  }
+
+}
+
+label {
+  display: block;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  margin-bottom: $vr-line-height / 3 + 0em;
+}
+
+input:not([type="radio"]):not([type="checkbox"]),
+textarea {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+  border-radius: $br-btn;
+  border: 1px solid #ccc;
+  outline: none;
+  width: 100%;
+  @include vr(
+    $font-size: 0,
+    $height: 1,
+    $padding: 0 .25
+  );
+
+  @include mobilefirst($bp-tablet) {
+    width: 300px;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+  }
+
+  &.full-width {
+    width: 100%;
+  }
+
+  + .btn{
+    @include vr(
+      $margin-bottom: 0
+    );
+  }
+}
+
+textarea {
+  @include vr(
+    $height: 6
+  );
 }

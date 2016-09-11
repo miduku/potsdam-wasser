@@ -1,16 +1,1 @@
 @include selection($selection-bg: #333, $selection-c: #fff, $selection-ts: none);
-
-
-// Kellum Image Replacement
-// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
-.kellumIR {
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-
-// Simple transition animation
-.transition-all {
-  transition: all $duration ease;
-}

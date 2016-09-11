@@ -6,27 +6,26 @@
   list-style: none;
 }
 
-ul {
-  .group-9-3 .l &,
-  .group-6-6 .l &,
-  .group-6-6 .r & {
-    font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
-
-    li {
-      margin-bottom: .5em;
-    }
-  }
-
-  .group-9-3 .l {
-    padding: 0 $padding*2 0 $padding*2+20px;
-  }
-
-  .group-6-6 .r & {
-    padding: 0 $padding 0 $padding*2;
-  }
-
-  .group-6-6 .r & {
-    padding: 0 $padding*2 0 $padding;
-  }
-
+ol,
+ul,
+dl {
+  @include vr(
+    $padding-left: .75
+  );
 }
+
+ul ul,
+ol ol,
+dl dl {
+  margin-left: 0;
+  margin-top: 0;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+

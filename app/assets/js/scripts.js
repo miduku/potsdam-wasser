@@ -1,295 +1,194 @@
 /*!
- * potsdam-wasser
- * 
- * 
+ * fastplate
+ * Barebones Responsive SCSS Boilerplate with vertical rhythm
+ * http://miduku.github.io/fastplate/example.html
  * @author Dustin Kummer
- * @version 1.0.0
+ * @version 0.0.1
  * Copyright 2016. MIT licensed.
  */
-(function ($, window, document, undefined) {
+/*!
+* Baseline.js 1.1
+*
+* Copyright 2013, Daniel Eden http://daneden.me
+* Released under the WTFPL license
+* http://sam.zoy.org/wtfpl/
+*
+* Date: 2014-06-20
+*/
+
+(function (window, $) {
+
   'use strict';
 
-  // shorthand for jQuery(document).ready()
-  $(function() {
-    /*
-    * scroll offset
-    * shrink header when scrolled
-    */
-    var logo = $('.logo-pw');
-    var menuItems = $('.logo-pw, .sidebar');
-    var sidebar = $('.sidebar');
+  var baseline = (function () {
 
-    $(window).on('scroll', function() {
-        var fromTop = $(window).scrollTop();
-        $('.header').toggleClass('shrink', (fromTop > 200));
-        sidebar.toggleClass('shrink', (fromTop > 200));
-    });
-
-
-    /*
-     * hamburger menu hmmm
+    /**
+     * `_base` will later hold the value for the current baseline that matches
+     * the given breakpoint. `_breakpoints` will hold a reference to all
+     * breakpoints given to the baseline call.
      */
-    logo.on('click', function(event) {
-      event.preventDefault();
 
-      if (sidebar.hasClass('open')) {
-        menuItems.removeClass('open');
-      } else {
-        menuItems.addClass('open');
-      }
-    });
+    var _base = 0,
+        _breakpoints = {},
+        _dynamicBase;
 
-    $('main, footer').on('click', function() {
-      if (sidebar.hasClass('open')) {
-        menuItems.removeClass('open');
-      }
-    });
-
-
-    /*
-     * Magical things with ScrollMagic
+    /**
+     * @name     _setBase
+     *
+     * Set the correct margin-bottom on the given element to get back to the
+     * baseline.
+     *
+     * @param    {Element}  element
+     *
+     * @private
      */
-    // init ScrollMagic controller
-    var Controller = new ScrollMagic.Controller({loglevel: 3});
 
+    function _setBase (element) {
+      var height = element.offsetHeight,
+          current, old;
 
-    // create indicators for the sections which will display in the progressbar
-    function createIndicator(triggerElem, progElem, rgbStart, rgbEnd) {
-      return new ScrollMagic.Scene({
-        triggerElement: triggerElem,
-        triggerHook: 1, // window height
-        duration: $(triggerElem).outerHeight()
-      })
-      .addIndicators({name: triggerElem})
-      .on('progress', function(event) {
-        $(progElem).css( 'height', (100/3 * event.progress.toFixed(3)) + '%' );
+      if( _dynamicBase ) {
 
-        if (rgbEnd === undefined) {
-          rgbEnd = rgbStart;
-        }
+          /**
+           * Compute the _base through a user defined function on each execution.
+           * This could be used to get the current grid size for different breakpoints
+           * from an actual element property instead of defining those breakpoints in the options.
+           */
+          _base = _dynamicBase();
 
-        // colors everywhere!!
-        var rgbDiff = [
-          rgbEnd[0]-rgbStart[0],
-          rgbEnd[1]-rgbStart[1],
-          rgbEnd[2]-rgbStart[2]
-        ];
-        var indicatorColor = [
-          Math.round(rgbStart[0] + rgbDiff[0] * event.progress.toFixed(3)),
-          Math.round(rgbStart[1] + rgbDiff[1] * event.progress.toFixed(3)),
-          Math.round(rgbStart[2] + rgbDiff[2] * event.progress.toFixed(3))
-        ];
-
-        $('.indicator').css('background-color', 'rgb(' + indicatorColor.join(',') + ')');
-      });
-    }
-    var IndicatorGewinnung = createIndicator('.sec-gewinnung', '.indicator-gewinnung', [114, 120, 141]);
-    var IndicatorVerbrauch = createIndicator('.sec-verbrauch', '.indicator-verbrauch', [114, 120, 141], [56, 115, 185]);
-    var IndicatorReinigung = createIndicator('.sec-reinigung', '.indicator-reinigung', [56, 115, 185], [134, 120, 109]);
-
-
-
-    // Progessbar pinning
-    //
-    // pin scrollbar
-    var ScrollBar = new ScrollMagic.Scene({
-      triggerElement: '.progress-wrapper',
-      triggerHook: 0, //don't trigger until triggerElement hits the top of the viewport
-      duration: ($('.progress-wrapper').outerHeight() - $(window).height()),
-      reverse: true // allows the effect to trigger when scrolled in the reverse direction
-    })
-    .addIndicators({name: 'Progressbar'})
-    .setPin('.progressbar');
-
-
-    // Accordion menu & image pins (Reinigung)
-    //
-    // while scrolling, open accordion menu accordingly
-    $('section').each(function(index, el) {
-      // console.log($(this).children());
-      var height = $(this).outerHeight();
-
-      new ScrollMagic.Scene({
-        triggerElement: el,
-        duration: height
-      })
-      .on('enter', function() {
-        if (index === 0) {
-          $('.side-intro').addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-        if (index === 1) {
-          $('.side-gewinnung > ul').slideDown()
-            .parent('li')
-            .addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-        else if (index === 2) {
-          $('.side-verbrauch > ul').slideDown()
-            .parent('li')
-            .addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-        else if (index === 3) {
-          $('.side-reinigung > ul').slideDown()
-            .parent('li')
-            .addClass('active')
-            .siblings('li')
-            .removeClass('active')
-              .children('ul')
-              .slideUp();
-        }
-      })
-      .addTo(Controller);
-    });
-
-
-    // for pinning of images in .group-6-6 layout
-    //
-    function scrollMagicPin(triggerElem, triggerHook, duration, pushFollowers) {
-      if (triggerHook === null || triggerHook === undefined) {
-        triggerHook = 1 / $(window).height() * $('.header').outerHeight(); // Dreisatz baby!
-      }
-
-      var dur;
-      var trigEl = $(triggerElem).attr('data-set-pin');
-      if (duration === null || duration === undefined) {
-        dur = $(triggerElem).outerHeight() - $(trigEl).outerHeight() - 20;
-      } else {
-        dur = duration;
-      }
-
-      if (pushFollowers === null || pushFollowers === undefined) {
-        pushFollowers = false;
       }
       else {
-        pushFollowers = true;
-      }
 
-      // console.log($('img#pin-reinigung-lageplan').height());
-      return new ScrollMagic.Scene({
-        triggerElement: triggerElem,
-        triggerHook: triggerHook, //don't trigger until triggerElement hits the top of the viewport
-        duration: dur,
-        pushFollowers: pushFollowers,
-        reverse: true // allows the effect to trigger when scrolled in the reverse direction
-      })
-      .addIndicators({name: triggerElem})
-      .setPin($(triggerElem).attr('data-set-pin'));
-    }
+        /**
+         * In this step we loop through all the breakpoints, if any were given.
+         * If the baseline call received a number from the beginning, this loop
+         * is simply ignored.
+         */
 
-    // intro
-    //
-    $('.sec-intro')
-      .css('min-height', $(window).height()*3 - $('.header').outerHeight())
-        .children()
-        .children()
-        .children('.content')
-        .css({
-          position: 'absolute',
-          top: 100/3 + '%',
-          left: 0
-        });
+        for (var key in _breakpoints) {
+          current = key;
 
-
-    $(window).on('load', function() {
-
-      // Progressbar progress
-      //
-      // resize progressbar
-      $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).outerHeight() + 2});
-      $('.progressbar').append('<div class="indicator indicator-gewinnung"></div><div class="indicator indicator-verbrauch"></div><div class="indicator indicator-reinigung"></div>');
-
-      // resize progressbar
-      // $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height()});
-      ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
-      var reinigungLageplan = scrollMagicPin('#trigger-reinigung-lageplan');
-      var reinigungMechanisch = scrollMagicPin('#trigger-reinigung-mechanische-reinigung');
-      var reinigungBiologisch = scrollMagicPin('#trigger-reinigung-biologische-reinigung');
-
-      // add ScrollMagic scenes to controller to init them
-      Controller.addScene([
-        IndicatorGewinnung,
-        IndicatorVerbrauch,
-        IndicatorReinigung,
-
-
-        reinigungLageplan,
-        reinigungMechanisch,
-        reinigungBiologisch,
-        ScrollBar
-      ]);
-
-      // loader fade away
-      $('.loader').animate({opacity: 0}, 500, function() {$(this).hide();});
-    });
-
-
-    // with resize delay
-    // http://stackoverflow.com/a/5490021
-    //
-    var resizeDelay;
-// !!!!!!
-    $(window).on('resize', function() {
-
-      Controller.removeScene([
-        reinigungLageplan,
-        reinigungMechanisch,
-        reinigungBiologisch,
-        ScrollBar
-      ]);
-
-      // add delay for resize event
-      clearTimeout(resizeDelay);
-
-      // resize event
-      resizeDelay = setTimeout(function(){
-        console.log('log delay');
-
-        Controller.addScene([
-          reinigungLageplan,
-          reinigungMechanisch,
-          reinigungBiologisch,
-          ScrollBar
-        ]);
-        // resize progressbar
-        $('.progressbar, .scrollmagic-pin-spacer').css({height: $(window).height() + 2});
-        ScrollBar.duration($('.progress-wrapper').outerHeight() - $(window).height());
-
-        // hide sidebar if windows resize
-        if (sidebar.hasClass('open')) {
-          menuItems.removeClass('open');
+          if (document.body.clientWidth > current && current >= old) {
+            _base = _breakpoints[key];
+            old = current;
+          }
         }
 
-        // resize intro
-        $('.sec-intro')
-          .css('min-height', $(window).height()*3 - $('.header').outerHeight());
+      }
 
-        // refresh Scroll Magic Scenes
+      /**
+       * We set the element's margin-bottom style to a number that pushes the
+       * adjacent element down far enough to get back onto the baseline.
+       */
 
-        // for accordion
-      },250); // end delay
+      element.style.marginBottom = _base - (height % _base) + 'px';
+    }
 
-
-    });
-
-    /*
-     * anchor scroll
+    /**
+     * @name     _init
+     *
+     * Call `_setBase()` on the given element and add an event listener to the
+     * window to reset the baseline on resize.
+     *
+     * @param    {Element}  element
+     *
+     * @private
      */
-    $('.nav-sidebar a').anchorScroll({
-      scrollSpeed: 800, // scroll speed
-      offsetTop: $('.header').height()
-   });
+
+    function _init (element) {
+      _setBase(element);
+
+      if ('addEventListener' in window) {
+        window.addEventListener('resize', function () { _setBase(element); }, false);
+      } else if ('attachEvent' in window) {
+        window.attachEvent('resize', function () { _setBase(element); });
+      }
+    }
+
+    /**
+     * @name     baseline
+     *
+     * Gets the correct elements and attaches the baseline behaviour to them.
+     *
+     * @param    {String/Element/NodeList}  elements
+     * @param    {Number/Object}            options
+     */
+
+    return function baseline (elements, options) {
+
+      /**
+       * Accept a NodeList or a selector string and set `targets` to the
+       * relevant elements.
+       */
+
+      var targets = typeof elements === 'string' ? document.querySelectorAll(elements) : elements,
+          len = targets.length;
+
+      /**
+       * Decide whether to set the `_breakpoints` or `_dynamicBase` variables or not.
+       * This will be relevant in the `_setBase()` function.
+       */
+
+      if (typeof options === 'number') {
+        _base = parseInt(options, 10);
+      } else if (typeof options === 'function') {
+          _dynamicBase = options;
+      } else if (typeof options === 'object') {
+        var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
+
+        for (var point in _breakpoints) {
+          var unitless = /\d+em/.test(point) ? parseInt(point, 10) * em : /\d+px/.test(point) ? parseInt(point, 10) : point;
+          _breakpoints[unitless] = parseInt(_breakpoints[point], 10);
+        }
+      }
+
+      /**
+       * If we have multiple elements, loop through them, otherwise just
+       * initialise the functionality on the single element.
+       */
+
+      if (len > 1) {
+        while (len--) { _init(targets[len]); }
+      } else {
+        _init(targets[0]);
+      }
+    };
+
+  }());
+
+  /**
+   * Export baseline as a jQuery or Zepto plugin if any of them are loaded,
+   * otherwise export as a browser global.
+   */
+
+  if (typeof $ !== "undefined") {
+    $.extend($.fn, {
+      baseline: function (options) {
+        return baseline(this, options);
+      }
+    });
+  } else {
+    window.baseline = baseline;
+  }
+
+}(window, window.jQuery || window.Zepto || undefined));
+
+(function ($, window, document, undefined) {
+
+  'use strict';
+
+  $(function () {
+
+    /**
+     * baseline-element plug-in
+     */
+    $('picture > *, .group-img img, .embed-video, figure img')
+      .baseline(function() {
+        // Get the current font-size from the HTML tag – the root font-size `rem` –
+        // which may change through to some CSS media queries
+        return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
+      });
+
   });
 
 })(jQuery, window, document);
-
