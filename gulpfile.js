@@ -4,7 +4,7 @@ var gulp = require('gulp'),
   browserSync = require('browser-sync'),
   autoprefixer = require('gulp-autoprefixer'),
   uglify = require('gulp-uglify'),
-  jshint = require('gulp-jshint'),
+  eslint = require('gulp-eslint'),
   header  = require('gulp-header'),
   rename = require('gulp-rename'),
   cssnano = require('gulp-cssnano'),
@@ -82,8 +82,15 @@ gulp.task('js',function(){
       config.dir.src + '/js/index.js'
     ])
     .pipe(concat('scripts.js'))
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+    .pipe(eslint({
+      configFile: '.eslintrc.json',
+      fix: true
+    }))
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
+      .on('error', notify.onError(function (error) {
+        return 'ESLint error: ' + error.message;
+      }))
     .pipe(header(banner, { package : package }))
     .pipe(gulp.dest(config.dir.app + '/js'))
     .pipe(uglify())
