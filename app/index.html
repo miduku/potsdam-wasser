@@ -20,7 +20,7 @@
   <header class="header fullscreen" role="banner">
     <section class="intro container">
         <div class="header-sticky">
-          <h1 class="logo"><a href="#">Potsdam Wasser</a></h1>
+          <h1 class="logo"><a href="#">PotsdamWasser</a></h1>
         </div>
 
         <div class="m intro-text">
@@ -32,15 +32,10 @@
 
   <main class="main" role="main">
     <section class="anim anim-rain fullscreen">
-      <article>
-        <div class="container">
-          <div class="group">
-            <div class="m">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero hic debitis ducimus, asperiores saepe in provident ipsa possimus recusandae, corrupti explicabo? Voluptatem corrupti, maiores delectus ipsam neque voluptatibus suscipit optio.</p>
-            </div>
-          </div>
-        </div>
-      </article>
+      <div id="rain"></div>
+      <div class="cloud"><img src="assets/img/img.jpg" alt=""></div>
+      <div class="cloud"><img src="assets/img/img.jpg" alt=""></div>
+      <div class="cloud"><img src="assets/img/img.jpg" alt=""></div>
     </section>
 
     <section class="anim anim-city">
@@ -75,22 +70,19 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
   <script>window.jQuery || document.write('<script src="assets/components/jquery.min.js"><\/script>');</script>
+  <script src="assets/components/TweenMax.min.js"></script>
   <script src="assets/components/ScrollMagic.min.js"></script>
   <script src="assets/components/animation.gsap.min.js"></script>
-  <script src="assets/components/debug.addIndicators.min.js"></script>
-  <script src="assets/js/scripts.min.js"></script>
+  <script src="assets/components/jquery.ScrollMagic.min.js"></script>
+  <!--<script src="assets/components/ScrollMagic.js"></script>
+  <script src="assets/components/jquery.ScrollMagic.js"></script>
+  <script src="assets/components/animation.gsap.js"></script>-->
 
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-  <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-  </script>
+  <script src="assets/components/debug.addIndicators.min.js"></script>
+  <script src="assets/js/scripts.js"></script>
+
 
 </body>
 </html>

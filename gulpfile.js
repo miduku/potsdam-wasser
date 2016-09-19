@@ -47,9 +47,19 @@ gulp.task('icons', function() {
 gulp.task('comps', function() {
     return gulp.src([
         config.dir.bowerComp + '/jquery/dist/jquery.min.js',
+
         config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
         config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js',
         config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/plugins/jquery.ScrollMagic.min.js',
+
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/plugins/jquery.ScrollMagic.js',
+
+        config.dir.bowerComp + '/gsap/src/minified/TweenMax.min.js',
+
         config.dir.bowerComp + '/jquery-anchorscroll/jquery.anchorScroll.min.js'
       ])
       .pipe(gulp.dest(config.dir.app + '/components'))

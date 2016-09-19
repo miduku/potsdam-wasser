@@ -21,10 +21,13 @@
       "always"
     ],
     "no-unused-vars": "warn",
+    "no-undef": "warn",
     "no-console": "warn"
   },
   "globals": {
     "jQuery": true,
-    "$": true
+    "$": true,
+    "ScrollMagic": true,
+    "TweenMax": true
   }
 }

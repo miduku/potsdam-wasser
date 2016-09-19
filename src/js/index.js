@@ -1,15 +1,9 @@
 // IIFE - Immediately Invoked Function Expression
 // https://toddmotto.com/what-function-window-document-undefined-iife-really-means/
 // http://gregfranko.com/blog/jquery-best-practices/
-(function(iife) {
-
-  // The global jQuery object is passed as a parameter
-  iife(jQuery, window, document);
-
-}(function($, window, document, undefined) {
+(function($, window, document, undefined) {
 
   'use strict';
-
 
   // cache some jQuery elements
   var $$ = {
@@ -39,6 +33,25 @@
     });
 
 
+    /**
+     * Magical things with ScrollMagic plugin
+     */
+    // init ScrollMagic controller
+    var Controller = new ScrollMagic.Controller({loglevel: 3});
+
+    // build tween
+    var tween = TweenMax.staggerFromTo('.cloud', 2, {left: '100%'}, {left: '25%', ease: Power1.easeInOut}, 1);
+
+    // build scene
+    var scene = new ScrollMagic.Scene({
+      triggerElement: '.anim-rain',
+      triggerHook: 1,
+      duration: $$.anim.rain.height()/3
+    });
+
+    scene.addTo(Controller)
+      .setTween(tween)
+      .addIndicators({name: 'staggering'});
   });
 
 
@@ -84,8 +97,9 @@
   });
 
   // load, resize, scroll
-  $$.w.on('load resize scroll', function() {
+  $$.w.on('load scroll resize', function() {
     if (eventHandling.allow) {
+
       // vertical center
       verticalCenter( $$.header_container );
 
@@ -99,4 +113,4 @@
     }
   });
 
-})); // END iife
+}(jQuery, window, document)); // END iife

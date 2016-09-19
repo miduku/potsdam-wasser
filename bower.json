@@ -20,7 +20,8 @@
     "baseline": "https://github.com/daneden/Baseline.js/archive/master.zip",
     "scrollmagic": "^2.0.5",
     "jquery-anchorscroll": "https://github.com/virgiliud/jquery.anchorScroll.git",
-    "jquery": "https://github.com/jquery/jquery.git#3.1.0"
+    "jquery": "https://github.com/jquery/jquery.git#3.1.0",
+    "gsap": "^1.19.0"
   },
   "devDependencies": {}
 }

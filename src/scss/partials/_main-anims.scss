@@ -1,3 +1,13 @@
 .anim-rain {
-  background: deeppink;
+  background: cornflowerblue;
+  overflow-x: hidden;
+  position: relative;
+
+  .cloud {
+    top: 0;
+    left: 25%;
+    height: 0;
+    // display: inline-block;
+    position: relative;
+  }
 }
