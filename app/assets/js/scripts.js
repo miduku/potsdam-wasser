@@ -188,10 +188,16 @@
 
   // cache some jQuery elements
   var $$ = {
+    w: $(window),
     header_container: $('.header .container'),
     headerSticky: $('.header-sticky'),
     fullscreen: $('.fullscreen'),
-    baselineElements: $('picture > *, .group-img img, .embed-video, figure img, .fullscreen')
+    baselineElements: $('picture > *, .group-img img, .embed-video, figure img, .fullscreen'),
+
+    // animations
+    anim: {
+      rain: $('.anim-rain')
+    }
   };
 
 
@@ -200,14 +206,14 @@
 
   //** The DOM is ready! **//
 
-    /**
-     * baseline-element plug-in
-     */
+    // baseline-element plug-in
     $$.baselineElements.baseline(function() {
       // Get the current font-size from the HTML tag – the root font-size `rem` –
       // which may change through to some CSS media queries
       return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
     });
+
+
   });
 
 
@@ -218,13 +224,13 @@
    */
   function verticalCenter(el) {
     var parentHeight = el.parent().innerHeight();
-    var elHeight = el.innerHeight();
-    var elWidth = el.innerWidth();
+    var elHeight     = el.innerHeight();
+    var elWidth      = el.innerWidth();
 
     return el.css({
       'position': 'absolute',
       'top': parentHeight/2 - elHeight/2,
-      'left': $(window).outerWidth()/2 - elWidth/2,
+      'left': $$.w.outerWidth()/2 - elWidth/2,
       'paddingTop': 0
     });
   }
@@ -235,21 +241,31 @@
     reallow: function() {
       eventHandling.allow = true;
     },
-    delay: 100
+    delay: 50
   };
 
   // load, resize
-  $(window).on('load resize scroll', function() {
+  $$.w.on('load resize', function() {
     if (eventHandling.allow) {
-      // resize .fullscreen accordingly to screen height
-      var wh = $(window).outerHeight();
+      // resize accordingly to screen height
+      var wh = $$.w.outerHeight();
       $$.fullscreen.height(wh);
+      $$.anim.rain.height(wh*3);
 
+      // trottle the event
+      eventHandling.allow = false;
+      setTimeout(eventHandling.reallow, eventHandling.delay);
+    }
+  });
+
+  // load, resize, scroll
+  $$.w.on('load resize scroll', function() {
+    if (eventHandling.allow) {
       // vertical center
       verticalCenter( $$.header_container );
 
       // sticky logo
-      var fromTop = $(window).scrollTop();
+      var fromTop = $$.w.scrollTop();
       $$.headerSticky.toggleClass('sticking', (fromTop > $$.header_container.position().top));
 
       // trottle the event
@@ -258,4 +274,4 @@
     }
   });
 
-}));
+})); // END iife

@@ -2232,6 +2232,78 @@ nav ul {
   overflow: visible;
   clip: auto; }
 
+body {
+  /* Vertical Rhythm Reset: Grid Lines */
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='28px' height='28px' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' height='28' width='1000' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 28 0 L -1 0 -1 28' fill='none' stroke='rgba(233, 30, 99, 0.5)' stroke-width='1' /%3E%3C/pattern%3E%3C/defs%3E%3Crect width='28px' height='28px' fill='url(%23grid)' /%3E%3C/svg%3E") !important;
+  background-color: transparent !important; }
+  body:before {
+    /* Vertical Rhythm Reset: Grid Detail */
+    content: "Vertical Rhythm Reset\a  --------------------------\a  breakpoint   : root\a  font-size    : 14px\a  line-height  : 28px\a  modular-scale: augmented-fourth" !important;
+    display: table !important;
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    bottom: 1vh !important;
+    right: 1vh !important;
+    padding: 10px 20px !important;
+    background: rgba(233, 30, 99, 0.8) !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-family: "Lucida Console", "Consolas", Monaco, monospace !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    white-space: pre !important; }
+  body *:not(hr) {
+    /* Vertical Rhythm Reset: Grid Highlight */
+    background-color: rgba(233, 30, 99, 0.1) !important; }
+  @media (min-width: 768px) {
+    body {
+      /* Vertical Rhythm Reset: Grid Lines */
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='32px' height='32px' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' height='32' width='1000' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 32 0 L -1 0 -1 32' fill='none' stroke='rgba(128, 0, 128, 0.5)' stroke-width='1' /%3E%3C/pattern%3E%3C/defs%3E%3Crect width='32px' height='32px' fill='url(%23grid)' /%3E%3C/svg%3E") !important;
+      background-color: transparent !important; }
+      body:before {
+        /* Vertical Rhythm Reset: Grid Detail */
+        content: "Vertical Rhythm Reset\a  --------------------------\a  breakpoint   : 768px\a  font-size    : 16px\a  line-height  : 32px\a  modular-scale: augmented-fourth" !important;
+        display: table !important;
+        position: fixed !important;
+        z-index: 2147483647 !important;
+        bottom: 1vh !important;
+        right: 1vh !important;
+        padding: 10px 20px !important;
+        background: rgba(128, 0, 128, 0.8) !important;
+        border-radius: 4px !important;
+        color: #fff !important;
+        font-family: "Lucida Console", "Consolas", Monaco, monospace !important;
+        font-size: 12px !important;
+        line-height: 20px !important;
+        white-space: pre !important; }
+      body *:not(hr) {
+        /* Vertical Rhythm Reset: Grid Highlight */
+        background-color: rgba(128, 0, 128, 0.1) !important; } }
+  @media (min-width: 1024px) {
+    body {
+      /* Vertical Rhythm Reset: Grid Lines */
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='32px' height='32px' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' height='32' width='1000' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 32 0 L -1 0 -1 32' fill='none' stroke='rgba(255, 105, 180, 0.5)' stroke-width='1' /%3E%3C/pattern%3E%3C/defs%3E%3Crect width='32px' height='32px' fill='url(%23grid)' /%3E%3C/svg%3E") !important;
+      background-color: transparent !important; }
+      body:before {
+        /* Vertical Rhythm Reset: Grid Detail */
+        content: "Vertical Rhythm Reset\a  --------------------------\a  breakpoint   : 1024px\a  font-size    : 16px\a  line-height  : 32px\a  modular-scale: augmented-fourth" !important;
+        display: table !important;
+        position: fixed !important;
+        z-index: 2147483647 !important;
+        bottom: 1vh !important;
+        right: 1vh !important;
+        padding: 10px 20px !important;
+        background: rgba(255, 105, 180, 0.8) !important;
+        border-radius: 4px !important;
+        color: #000 !important;
+        font-family: "Lucida Console", "Consolas", Monaco, monospace !important;
+        font-size: 12px !important;
+        line-height: 20px !important;
+        white-space: pre !important; }
+      body *:not(hr) {
+        /* Vertical Rhythm Reset: Grid Highlight */
+        background-color: rgba(255, 105, 180, 0.1) !important; } }
+
 /* Import fonts from Google */
 /* Vertical Rhythm Reset: Base */
 *,
@@ -3260,6 +3332,9 @@ figure img,
       .main aside.r .border, .main figure figcaption .border, figure .main figcaption .border {
         border-left: 1px solid #667881;
         padding-left: 1.00001rem; } }
+
+.anim-rain {
+  background: deeppink; }
 
 .footer {
   padding: remRhythm(5) 0;
