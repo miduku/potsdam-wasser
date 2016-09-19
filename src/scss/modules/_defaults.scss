@@ -35,3 +35,11 @@ nav {
 }
 .l { @extend .span8; }
 .r { @extend .span4; }
+
+.fullscreen {
+  height: 100%;
+}
+
+.animations {
+  transition: all 0.75s;
+}

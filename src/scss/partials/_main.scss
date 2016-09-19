@@ -1,9 +1,4 @@
 .main {
-  .tall {
-    @include vr(
-      $height: 32
-    );
-  }
 
   aside.r {
     @include vr(

@@ -19,8 +19,8 @@ $vr-breakpoints: (
     )
 );
 
-$font-sans:  "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-$font-serif: "Playfair Display", "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$font-sans:  'Noto Sans', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, sans-serif;
+$font-serif: 'Noto Serif', Georgia, 'Times New Roman', serif;
 $font-mono:  Monaco, Menlo, Consolas, "Courier New", monospace;
 
 
@@ -61,6 +61,11 @@ $black:       #000;
 
 
 
+// PW colors
+$color-gewinnung:  #2889B3;
+$color-versorgung: #3873B8;
+$color-reinigung:  #829AAF;
+
 
 // Project color variables
 $text-black:      #333;
@@ -75,16 +80,4 @@ $color-success: $green; // Good color for success etc.
 $color-info:    $blue; // Good color for success etc.
 $color-warning: $orange; // Good color for success etc.
 $color-subtle:  $grey; // Subtle color for subtle text
-
-
-// Your settings for Typesettings :)
-// $text-color:         $text-black;
-// $base-vertical-unit: 6px;
-// $base-line-multi:    5;
-// $base-font-size:     16px;
-// $ms-ratio:           1.414;
-// $paragraph-indent:   false;
-// $paragraph-justify:  false;
-// $load-typesetted:    false;
-// $ms-ratio:           1.2;
 

@@ -29,8 +29,8 @@
      */
 
     var _base = 0,
-        _breakpoints = {},
-        _dynamicBase;
+      _breakpoints = {},
+      _dynamicBase;
 
     /**
      * @name     _setBase
@@ -45,7 +45,7 @@
 
     function _setBase (element) {
       var height = element.offsetHeight,
-          current, old;
+        current, old;
 
       if( _dynamicBase ) {
 
@@ -54,7 +54,7 @@
            * This could be used to get the current grid size for different breakpoints
            * from an actual element property instead of defining those breakpoints in the options.
            */
-          _base = _dynamicBase();
+        _base = _dynamicBase();
 
       }
       else {
@@ -122,7 +122,7 @@
        */
 
       var targets = typeof elements === 'string' ? document.querySelectorAll(elements) : elements,
-          len = targets.length;
+        len = targets.length;
 
       /**
        * Decide whether to set the `_breakpoints` or `_dynamicBase` variables or not.
@@ -132,7 +132,7 @@
       if (typeof options === 'number') {
         _base = parseInt(options, 10);
       } else if (typeof options === 'function') {
-          _dynamicBase = options;
+        _dynamicBase = options;
       } else if (typeof options === 'object') {
         var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
 
@@ -161,7 +161,7 @@
    * otherwise export as a browser global.
    */
 
-  if (typeof $ !== "undefined") {
+  if (typeof $ !== 'undefined') {
     $.extend($.fn, {
       baseline: function (options) {
         return baseline(this, options);
@@ -185,27 +185,77 @@
 
   'use strict';
 
+
+  // cache some jQuery elements
+  var $$ = {
+    header_container: $('.header .container'),
+    headerSticky: $('.header-sticky'),
+    fullscreen: $('.fullscreen'),
+    baselineElements: $('picture > *, .group-img img, .embed-video, figure img, .fullscreen')
+  };
+
+
   // The $ is now locally scoped
-  $(function () {
-  // The DOM is ready!
+  $(function() {
+
+  //** The DOM is ready! **//
 
     /**
      * baseline-element plug-in
      */
-    $('picture > *, .group-img img, .embed-video, figure img, .fullscreen')
-      .baseline(function() {
-        // Get the current font-size from the HTML tag – the root font-size `rem` –
-        // which may change through to some CSS media queries
-        return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
-      });
+    $$.baselineElements.baseline(function() {
+      // Get the current font-size from the HTML tag – the root font-size `rem` –
+      // which may change through to some CSS media queries
+      return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
+    });
   });
 
-  // The rest of your code goes here!
 
-  // resize .fullscreen accordingly to screen height
-  $(window).on('load resize', function() {
-    var wh = $(window).outerHeight();
-    $('.fullscreen').height(wh);
+  //** The rest of your code goes here! **//
+
+  /**
+   * set vertical center for an element
+   */
+  function verticalCenter(el) {
+    var parentHeight = el.parent().innerHeight();
+    var elHeight = el.innerHeight();
+    var elWidth = el.innerWidth();
+
+    return el.css({
+      'position': 'absolute',
+      'top': parentHeight/2 - elHeight/2,
+      'left': $(window).outerWidth()/2 - elWidth/2,
+      'paddingTop': 0
+    });
+  }
+
+  // reduce frequency of handler calls
+  var eventHandling = {
+    allow: true,
+    reallow: function() {
+      eventHandling.allow = true;
+    },
+    delay: 100
+  };
+
+  // load, resize
+  $(window).on('load resize scroll', function() {
+    if (eventHandling.allow) {
+      // resize .fullscreen accordingly to screen height
+      var wh = $(window).outerHeight();
+      $$.fullscreen.height(wh);
+
+      // vertical center
+      verticalCenter( $$.header_container );
+
+      // sticky logo
+      var fromTop = $(window).scrollTop();
+      $$.headerSticky.toggleClass('sticking', (fromTop > $$.header_container.position().top));
+
+      // trottle the event
+      eventHandling.allow = false;
+      setTimeout(eventHandling.reallow, eventHandling.delay);
+    }
   });
 
 }));
