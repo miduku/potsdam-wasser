@@ -1,5 +1,5 @@
 .header {
-  background: hotpink;
+  // background: hotpink;
 
   .container {
     @include vr( $padding-top: 5 );
@@ -43,7 +43,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.25);
+      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
+      z-index: 999;
 
       .logo {
         @include vr(

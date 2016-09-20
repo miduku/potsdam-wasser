@@ -33,8 +33,9 @@ nav {
   @extend .offset2;
   @extend .span8;
 }
-.l { @extend .span8; }
-.r { @extend .span4; }
+.l { @extend .span9; }
+.r { @extend .span3; }
+
 
 .fullscreen {
   height: 100%;

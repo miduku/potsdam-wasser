@@ -186,19 +186,23 @@
     header_container: $('.header .container'),
     headerSticky: $('.header-sticky'),
     fullscreen: $('.fullscreen'),
-    baselineElements: $('picture > *, .group-img img, .embed-video, figure img, .fullscreen'),
+    baselineElements: $('picture > *, .group-img img, .embed, figure img, .fullscreen, .header-article .l img'),
 
-    // animations
+    // for animations
     anim: {
       rain: $('.anim-rain')
     }
   };
 
 
-  // The $ is now locally scoped
-  $(function() {
 
-  //** The DOM is ready! **//
+  $(function() { // The $ is now locally scoped
+
+  //------------------------//
+  //** The DOM is ready!  **//
+
+    // vertical center
+    verticalCenter( $$.header_container );
 
     // baseline-element plug-in
     $$.baselineElements.baseline(function() {
@@ -211,26 +215,87 @@
     /**
      * Magical things with ScrollMagic plugin
      */
-    // init ScrollMagic controller
-    var Controller = new ScrollMagic.Controller({loglevel: 3});
+    var magic = {
+      // init ScrollMagic controller
+      Controller: new ScrollMagic.Controller({loglevel: 3}),
 
-    // build tween
-    var tween = TweenMax.staggerFromTo('.cloud', 2, {left: '100%'}, {left: '25%', ease: Power1.easeInOut}, 1);
+      // build tween
+      tween: {
+        CloudFromRight: TweenMax.staggerFromTo('.cloudFromRight', 2, {left: '100%'}, {left: '0%', ease: Power1.easeInOut}, 1),
+        CloudFromLeft: TweenMax.staggerFromTo('.cloudFromLeft', 2, {right: '100%'}, {right: '0%', ease: Power1.easeInOut}, 1)
+      },
 
-    // build scene
-    var scene = new ScrollMagic.Scene({
-      triggerElement: '.anim-rain',
-      triggerHook: 1,
-      duration: $$.anim.rain.height()/3
-    });
+      // build scene
+      scene: {
+        CloudsFromRight: new ScrollMagic.Scene({
+          triggerElement: '.anim-rain',
+          triggerHook: 1,
+          duration: $$.anim.rain.innerHeight()/3
+        }),
+        CloudsFromLeft: new ScrollMagic.Scene({
+          triggerElement: '.anim-rain',
+          triggerHook: 1,
+          duration: $$.anim.rain.innerHeight()/3
+        })
+      }
+    };
 
-    scene.addTo(Controller)
-      .setTween(tween)
+    // put it all together
+    magic.scene.CloudsFromRight
+      .addTo(magic.Controller)
+      .setTween(magic.tween.CloudFromRight)
       .addIndicators({name: 'staggering'});
+
+    magic.scene.CloudsFromLeft
+      .addTo(magic.Controller)
+      .setTween(magic.tween.CloudFromLeft)
+      .addIndicators({name: 'staggering2'});
+
   });
 
 
-  //** The rest of your code goes here! **//
+  //---------------------------------------//
+  //** The rest of your code goes here!  **//
+
+  // reduce frequency of handler calls
+  var eventHandling = {
+    allow: true,
+    reallow: function() {
+      eventHandling.allow = true;
+    },
+    delay: 50
+  };
+
+
+  // load, resize
+  $$.w.on('load resize', function() {
+    // resize accordingly to screen height
+    var wh = $$.w.outerHeight();
+    $$.fullscreen.height(wh);
+    $$.anim.rain.height(wh*3);
+  });
+
+
+  // load, resize, scroll
+  $$.w.on('load scroll resize', function() {
+    if (eventHandling.allow) {
+
+      // vertical center
+      verticalCenter( $$.header_container );
+
+      // sticky logo
+      var fromTop = $$.w.scrollTop();
+      $$.headerSticky.toggleClass('sticking', (fromTop > $$.header_container.position().top));
+
+      // trottle the event
+      eventHandling.allow = false;
+      setTimeout(eventHandling.reallow, eventHandling.delay);
+    } // END event handling
+  });
+
+
+
+
 
   /**
    * set vertical center for an element
@@ -248,44 +313,5 @@
     });
   }
 
-  // reduce frequency of handler calls
-  var eventHandling = {
-    allow: true,
-    reallow: function() {
-      eventHandling.allow = true;
-    },
-    delay: 50
-  };
-
-  // load, resize
-  $$.w.on('load resize', function() {
-    if (eventHandling.allow) {
-      // resize accordingly to screen height
-      var wh = $$.w.outerHeight();
-      $$.fullscreen.height(wh);
-      $$.anim.rain.height(wh*3);
-
-      // trottle the event
-      eventHandling.allow = false;
-      setTimeout(eventHandling.reallow, eventHandling.delay);
-    }
-  });
-
-  // load, resize, scroll
-  $$.w.on('load scroll resize', function() {
-    if (eventHandling.allow) {
-
-      // vertical center
-      verticalCenter( $$.header_container );
-
-      // sticky logo
-      var fromTop = $$.w.scrollTop();
-      $$.headerSticky.toggleClass('sticking', (fromTop > $$.header_container.position().top));
-
-      // trottle the event
-      eventHandling.allow = false;
-      setTimeout(eventHandling.reallow, eventHandling.delay);
-    }
-  });
 
 }(jQuery, window, document)); // END iife

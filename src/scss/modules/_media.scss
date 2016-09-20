@@ -18,7 +18,7 @@ object {
 }
 
 // Responsive Fluid Layout for Videos
-.embed-video {
+.embed {
   display: inline-block;
   overflow: hidden;
   padding-top: 0;
@@ -34,33 +34,49 @@ object {
   }
 }
 
-.video-ratio {
+
+.media-ratio {
   &-16by9{
     @include maintain-ratio(16 9);
-    @extend .embed-video;
+    @extend .embed;
   }
 
   &-21by9{
     @include maintain-ratio(21 9);
-    @extend .embed-video;
+    @extend .embed;
   }
 
   &-4by3{
-    @include maintain-ratio(4 3);
-    @extend .embed-video;
+    @include maintain-ratio(1 1.25);
+    @extend .embed;
+
+    @include mobilefirst($bp-tablet) {
+      @include maintain-ratio(4 3);
+    }
   }
 }
 
 figure {
-  margin: 0;
+  @include vr( $margin: 0 0 2 0 );
   @extend .group;
 
   img {
-    @extend .span8;
+    @extend .l;
   }
 
   figcaption {
-    @extend .span4;
+    @extend .r;
     @extend aside.r;
+
+    h4,
+    h5,
+    h6 {
+      margin-top: 0;
+    }
   }
 }
+
+// .chart #header{
+//   display: none !important;
+// }
+

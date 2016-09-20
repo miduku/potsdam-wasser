@@ -5,9 +5,16 @@
 
   .cloud {
     top: 0;
-    left: 25%;
-    height: 0;
-    // display: inline-block;
-    position: relative;
+    height: inherit;
+    width: 100%;
+    position: absolute;
+
+    + .cloudFromRight {
+      text-align: left;
+    }
+
+    + .cloudFromLeft {
+      text-align: right;
+    }
   }
 }

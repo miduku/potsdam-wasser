@@ -102,7 +102,7 @@ h5 {
 h6 {
 }
 
-h5,
+// h5,
 h6 {
   @include vr(
     $margin-bottom: 0
@@ -110,7 +110,8 @@ h6 {
 }
 
 .l,
-.m {
+.m,
+.header-article .r {
   p,
   h1,
   h2,
