@@ -27,7 +27,9 @@
   //** The DOM is ready!  **//
 
     // vertical center
-    verticalCenter( $$.header_container );
+    // $$.anim.rain.height($$.w.outerHeight()*3);
+    // verticalCenter( $$.header_container );
+    $(window).trigger('resize');
 
     // baseline-element plug-in
     $$.baselineElements.baseline(function() {
@@ -62,19 +64,29 @@
           triggerHook: 1,
           duration: $$.anim.rain.innerHeight()/3
         })
+      },
+
+      // put it all together
+      cast: {
+        CloudsFromRight: function() {
+          return magic.scene.CloudsFromRight
+            .addTo(magic.Controller)
+            .setTween(magic.tween.CloudFromRight)
+            .addIndicators({name: 'staggering'});
+        },
+        CloudsFromLeft: function() {
+          return magic.scene.CloudsFromLeft
+            .addTo(magic.Controller)
+            .setTween(magic.tween.CloudFromLeft)
+            .addIndicators({name: 'staggering2'});
+        }
       }
+
     };
 
-    // put it all together
-    magic.scene.CloudsFromRight
-      .addTo(magic.Controller)
-      .setTween(magic.tween.CloudFromRight)
-      .addIndicators({name: 'staggering'});
+    magic.cast.CloudsFromRight();
+    magic.cast.CloudsFromLeft();
 
-    magic.scene.CloudsFromLeft
-      .addTo(magic.Controller)
-      .setTween(magic.tween.CloudFromLeft)
-      .addIndicators({name: 'staggering2'});
 
   });
 
@@ -93,20 +105,20 @@
 
 
   // load, resize
-  $$.w.on('load resize', function() {
+  $$.w.on('resize', function() {
     // resize accordingly to screen height
     var wh = $$.w.outerHeight();
     $$.fullscreen.height(wh);
     $$.anim.rain.height(wh*3);
+
+    // vertical center
+    verticalCenter( $$.header_container );
   });
 
 
   // load, resize, scroll
   $$.w.on('load scroll resize', function() {
     if (eventHandling.allow) {
-
-      // vertical center
-      verticalCenter( $$.header_container );
 
       // sticky logo
       var fromTop = $$.w.scrollTop();
@@ -137,6 +149,5 @@
       'paddingTop': 0
     });
   }
-
 
 }(jQuery, window, document)); // END iife
