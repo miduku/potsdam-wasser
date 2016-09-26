@@ -102,14 +102,12 @@
             .setTween(magic.tween.CloudFromLeft)
             .addIndicators({name: 'staggering2'});
         },
-        Flood: function(elem) {
+        Flood: function(elem, hook) {
           return elem
             .each(function(index, el) {
-              console.log($(this).outerWidth());
-
               new ScrollMagic.Scene({
                 triggerElement: el,
-                triggerHook: .8,
+                triggerHook: hook,
                 duration: $(this).outerHeight()
               })
               .addTo(magic.Controller)
@@ -117,7 +115,7 @@
               .on('progress', function(event) {
                 $(el)
                   .children('.circle')
-                  .css({transform: 'scale(' + event.progress.toFixed(2) + ')'});
+                  .css({transform: 'scale(' + event.progress.toFixed(3) + ')'});
               });
             });
         }
@@ -127,7 +125,7 @@
     magic.cast.CloudsFromRight();
     magic.cast.CloudsFromLeft();
 
-    magic.cast.Flood( $$.headerArticle );
+    magic.cast.Flood( $$.headerArticle, .8 );
   });
 
 
