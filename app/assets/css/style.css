@@ -2664,6 +2664,42 @@ h6 {
 .header-article figcaption h6 {
   margin-right: 2.00001rem;
   margin-left: 2.00001rem; }
+  .l p:first-child, figure img p:first-child,
+  .l h1:first-child, figure img h1:first-child,
+  .l h2:first-child, figure img h2:first-child,
+  .l h3:first-child, figure img h3:first-child,
+  .l h4:first-child, figure img h4:first-child,
+  .l h5:first-child, figure img h5:first-child,
+  .l h6:first-child, figure img h6:first-child,
+  .m p:first-child,
+  .m h1:first-child,
+  .m h2:first-child,
+  .m h3:first-child,
+  .m h4:first-child,
+  .m h5:first-child,
+  .m h6:first-child,
+  .header-article .r p:first-child,
+  .header-article figure figcaption p:first-child, figure
+  .header-article figcaption p:first-child,
+  .header-article .r h1:first-child,
+  .header-article figure figcaption h1:first-child, figure
+  .header-article figcaption h1:first-child,
+  .header-article .r h2:first-child,
+  .header-article figure figcaption h2:first-child, figure
+  .header-article figcaption h2:first-child,
+  .header-article .r h3:first-child,
+  .header-article figure figcaption h3:first-child, figure
+  .header-article figcaption h3:first-child,
+  .header-article .r h4:first-child,
+  .header-article figure figcaption h4:first-child, figure
+  .header-article figcaption h4:first-child,
+  .header-article .r h5:first-child,
+  .header-article figure figcaption h5:first-child, figure
+  .header-article figcaption h5:first-child,
+  .header-article .r h6:first-child,
+  .header-article figure figcaption h6:first-child, figure
+  .header-article figcaption h6:first-child {
+    margin-top: 0; }
 
 small,
 .font-small {
@@ -3305,6 +3341,10 @@ figure .main .header-article figcaption,
         border-left: 1px solid #667881;
         padding-left: 1.00001rem; } }
 
+.main .container {
+  position: relative;
+  z-index: 1; }
+
 .main .header-article {
   position: relative;
   width: 100%;
@@ -3313,9 +3353,6 @@ figure .main .header-article figcaption,
   overflow: hidden;
   padding-top: 4.00002rem;
   padding-bottom: 2.00001rem; }
-  .main .header-article .container {
-    position: relative;
-    z-index: 1; }
   .main .header-article .circle {
     position: absolute;
     top: 0;
@@ -3348,9 +3385,9 @@ figure .main .header-article figcaption,
       margin-top: 0px; }
 
 .main .section-gewinnung,
-.main .section-reinigung,
-.main .section-versorgung {
-  padding-top: 4.00002rem; }
+.main .section-versorgung,
+.main .section-reinigung {
+  padding-bottom: 4.00002rem; }
 
 .main .section-gewinnung .header-article .circle {
   background: #2889B3; }
@@ -3360,6 +3397,27 @@ figure .main .header-article figcaption,
 
 .main .section-reinigung .header-article .circle {
   background: #829AAF; }
+
+.main .section article .content {
+  position: relative; }
+  .main .section article .content > .container {
+    padding-top: 4.00002rem; }
+
+.main .stream {
+  box-sizing: border-box !important;
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  padding-top: 3.00002rem; }
+  .main .stream .water {
+    display: block;
+    width: 100%;
+    height: 0;
+    background: dodgerblue; }
 
 .anim-rain {
   background: cornflowerblue;
