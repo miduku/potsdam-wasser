@@ -1,30 +1,101 @@
-.nav {
+$this-size: 1.5;
 
-  $height-nav: 1.5;
-  background: #fff;
-  @extend .clear;
+.nav-main {
+  list-style: none;
+  text-align: center;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  @include vr(
+    $margin-top: 2,
+    $margin-bottom: 2
+  );
+  // background-color: lawngreen;
 
-  .logo {
-    display: block;
-    float: left;
-    @include vr(
-      $line-height: $height-nav
-    );
+  ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-around;
   }
 
+  li {
+    flex: 0 0 auto;
+
+    a {
+      display: block;
+      // background-color: palegreen;
+      text-decoration: none;
+      text-align: center;
+      height: auto;
+      @extend .animations;
+      @include vr(
+        $line-height: $this-size
+      );
+
+      &:before {
+        content: '';
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        // background-color: pink;
+        background-size: 55%;
+        border-radius: 100%;
+        display: block;
+        width: $this-size*2.5 + rem;
+        height: $this-size*2.5 + rem;
+        margin: auto;
+        @extend .animations;
+        // @include vr(
+        //   $margin: 0 2
+        // );
+      }
+
+      em {
+        border: none;
+        font-style: normal;
+        font-weight: bold;
+        @extend .animations;
+      }
+    }
+  }
+
+  .nav-gewinnung a:before {
+    background-image: url(../img/icon-gewinnung-active-32.svg);
+    background-color: $color-gewinnung;
+  }
+
+  .nav-versorgung a:before {
+    background-image: url(../img/icon-versorgung-active-32.svg);
+    background-color: $color-versorgung;
+  }
+
+  .nav-reinigung a:before {
+    background-image: url(../img/icon-reinigung-active-32.svg);
+    background-color: $color-reinigung;
+  }
+}
+
+.sticking {
   .nav-main {
-    list-style: none;
-    text-align: center;
-    float: right;
+    width: 66%;
+    @include vr(
+      $margin-top: .25,
+      $margin-bottom: .25
+    );
 
-    li {
-      display: inline-block;
+    ul {
+      justify-content: space-between;
+    }
 
-      a {
-        @include vr(
-          $line-height: $height-nav,
-          $padding: 0 .25
-        );
+    a,
+    a:before {
+      width: $this-size*1.5 + rem;
+      height: $this-size*1.5 + rem;
+    }
+
+    a {
+      em {
+        font-size: 0;
       }
     }
   }

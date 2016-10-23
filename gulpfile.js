@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
-  // sass = require('gulp-ruby-sass'),
   sass = require('gulp-sass'),
-  browserSync = require('browser-sync'),
+  browserSync = require('browser-sync').create(),
   autoprefixer = require('gulp-autoprefixer'),
   uglify = require('gulp-uglify'),
   eslint = require('gulp-eslint'),
@@ -71,19 +70,19 @@ gulp.task('css', function () {
         includePaths: [
           config.dir.src + '/scss',
           config.dir.bowerComp + '/vertical-rhythm-reset/dist',
-          config.dir.bowerComp + '/font-awesome/scss',
-          config.dir.bowerComp + '/normalize-scss/sass'
+          config.dir.bowerComp + '/font-awesome/scss'/*,
+          config.dir.bowerComp + '/normalize-scss/sass'*/
         ]
       }).on('error', notify.onError(function (error) {
         return 'Error: ' + error.message;
       })))
-      .pipe(autoprefixer('last 4 version'))
+      // .pipe(autoprefixer('last 4 version'))
       .pipe(gulp.dest(config.dir.app + '/css'))
       .pipe(cssnano())
       .pipe(rename({ suffix: '.min' }))
       .pipe(header(banner, { package : package }))
       .pipe(gulp.dest(config.dir.app + '/css'))
-      .pipe(browserSync.reload({stream:true}));
+      .pipe(browserSync.stream({once: true}));
 });
 
 gulp.task('js',function(){
@@ -107,22 +106,24 @@ gulp.task('js',function(){
     .pipe(header(banner, { package : package }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(config.dir.app + '/js'))
-    .pipe(browserSync.reload({stream:true, once: true}));
+    .pipe(browserSync.stream({once: true}));
 });
 
-gulp.task('browser-sync', function() {
-  browserSync.init(null, {
+gulp.task('serve', ['css', 'js'], function() {
+
+    browserSync.init({
       server: {
-        baseDir: 'app'
+        baseDir: './app'
       }
     });
-});
-gulp.task('bs-reload', function () {
-  browserSync.reload();
+
+    gulp.watch(config.dir.src + '/scss/**/*.scss', ['css']);
+    gulp.watch(config.dir.src + '/js/*.js', ['js']);
+    gulp.watch('app/*.html').on('change', browserSync.reload);
 });
 
-gulp.task('default', ['bower', 'icons', 'comps', 'css', 'js', 'browser-sync'], function () {
-  gulp.watch(config.dir.src + '/scss/**/*.scss', ['css']);
-  gulp.watch(config.dir.src + '/js/*.js', ['js']);
-  gulp.watch('app/*.html', ['bs-reload']);
-});
+// gulp.task('bs-reload', function () {
+//   browserSync.reload();
+// });
+
+gulp.task('default', ['bower', 'icons', 'comps', 'serve']);

@@ -28,7 +28,7 @@ body,
 button,
 input,
 textarea {
-  font-family: $font-sans;
+  font-family: $font-serif;
   font-style: normal;
   font-weight: 400;
   color: $text-black;
@@ -58,7 +58,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-serif;
+  font-family: $font-sans;
   @include vr(
     $padding: 0,
     $margin-top: 2
