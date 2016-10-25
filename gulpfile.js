@@ -82,7 +82,7 @@ gulp.task('css', function () {
       .pipe(rename({ suffix: '.min' }))
       .pipe(header(banner, { package : package }))
       .pipe(gulp.dest(config.dir.app + '/css'))
-      .pipe(browserSync.stream({once: true}));
+      .pipe(browserSync.stream());
 });
 
 gulp.task('js',function(){
