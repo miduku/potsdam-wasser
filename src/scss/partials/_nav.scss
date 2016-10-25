@@ -6,6 +6,8 @@ $this-size: 1.5;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
+  z-index: 99;
+  position: relative;
   @include vr(
     $margin-top: 2,
     $margin-bottom: 2
@@ -28,7 +30,7 @@ $this-size: 1.5;
       text-decoration: none;
       text-align: center;
       height: auto;
-      @extend .animations;
+      @extend .animations-quick;
       @include vr(
         $line-height: $this-size
       );
@@ -44,7 +46,7 @@ $this-size: 1.5;
         width: $this-size*2.5 + rem;
         height: $this-size*2.5 + rem;
         margin: auto;
-        @extend .animations;
+        @extend .animations-quick;
         // @include vr(
         //   $margin: 0 2
         // );
@@ -77,11 +79,15 @@ $this-size: 1.5;
 
 .sticking {
   .nav-main {
-    width: 66%;
+    max-width: 66%;
     @include vr(
       $margin-top: .25,
       $margin-bottom: .25
     );
+
+    @include mobilefirst($bp-tablet) {
+      max-width: 50%;
+    }
 
     ul {
       justify-content: space-between;

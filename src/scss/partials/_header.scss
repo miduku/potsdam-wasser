@@ -3,7 +3,7 @@
 
   .container {
     @include vr( $padding-top: 5 );
-    @extend .animations;
+    @extend .animations-quick;
     // background: lightpink;
   }
 
@@ -27,6 +27,37 @@
         a {
           text-decoration: none;
           display: block;
+        }
+      }
+
+      .header-stream {
+        $thisHeight: 4;
+        display: none;
+        position: absolute;
+        z-index: 9;
+        width: 100%;
+        top: 50%;
+        margin-top: -($thisHeight / 2);
+
+        > div {
+          margin: auto;
+          max-width: 50%;
+          @include vr(
+            $padding: 0 .5
+          );
+
+          > div {
+            display: block;
+            float: left;
+            width: 100%;
+            max-width: (100 / 2) + %;
+
+            > div {
+              height: $thisHeight + px;
+              display: block;
+              // background: darkred;
+            }
+          }
         }
       }
     }
@@ -55,6 +86,12 @@
         );
       }
 
+      .header-stream {
+        display: block;
+        // background: greenyellow;
+        width: 100%;
+        transform: translateY(-50%);
+      }
     }
 }
 

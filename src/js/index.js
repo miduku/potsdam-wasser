@@ -14,6 +14,7 @@
     header_container: $('.header .container'),
     headerSticky: $('.header-sticky'),
     headerArticle: $('.header-article'),
+    headerStream: $('.header-stream'),
     // sectionGewinnung_headerArticle: $('.section-gewinnung .header-article'),
     sectionReinigung_headerArticle: $('.section-reinigung .header-article'),
     sectionVersorgung_headerArticle: $('.section-versorgung .header-article'),
@@ -30,7 +31,7 @@
   var stream = {
     offsetLeft: 0,
     offsetTop: 0.8,
-    width: 6,
+    width: 10,
     colors: {
       gewinnung: [40, 137, 179],
       versorgung: [56, 115, 184],
@@ -43,6 +44,8 @@
 
   //------------------------//
   //** The DOM is ready!  **//
+
+    $$.w.scrollTop(0);
 
     // create flood effect elements
     $$.headerArticle.append('<span class="circle"></span>');
@@ -60,6 +63,20 @@
         marginLeft: -(stream.width/2) + 'px'
       });
 
+    // smooth scroll for nav-main
+    $('.nav-main a[href^="#"]').bind('click.smoothscroll',function (e) {
+      e.preventDefault();
+
+      var target = this.hash,
+          $target = $(target);
+
+      $('html, body').stop().animate( {
+        'scrollTop': $target.offset().top-64
+      }, 900, 'swing', function () {
+        window.location.hash = target;
+      });
+    });
+
     /**
      * baseline-element plug-in
      */
@@ -74,13 +91,15 @@
      */
     var magic = {
       // init ScrollMagic controller
-      Controller: new ScrollMagic.Controller({loglevel: 3}),
+      Controller: new ScrollMagic.Controller(),
+
 
       // build tween
       tween: {
         CloudFromRight: TweenMax.staggerFromTo('.cloudFromRight', 2, {left: '100%'}, {left: '0%', ease: Power1.easeInOut}, 1),
         CloudFromLeft: TweenMax.staggerFromTo('.cloudFromLeft', 2, {right: '100%'}, {right: '0%', ease: Power1.easeInOut}, 1)
       },
+
 
       // build scene
       scene: {
@@ -89,12 +108,14 @@
           triggerHook: 1,
           duration: $$.anim.rain.innerHeight()/3
         }),
+
         CloudsFromLeft: new ScrollMagic.Scene({
           triggerElement: '.anim-rain',
           triggerHook: 1,
           duration: $$.anim.rain.innerHeight()/3
         })
       },
+
 
       // put it all together
       cast: {
@@ -104,12 +125,14 @@
             .setTween(magic.tween.CloudFromRight)
             .addIndicators({name: 'staggering'});
         },
+
         CloudsFromLeft: function() {
           return magic.scene.CloudsFromLeft
             .addTo(magic.Controller)
             .setTween(magic.tween.CloudFromLeft)
             .addIndicators({name: 'staggering2'});
         },
+
         Flood: function($el) {
           return $el.each(function(index, el) {
             new ScrollMagic.Scene({
@@ -120,11 +143,11 @@
             .addTo(magic.Controller)
             .addIndicators({name: 'flood'+index})
             .on('progress end', function(event) {
-              console.log('stream'+index, event.state, event.type);
-              console.log('stream'+index, event.progress.toFixed(3));
+              // console.log('stream'+index, event.state, event.type);
+              // console.log('stream'+index, event.progress.toFixed(3));
 
               if (event.state === 'AFTER') {/////
-                console.log('after');
+                // console.log('after');
 
                 $(el).children('.circle')
                   .css({transform: 'scale(1)'});
@@ -135,10 +158,12 @@
             });
           });
         },
+
         Stream: function($el) {
+          var streamDurationNextElements = [$$.sectionVersorgung_headerArticle, $$.sectionReinigung_headerArticle, $$.footer];
+
           return $el.each(function(index, el) {
-            var setDurationToElement = [$$.sectionVersorgung_headerArticle, $$.sectionReinigung_headerArticle, $$.footer];
-            var maxHeight = setStreamDuration($(el).parent(), setDurationToElement[index]);
+            var maxHeight = setStreamDuration($(el).parent(), streamDurationNextElements[index]);
             var duration = maxHeight - $$.w.outerHeight();
 
             // colors
@@ -172,17 +197,32 @@
                 Math.round( color[index][2] + rgbDiff[2] * progress )
               ];
 
+              // stream
               $(el).children('.water').css({
                 backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
                 height: progress * 100 + '%'
               });
+
+              // header-stream
+              if (index < 2) {
+                $$.headerStream
+                  .children()
+                  .children()
+                  .eq(index)
+                  .children()
+                  .css({
+                    // backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
+                    background: 'linear-gradient(to right, rgb(' + color[index][0] + ',' + color[index][1] + ',' + color[index][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)',
+                    width: progress * 100 + '%'
+                  });
+              }
             });
 
 
             // load resize
             $$.w.on('load resize', function() {
               $(el).css({ maxHeight: maxHeight + 'px' });
-              scene.duration(setStreamDuration($(el).parent(), setDurationToElement[index]) - $$.w.outerHeight());
+              scene.duration(setStreamDuration($(el).parent(), streamDurationNextElements[index]) - $$.w.outerHeight());
               scene.refresh();
             });
           });
@@ -224,7 +264,7 @@
     });
 
 
-    // vertical center
+    // vertical center header container
     verticalCenter( $$.header_container );
 
     // update flood size
@@ -262,6 +302,10 @@
       setTimeout(eventHandling.reallow, eventHandling.delay);
     } // END event handling
   });
+
+
+
+
 
 
   /**
