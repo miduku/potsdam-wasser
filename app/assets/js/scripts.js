@@ -4,7 +4,7 @@
  * http://miduku.github.io/fastplate/example.html
  * @author Dustin Kummer
  * @version 0.0.1
- * Copyright 2016. MIT licensed.
+ * Copyright 2017. MIT licensed.
  */
 /*!
 * Baseline.js 1.1
@@ -29,8 +29,8 @@
      */
 
     var _base = 0,
-      _breakpoints = {},
-      _dynamicBase;
+        _breakpoints = {},
+        _dynamicBase;
 
     /**
      * @name     _setBase
@@ -45,7 +45,7 @@
 
     function _setBase (element) {
       var height = element.offsetHeight,
-        current, old;
+          current, old;
 
       if( _dynamicBase ) {
 
@@ -54,7 +54,7 @@
            * This could be used to get the current grid size for different breakpoints
            * from an actual element property instead of defining those breakpoints in the options.
            */
-        _base = _dynamicBase();
+          _base = _dynamicBase();
 
       }
       else {
@@ -122,7 +122,7 @@
        */
 
       var targets = typeof elements === 'string' ? document.querySelectorAll(elements) : elements,
-        len = targets.length;
+          len = targets.length;
 
       /**
        * Decide whether to set the `_breakpoints` or `_dynamicBase` variables or not.
@@ -132,7 +132,7 @@
       if (typeof options === 'number') {
         _base = parseInt(options, 10);
       } else if (typeof options === 'function') {
-        _dynamicBase = options;
+          _dynamicBase = options;
       } else if (typeof options === 'object') {
         var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
 
@@ -161,7 +161,7 @@
    * otherwise export as a browser global.
    */
 
-  if (typeof $ !== 'undefined') {
+  if (typeof $ !== "undefined") {
     $.extend($.fn, {
       baseline: function (options) {
         return baseline(this, options);
@@ -217,8 +217,8 @@
 
   $(function() { // The $ is now locally scoped
 
-  //------------------------//
-  //** The DOM is ready!  **//
+    //------------------------//
+    //** The DOM is ready!  **//
 
     $$.w.scrollTop(0);
 
@@ -233,21 +233,21 @@
       .children('.stream')
       .css({
         position: 'absolute',
-        left: stream.offsetLeft*100 + '%',
+        left: stream.offsetLeft * 100 + '%',
         width: stream.width + 'px',
-        marginLeft: -(stream.width/2) + 'px'
+        marginLeft: -(stream.width / 2) + 'px'
       });
 
     // smooth scroll for nav-main
-    $('.nav-main a[href^="#"]').bind('click.smoothscroll',function (e) {
+    $('.nav-main a[href^="#"]').bind('click.smoothscroll', function(e) {
       e.preventDefault();
 
       var target = this.hash,
         $target = $(target);
 
-      $('html, body').stop().animate( {
-        'scrollTop': $target.offset().top-64
-      }, 900, 'swing', function () {
+      $('html, body').stop().animate({
+        'scrollTop': $target.offset().top - 64
+      }, 900, 'swing', function() {
         window.location.hash = target;
       });
     });
@@ -271,24 +271,26 @@
 
       // build tween
       tween: {
-        CloudFromRight: TweenMax.staggerFromTo('.cloudFromRight', 2, {left: '100%'}, {left: '0%', ease: Power1.easeInOut}, 1),
-        CloudFromLeft: TweenMax.staggerFromTo('.cloudFromLeft', 2, {right: '100%'}, {right: '0%', ease: Power1.easeInOut}, 1)
+        CloudFromRight: TweenMax.staggerFromTo('.cloudFromRight', 2, { left: '100%' }, { left: '0%', ease: Power1.easeInOut }, 1),
+        CloudFromLeft: TweenMax.staggerFromTo('.cloudFromLeft', 2, { right: '100%' }, { right: '0%', ease: Power1.easeInOut }, 1)
       },
 
 
       // build scene
       scene: {
-        CloudsFromRight: new ScrollMagic.Scene({
-          triggerElement: '.anim-rain',
-          triggerHook: 1,
-          duration: $$.anim.rain.innerHeight()/3
-        }),
+        CloudsFromRight: new ScrollMagic
+          .Scene({
+            triggerElement: '.anim-rain',
+            triggerHook: 1,
+            duration: $$.anim.rain.innerHeight() / 3
+          }),
 
-        CloudsFromLeft: new ScrollMagic.Scene({
-          triggerElement: '.anim-rain',
-          triggerHook: 1,
-          duration: $$.anim.rain.innerHeight()/3
-        })
+        CloudsFromLeft: new ScrollMagic
+          .Scene({
+            triggerElement: '.anim-rain',
+            triggerHook: 1,
+            duration: $$.anim.rain.innerHeight() / 3
+          })
       },
 
 
@@ -298,40 +300,44 @@
           return magic.scene.CloudsFromRight
             .addTo(magic.Controller)
             .setTween(magic.tween.CloudFromRight)
-            .addIndicators({name: 'staggering'});
+            .addIndicators({ name: 'staggering' });
         },
 
         CloudsFromLeft: function() {
           return magic.scene.CloudsFromLeft
             .addTo(magic.Controller)
             .setTween(magic.tween.CloudFromLeft)
-            .addIndicators({name: 'staggering2'});
+            .addIndicators({ name: 'staggering2' });
         },
 
         Flood: function($el) {
-          return $el.each(function(index, el) {
-            new ScrollMagic.Scene({
-              triggerElement: el,
-              triggerHook: stream.offsetTop,
-              duration: $(el).outerHeight()
-            })
-            .addTo(magic.Controller)
-            .addIndicators({name: 'flood'+index})
-            .on('progress end', function(event) {
-              // console.log('stream'+index, event.state, event.type);
-              // console.log('stream'+index, event.progress.toFixed(3));
+          return $el
+            .each(function(index, el) {
+              new ScrollMagic
+                .Scene({
+                  triggerElement: el,
+                  triggerHook: stream.offsetTop,
+                  duration: $(el).outerHeight()
+                })
+                .addTo(magic.Controller)
+                .addIndicators({ name: 'flood' + index })
+                .on('progress end', function(event) {
+                  // console.log('stream'+index, event.state, event.type);
+                  // console.log('stream'+index, event.progress.toFixed(3));
 
-              if (event.state === 'AFTER') {/////
-                // console.log('after');
+                  if (event.state === 'AFTER') { /////
+                    // console.log('after');
 
-                $(el).children('.circle')
-                  .css({transform: 'scale(1)'});
-              } else {
-                $(el).children('.circle')
-                  .css({transform: 'scale(' + event.progress.toFixed(3) + ')'});
-              }
+                    $(el)
+                      .children('.circle')
+                      .css({ transform: 'scale(1)' });
+                  } else {
+                    $(el)
+                      .children('.circle')
+                      .css({ transform: 'scale(' + event.progress.toFixed(3) + ')' });
+                  }
+                });
             });
-          });
         },
 
         Stream: function($el) {
@@ -349,49 +355,49 @@
               stream.colors.gewinnung
             ];
             var rgbDiff = [
-              color[index+1][0] - color[index][0],
-              color[index+1][1] - color[index][1],
-              color[index+1][2] - color[index][2]
+              color[index + 1][0] - color[index][0],
+              color[index + 1][1] - color[index][1],
+              color[index + 1][2] - color[index][2]
             ];
 
             // magic
             var scene = new ScrollMagic.Scene({
-              triggerElement: el,
-              triggerHook: 0,
-              duration: duration
-            })
-            .addTo(magic.Controller)
-            .setPin(el)
-            .addIndicators({name: 'Stream'+index})
-            .on('progress', function(event) {
-              var progress = event.progress.toFixed(3);
+                triggerElement: el,
+                triggerHook: 0,
+                duration: duration
+              })
+              .addTo(magic.Controller)
+              .setPin(el)
+              .addIndicators({ name: 'Stream' + index })
+              .on('progress', function(event) {
+                var progress = event.progress.toFixed(3);
 
-              var indicatorColor = [
-                Math.round( color[index][0] + rgbDiff[0] * progress ),
-                Math.round( color[index][1] + rgbDiff[1] * progress ),
-                Math.round( color[index][2] + rgbDiff[2] * progress )
-              ];
+                var indicatorColor = [
+                  Math.round(color[index][0] + rgbDiff[0] * progress),
+                  Math.round(color[index][1] + rgbDiff[1] * progress),
+                  Math.round(color[index][2] + rgbDiff[2] * progress)
+                ];
 
-              // stream
-              $(el).children('.water').css({
-                backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
-                height: progress * 100 + '%'
+                // stream
+                $(el).children('.water').css({
+                  backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
+                  height: progress * 100 + '%'
+                });
+
+                // header-stream
+                if (index < 2) {
+                  $$.headerStream
+                    .children()
+                    .children()
+                    .eq(index)
+                    .children()
+                    .css({
+                      // backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
+                      background: 'linear-gradient(to right, rgb(' + color[index][0] + ',' + color[index][1] + ',' + color[index][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)',
+                      width: progress * 100 + '%'
+                    });
+                }
               });
-
-              // header-stream
-              if (index < 2) {
-                $$.headerStream
-                  .children()
-                  .children()
-                  .eq(index)
-                  .children()
-                  .css({
-                    // backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
-                    background: 'linear-gradient(to right, rgb(' + color[index][0] + ',' + color[index][1] + ',' + color[index][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)',
-                    width: progress * 100 + '%'
-                  });
-              }
-            });
 
 
             // load resize
@@ -409,8 +415,8 @@
     magic.cast.CloudsFromRight();
     magic.cast.CloudsFromLeft();
 
-    magic.cast.Flood( $$.headerArticle );
-    magic.cast.Stream( $('.stream') );
+    magic.cast.Flood($$.headerArticle);
+    magic.cast.Stream($('.stream'));
   });
 
 
@@ -432,7 +438,7 @@
     // resize accordingly to screen height
     var $windowHeight = $$.w.outerHeight();
     $$.fullscreen.outerHeight($windowHeight);
-    $$.anim.rain.outerHeight($windowHeight*3);
+    $$.anim.rain.outerHeight($windowHeight * 3);
     // $('.stream').outerHeight($windowHeight - $(this).siblings('.header-article').outerHeight());
     $('.stream').css({
       height: $windowHeight + 'px'
@@ -440,13 +446,13 @@
 
 
     // vertical center header container
-    verticalCenter( $$.header_container );
+    verticalCenter($$.header_container);
 
     // update flood size
     $$.headerArticle.each(function() {
       var width = $(this).innerWidth();
       var height = $(this).innerHeight();
-      var p1 = [width*stream.offsetLeft, 0];
+      var p1 = [width * stream.offsetLeft, 0];
 
       var padding = fillSquare(p1, width, height);
 
@@ -456,7 +462,7 @@
           padding: padding,
           marginLeft: -padding,
           marginTop: -padding,
-          left: stream.offsetLeft*100 + '%'
+          left: stream.offsetLeft * 100 + '%'
         });
     });
 
@@ -488,13 +494,13 @@
    */
   function verticalCenter($el) {
     var parentHeight = $el.parent().innerHeight();
-    var elHeight     = $el.innerHeight();
-    var elWidth      = $el.innerWidth();
+    var elHeight = $el.innerHeight();
+    var elWidth = $el.innerWidth();
 
     return $el.css({
       'position': 'absolute',
-      'top': parentHeight/2 - elHeight/2,
-      'left': $$.w.outerWidth()/2 - elWidth/2,
+      'top': parentHeight / 2 - elHeight / 2,
+      'left': $$.w.outerWidth() / 2 - elWidth / 2,
       'paddingTop': 0
     });
   }
@@ -529,7 +535,7 @@
     var xs = p2[0] - p1[0];
     var ys = p2[1] - p1[1];
 
-    return Math.sqrt(( xs * xs ) + ( ys * ys ));
+    return Math.sqrt((xs * xs) + (ys * ys));
   }
 
   // return max width of a circle needed to cover a rectangle
