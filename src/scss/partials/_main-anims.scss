@@ -1,0 +1,20 @@
+.anim-rain {
+  background: cornflowerblue;
+  overflow-x: hidden;
+  position: relative;
+
+  .cloud {
+    top: 0;
+    height: inherit;
+    width: 100%;
+    position: absolute;
+
+    + .cloudFromRight {
+      text-align: left;
+    }
+
+    + .cloudFromLeft {
+      text-align: right;
+    }
+  }
+}

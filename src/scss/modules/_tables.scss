@@ -4,6 +4,24 @@
 
 table {
   width: 100%;
+  padding: 0;
+  margin: 0;
+  border-spacing: 0; /* Removes the cell spacing via CSS */
+  border-collapse: collapse;  /* Optional - if you don't want to have double border where cells touch */
+  @include vr(
+    $margin: 1 0
+  );
+
+  caption {
+    font-family: $font-serif;
+    font-weight: bold;
+  }
+
+  thead,
+  tbody {
+    padding: 0;
+    margin: 0;
+  }
 
   tr {
     &:focus,
@@ -14,12 +32,14 @@ table {
 
   th,
   td {
-    padding: 5px;
+    padding: 0 5px;
     text-align: left;
   }
 
   th {
     border-bottom: 1px solid $color-tertiary;
-    border-top: 1px solid $color-tertiary;
+    @include vr(
+      $offset-bottom: 1px
+    );
   }
 }

@@ -5,3 +5,27 @@
 .list-unstyled {
   list-style: none;
 }
+
+ol,
+ul,
+dl {
+  @include vr(
+    $padding-left: .75
+  );
+}
+
+ul ul,
+ol ol,
+dl dl {
+  margin-left: 0;
+  margin-top: 0;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+

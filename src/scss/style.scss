@@ -1,52 +1,56 @@
+// @charset 'utf-8';
 //----------------------------------*\
 // SCSS MIXINS
 //----------------------------------*/
-
-@import 'mixins/_position.scss';
-@import 'mixins/_selection.scss';
-@import 'mixins/_mobilefirst.scss';
-@import 'mixins/_maintain-ratio.scss';
+@import 'mixins/position';
+@import 'mixins/selection';
+@import 'mixins/mobilefirst';
+@import 'mixins/maintain-ratio';
 
 //----------------------------------*\
 // CONFIG MODULES
 //----------------------------------*/
-
-// Config modules
-@import 'modules/_vars.scss';
-@import 'modules/_clearfix.scss';
-@import 'modules/_defaults.scss';
+@import 'modules/vars';
+@import 'modules/clearfix';
+@import 'modules/defaults';
 
 //----------------------------------*\
-// PARTIALS
+// BOWER
 //----------------------------------*/
-
-@import 'partials/_header.scss';
-@import 'partials/_nav.scss';
-@import 'partials/_sidebar.scss';
-@import 'partials/_main.scss';
-@import 'partials/_footer.scss';
+// @import 'normalize';
+@import 'vertical-rhythm-reset';
+@import 'font-awesome';
 
 //----------------------------------*\
 // OBJECTS & MODULES
 //----------------------------------*/
-
-@import 'modules/_buttons.scss';
-@import 'modules/_inputs.scss';
-@import 'modules/_lists.scss';
-@import 'modules/_typography.scss';
-@import 'modules/_misc.scss';
-// @import 'modules/_app.scss';
-// @import 'modules/_alerts.scss';
-@import 'modules/_media.scss';
-@import 'modules/_tables.scss';
+@import 'modules/baseline-helper';
+@import 'modules/app';
+@import 'modules/typography';
+@import 'modules/buttons';
+@import 'modules/inputs';
+@import 'modules/lists';
+@import 'modules/alerts';
+@import 'modules/media';
+// @import 'modules/tables';
+@import 'modules/misc';
 
 // Enhancement modules
-// @import 'modules/_breakpoints.scss';
-@import 'modules/_grid.scss';
-@import 'modules/_print.scss';
+@import 'modules/breakpoints';
+@import 'modules/grid';
+@import 'modules/print';
+
+//----------------------------------*\
+// PARTIALS
+//----------------------------------*/
+@import 'partials/header';
+@import 'partials/nav';
+@import 'partials/sidebar';
+@import 'partials/main';
+@import 'partials/main-anims';
+@import 'partials/footer';
 
 //----------------------------------*\
 // VENDOR
 //----------------------------------*/
-
-// @import 'vendor/_external.scss';
+// @import 'vendor/external';

@@ -1,1 +1,0 @@
-Place Facebook PHP SDK v5 here in /assets/Facebook

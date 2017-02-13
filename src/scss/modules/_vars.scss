@@ -2,11 +2,32 @@
 // Project Variables
 //----------------------------------*/
 
+// font & vertical rhythm settings
+$vr-helpers:       false;
+$vr-box-sizing:    border-box;
+$vr-font-size:     14px;
+$vr-line-height:   2;
+$vr-modular-scale: augmented-fourth;
+$vr-breakpoints: (
+    $bp-tablet: (
+        font-size: 16px,
+        grid-color: purple
+    ),
+    $bp-desktop: (
+        font-size: 16px,
+        grid-color: hotpink
+    )
+);
+
+$font-sans:  'Noto Sans', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, sans-serif;
+$font-serif: 'Noto Serif', Georgia, 'Times New Roman', serif;
+$font-mono:  Monaco, Menlo, Consolas, "Courier New", monospace;
+
+
 // Consistency settings
 $br: 2px; // Border-radius
 $br-btn: 2px; // Button border-radius
-$padding: 40px; // Padding and margins
-$line-height: 45px; // Consistent height for buttons, inputs etc.
+$padding: 40px;
 
 
 // Default colors
@@ -39,21 +60,24 @@ $blue-grey:   #607d8b;
 $black:       #000;
 
 
-// Potsdam Wasser colors
-$pw-blue:      #0D47A1;
-$pw-lightblue: #1976D2;
-$pw-brown:     #5D4037;
+
+// PW colors
+$color-gewinnung:  #2889B3;
+$color-versorgung: #3873B8;
+$color-reinigung:  #829AAF;
+
 
 // Project color variables
 $text-black:      #333;
-$color-primary:   $text-black;
+$color-primary:   #2E363A;
 $color-secondary: complement($color-primary);
 $color-tertiary:  $silver;
 
 
 // Alert colors
-$color-danger: $red; // Bad color for errors, validation etc.
+$color-danger:  $red; // Bad color for errors, validation etc.
 $color-success: $green; // Good color for success etc.
-$color-info: $blue; // Good color for success etc.
+$color-info:    $blue; // Good color for success etc.
 $color-warning: $orange; // Good color for success etc.
-$color-subtle: $grey; // Subtle color for subtle text
+$color-subtle:  $grey; // Subtle color for subtle text
+

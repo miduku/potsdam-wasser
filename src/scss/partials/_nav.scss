@@ -1,14 +1,108 @@
-.nav {
+$this-size: 1.5;
+
+.nav-main {
+  list-style: none;
+  text-align: center;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 99;
+  position: relative;
+  @include vr(
+    $margin-top: 2,
+    $margin-bottom: 2
+  );
+  // background-color: lawngreen;
 
   ul {
+    display: flex;
+    flex-direction: row;
     list-style: none;
+    justify-content: space-around;
   }
 
   li {
+    flex: 0 0 auto;
 
+    a {
+      display: block;
+      // background-color: palegreen;
+      text-decoration: none;
+      text-align: center;
+      height: auto;
+      @extend .animations-quick;
+      @include vr(
+        $line-height: $this-size
+      );
+
+      &:before {
+        content: '';
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        // background-color: pink;
+        background-size: 55%;
+        border-radius: 100%;
+        display: block;
+        width: $this-size*2.5 + rem;
+        height: $this-size*2.5 + rem;
+        margin: auto;
+        @extend .animations-quick;
+        // @include vr(
+        //   $margin: 0 2
+        // );
+      }
+
+      em {
+        border: none;
+        font-style: normal;
+        font-weight: bold;
+        @extend .animations;
+      }
+    }
   }
 
-  a {
+  .nav-gewinnung a:before {
+    background-image: url(../img/icon-gewinnung-active-32.svg);
+    background-color: $color-gewinnung;
+  }
 
+  .nav-versorgung a:before {
+    background-image: url(../img/icon-versorgung-active-32.svg);
+    background-color: $color-versorgung;
+  }
+
+  .nav-reinigung a:before {
+    background-image: url(../img/icon-reinigung-active-32.svg);
+    background-color: $color-reinigung;
+  }
+}
+
+.sticking {
+  .nav-main {
+    max-width: 66%;
+    @include vr(
+      $margin-top: .25,
+      $margin-bottom: .25
+    );
+
+    @include mobilefirst($bp-tablet) {
+      max-width: 50%;
+    }
+
+    ul {
+      justify-content: space-between;
+    }
+
+    a,
+    a:before {
+      width: $this-size*1.5 + rem;
+      height: $this-size*1.5 + rem;
+    }
+
+    a {
+      em {
+        font-size: 0;
+      }
+    }
   }
 }
