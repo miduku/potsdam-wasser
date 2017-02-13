@@ -2,49 +2,54 @@
 // Typography
 //----------------------------------*/
 
+/* Import fonts from Google */
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Noto+Serif:400,700);
+
 // @font-face {
 //   font-family: 'Font-Name';
 //   src: url('../fonts/font-name.eot');
-//   src: url('../fonts/font-name.eot?#iefix') format('embedded-opentype'), url('../fonts/font-name.woff') format('woff'), url('../fonts/font-name.ttf') format('truetype'), url('../fonts/font-name.svg#font-name') format('svg');
+//   src: url('../fonts/font-name.eot?#iefix') format('embedded-opentype'),
+//        url('../fonts/font-name.woff') format('woff'),
+//        url('../fonts/font-name.ttf') format('truetype'),
+//        url('../fonts/font-name.svg#font-name') format('svg');
 //   font-weight: normal;
 //   font-style: normal;
 // }
 
-body,
-button,
-input {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-size: 87.5%; // 14px (mobile)
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.6;
-  color: $text-black;
+// vertical-rhythm-reset
+@include vr-reset();
 
-  @include mobilefirst($bp-tablet) {
-    font-size: 112.5%; // 18px (tablet, desktop)
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
-blockquote {
-  font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
-  font-size: 1.4em;
-  font-style: italic;
+body,
+button,
+input,
+textarea {
+  font-family: $font-serif;
+  font-style: normal;
   font-weight: 400;
-  margin: 0 0 $padding/2;
-  padding-left: 35px;
-  position: relative;
+  color: $text-black;
+}
 
-  &:before {
-    content: '\201C'; // “
-    vertical-align: baseline;
-    position: absolute;
-    font-size: 3.5em;
-    color: $color-primary;
-    left: -5px;
-    top: -.4em;
-    opacity: .5;
-    z-index: -1;
-  }
+blockquote,
+dl,
+form,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+p,
+pre,
+table,
+ul {
+  @include vr(
+    $margin-top: 0
+  );
 }
 
 h1,
@@ -53,111 +58,146 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  line-height: 1.1;
-  margin: 0 0 ($padding/2)+5;
-  font-weight: 400;
-  padding: 0 $padding*2;
+  font-family: $font-sans;
+  @include vr(
+    $padding: 0,
+    $margin-top: 2
+  );
 
-  .group-intro .l &,
-  .group-intro .r & {
-    text-align: center;
+  section > &:first-child ,
+  & + h1,
+  & + h2,
+  & + h3,
+  & + h4,
+  & + h5,
+  & + h6,
+  & + p {
+    margin-top: 0
   }
 
-  .group-9-3 .r & {
-    font-size: 0.778em;
-    line-height: 1.35;
-    margin: 0 0 $padding/6;
-    padding: 0;
-    font-weight: 700;
+  .heading & {
+    margin-bottom: 0;
   }
 
-  .group-6-6 .l & {
-    padding: 0 $padding 0 $padding*2;
-  }
-
-  .group-6-6 .r & {
-    padding: 0 $padding*2 0 $padding;
-  }
-}
-
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: $padding;
-
-  .group:first-child & {
-    margin-top: 0;
+  > a {
+    line-height: inherit;
   }
 }
 
 h1 {
-  font-size: 2.667em; // 48px
-  font-style: normal;
-  font-weight: 400;
-  text-transform: uppercase;
 }
 
 h2 {
-  font-size: 2.222em; // 40px
-  font-style: normal;
-  font-weight: 400;
 }
 
 h3 {
-  font-size: 2em; // 36px
-  font-style: normal;
-  font-weight: 400;
 }
 
 h4 {
-  font-size: 1.667em; // 30px
-  font-style: normal;
-  font-weight: 400;
 }
 
 h5 {
-  font-size: 1.333em; // 24px
-  font-style: normal;
-  font-weight: 400;
 }
 
 h6 {
-  font-size: 1em; // 18px
-  font-style: normal;
-  font-weight: 400;
 }
 
-p {
-  margin: 0 0 $padding/2;
-  font-family: "PT Serif", Georgia, Times, "Times New Roman", serif;
-  padding: 0 $padding*2;
+// h5,
+h6 {
+  @include vr(
+    $margin-bottom: 0
+  );
+}
 
-  .kv & {
-    font-size: 1.167em;
+.l,
+.m,
+.header-article .r {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include vr(
+      $margin-left: 1,
+      $margin-right: 1
+    );
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+small,
+.font-small {
+  display: block;
+  @include vr(
+    $font-size: -1,
+    $line-height: 0.5,
+    $margin: 0 0 1
+  );
+
+  @include mobilefirst($bp-tablet) {
+    @include vr(
+      $margin: 0 0 .7,
+      $padding-top: .3
+    );
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+blockquote {
+  font-family: $font-serif;
+  font-style: italic;
+  font-weight: 400;
+  margin-left: 0;
+  margin-right: 0;
+  position: relative;
+  @include vr(
+    $padding: 0 .25 0 .75
+  );
+
+  &:before {
+    content: '\201C'; // “
+    position: absolute;
+    font-size: 3.5em;
+    color: $color-primary;
+    left: 0px;
+    top: .1em;
+    opacity: .5;
+    z-index: -1;
   }
 
-  .group-intro .l &,
-  .group-intro .r & {
-    text-align: center;
+  @include mobilefirst($bp-tablet) {
+    @include vr(
+      $padding: 0 .5 0 .75
+    );
   }
 
-  .group-9-3 .r & {
-    font-size: 0.778em;
-    line-height: 1.4;
-    margin: 0 0 $padding/6;
-    padding: 0;
+  p {
   }
 
-  .group-6-6 .l & {
-    padding: 0 $padding 0 $padding*2;
+  footer {
+    cite {
+      &:before {
+        content: " – ";
+      }
+    }
   }
+}
 
-  .group-6-6 .r & {
-    padding: 0 $padding*2 0 $padding;
-  }
+pre,
+code {
+  font-family: $font-mono;
 }
 
 pre {
@@ -165,48 +205,62 @@ pre {
   background: darken($blue-grey, 30%);
   color: #fff;
   display: block;
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  font-size: .813em; // 13px
-  line-height: 20px;
-  margin: 0 0 $padding/2;
-  padding: 10px 15px;
   word-break: break-all;
   word-wrap: break-word;
+  @include vr(
+    $line-height: .5,
+    $padding: .5
+  );
+
+  @include mobilefirst($bp-tablet) {
+    @include vr(
+      $padding: .5
+    );
+  }
 }
 
 code {
   border-radius: $br*2;
   background: lighten($grey, 35%);
   border: 1px solid lighten($grey, 15%);
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  font-size: .813em; // 13px
-  line-height: 20px;
-  padding: 2px 5px;
+  padding: 1px 5px;
   word-break: break-all;
   word-wrap: break-word;
-  vertical-align: text-bottom;
 }
 
 a {
-  .sec-gewinnung .container & {
-    color: $color-gewinnung;
-  }
-  .sec-verbrauch .container & {
-    color: $color-verbrauch;
-  }
-  .sec-reinigung .container & {
-    color: $color-reinigung;
-  }
-  text-decoration: none;
-
+  color: $color-primary;
   &:hover,
   &:focus {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
+time,
+.time {
+  text-transform: uppercase;
+}
+
+// [1] https://developer.mozilla.org/en-US/docs/CSS/font-variant
+abbr {
+  font-variant: small-caps; // [1]
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+// Cursor changed to a question mark when it has a title
+abbr[title]:hover {
+  cursor: help;
+}
+
 hr {
-  border: 0;
-  border-bottom: 1px solid #ddd;
-  margin: $padding 0;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.margin-top-0 {
+  margin-top: 0;
 }

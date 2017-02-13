@@ -10,35 +10,73 @@ object {
   max-width: 100%;
 }
 
+.group-img,
+.group-video {
+  @include vr(
+    $margin: 1 0
+  );
+}
+
 // Responsive Fluid Layout for Videos
-%embed {
+.embed {
   display: inline-block;
   overflow: hidden;
   padding-top: 0;
   position: relative;
 
   iframe {
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
   }
 }
-.embed-video {
+
+
+.media-ratio {
   &-16by9{
     @include maintain-ratio(16 9);
-    @extend %embed;
+    @extend .embed;
   }
 
   &-21by9{
     @include maintain-ratio(21 9);
-    @extend %embed;
+    @extend .embed;
   }
 
   &-4by3{
-    @include maintain-ratio(4 3);
-    @extend %embed;
+    @include maintain-ratio(1 1.25);
+    @extend .embed;
+
+    @include mobilefirst($bp-tablet) {
+      @include maintain-ratio(4 3);
+    }
   }
 }
+
+figure {
+  @include vr( $margin: 0 0 2 0 );
+  @extend .group;
+
+  img {
+    @extend .l;
+  }
+
+  figcaption {
+    @extend .r;
+    @extend aside.r;
+
+    h4,
+    h5,
+    h6 {
+      margin-top: 0;
+    }
+  }
+}
+
+// .chart #header{
+//   display: none !important;
+// }
+

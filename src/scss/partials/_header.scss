@@ -1,57 +1,97 @@
-body > header {
-  position: fixed;
-  top: 0;
-  max-height: $padding*2; // 80px
-  width: 100%;
-  height: 100%;
-  background: $color-primary;
-  color: #fff;
-  padding: 1.1em 2.1277%;
-  text-transform: uppercase;
-  font-weight: 300;
-  z-index: 999;
-  @extend .transition-all;
+.header {
+  // background: hotpink;
 
-  &.shrink {
-    max-height: 54px;
-    padding-top: .5em;
-    padding-bottom: .5em;
+  .container {
+    @include vr( $padding-top: 5 );
+    @extend .animations-quick;
+    // background: lightpink;
   }
-}
 
-.logo {
-  display: inline-block;
+    .header-sticky {
+      width: 100%;
+      background: #fff;
 
-  .logo-pw {
-    $logo-margin: 1em;
-    position: relative;
-    font-size: 1.333em;
-    cursor: pointer;
-    padding-left: $logo-margin;
+      .logo {
+        text-align: center;
+        margin-top: 0;
+        font-family: $font-sans;
+        font-weight: bold;
+        @include vr( $font-size: 2 );
+        @extend .uppercase;
+        @extend .animations;
 
-      &:before{
-        content: "";
+        @include mobilefirst($bp-tablet) {
+          @include vr( $font-size: 4 );
+        }
+
+        a {
+          text-decoration: none;
+          display: block;
+        }
+      }
+
+      .header-stream {
+        $thisHeight: 4;
+        display: none;
         position: absolute;
-        left: -$logo-margin/4;
-        top: 0.5em;
-        width: .75em;
-        height: 0.1em;
-        background: #fff;
-        box-shadow: 0 0.25em 0 0 #fff,  0 0.5em 0 0 #fff;
-        @extend .transition-all;
-      }
+        z-index: 9;
+        width: 100%;
+        top: 50%;
+        margin-top: -($thisHeight / 2);
 
-      &.open:before {
-        left: -$logo-margin/2;
-      }
+        > div {
+          margin: auto;
+          max-width: 50%;
+          @include vr(
+            $padding: 0 .5
+          );
 
-    span {
-      font-weight: 700;
-      margin-left: -.2em;
+          > div {
+            display: block;
+            float: left;
+            width: 100%;
+            max-width: (100 / 2) + %;
+
+            > div {
+              height: $thisHeight + px;
+              display: block;
+              // background: darkred;
+            }
+          }
+        }
+      }
     }
-  }
 
-  img {
+    .intro-text {
+      text-align: center;
 
-  }
+      p {
+        @include vr( $margin-top: 1 );
+      }
+    }
+
+    .sticking {
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
+      z-index: 999;
+
+      .logo {
+        transform: translateY(-4rem);
+        // font-size: 0;
+        @include vr(
+          $margin: 0,
+          $line-height: 0
+        );
+      }
+
+      .header-stream {
+        display: block;
+        // background: greenyellow;
+        width: 100%;
+        transform: translateY(-50%);
+      }
+    }
 }
+

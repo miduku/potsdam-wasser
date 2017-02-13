@@ -1,13 +1,16 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    browserSync = require('browser-sync'),
-    autoprefixer = require('gulp-autoprefixer'),
-    uglify = require('gulp-uglify'),
-    jshint = require('gulp-jshint'),
-    header  = require('gulp-header'),
-    rename = require('gulp-rename'),
-    cssnano = require('gulp-cssnano'),
-    package = require('./package.json');
+  sass = require('gulp-sass'),
+  browserSync = require('browser-sync').create(),
+  autoprefixer = require('gulp-autoprefixer'),
+  uglify = require('gulp-uglify'),
+  eslint = require('gulp-eslint'),
+  header  = require('gulp-header'),
+  rename = require('gulp-rename'),
+  cssnano = require('gulp-cssnano'),
+  bower = require('gulp-bower'),
+  notify = require('gulp-notify'),
+  concat = require('gulp-concat'),
+  package = require('./package.json');
 
 
 var banner = [
@@ -22,45 +25,105 @@ var banner = [
   '\n'
 ].join('');
 
+var config = {
+  dir: {
+    src: 'src',
+    app: 'app/assets',
+    bowerComp: 'bower_components'
+  }
+};
+
+gulp.task('bower', function() {
+  return bower()
+      .pipe(gulp.dest(config.dir.bowerComp));
+});
+
+gulp.task('icons', function() {
+  return gulp.src(config.dir.bowerComp + '/font-awesome/fonts/**.*')
+      .pipe(gulp.dest(config.dir.app + '/fonts'));
+});
+
+gulp.task('comps', function() {
+    return gulp.src([
+        config.dir.bowerComp + '/jquery/dist/jquery.min.js',
+
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/minified/plugins/jquery.ScrollMagic.min.js',
+
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js',
+        config.dir.bowerComp + '/scrollmagic/scrollmagic/uncompressed/plugins/jquery.ScrollMagic.js',
+
+        config.dir.bowerComp + '/gsap/src/minified/TweenMax.min.js',
+
+        config.dir.bowerComp + '/jquery-anchorscroll/jquery.anchorScroll.min.js'
+      ])
+      .pipe(gulp.dest(config.dir.app + '/components'))
+});
+
 gulp.task('css', function () {
-    return gulp.src('src/scss/style.scss')
-    .pipe(sass({errLogToConsole: true}))
-    .pipe(autoprefixer('last 4 version'))
-    .pipe(gulp.dest('app/assets/css'))
-    .pipe(cssnano())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(header(banner, { package : package }))
-    .pipe(gulp.dest('app/assets/css'))
-    .pipe(browserSync.reload({stream:true}));
+  return gulp.src(config.dir.src + '/scss/style.scss')
+      .pipe(sass({
+        includePaths: [
+          config.dir.src + '/scss',
+          config.dir.bowerComp + '/vertical-rhythm-reset/dist',
+          config.dir.bowerComp + '/font-awesome/scss'/*,
+          config.dir.bowerComp + '/normalize-scss/sass'*/
+        ]
+      }).on('error', notify.onError(function (error) {
+        return 'Error: ' + error.message;
+      })))
+      // .pipe(autoprefixer('last 4 version'))
+      .pipe(gulp.dest(config.dir.app + '/css'))
+      .pipe(cssnano())
+      .pipe(rename({ suffix: '.min' }))
+      .pipe(header(banner, { package : package }))
+      .pipe(gulp.dest(config.dir.app + '/css'))
+      .pipe(browserSync.stream());
 });
 
 gulp.task('js',function(){
-  gulp.src('src/js/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+  return gulp.src([
+      config.dir.bowerComp + '/baseline/baseline.js',
+      config.dir.src + '/js/index.js'
+    ])
+    .pipe(concat('scripts.js'))
+    .pipe(eslint({
+      configFile: '.eslintrc.json',
+      fix: true
+    }))
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
+      .on('error', notify.onError(function (error) {
+        return 'ESLint error: ' + error.message;
+      }))
     .pipe(header(banner, { package : package }))
-    .pipe(gulp.dest('app/assets/js'))
+    .pipe(gulp.dest(config.dir.app + '/js'))
     .pipe(uglify())
     .pipe(header(banner, { package : package }))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('app/assets/js'))
-    .pipe(browserSync.reload({stream:true, once: true}));
+    .pipe(gulp.dest(config.dir.app + '/js'))
+    .pipe(browserSync.stream({once: true}));
 });
 
-gulp.task('browser-sync', function() {
-    browserSync.init(null, {
-        server: {
-            baseDir: "app"
-        },
-        online: false
+gulp.task('serve', ['css', 'js'], function() {
+
+    browserSync.init({
+      server: {
+        baseDir: './app'
+      }
     });
-});
-gulp.task('bs-reload', function () {
-    browserSync.reload();
+
+    gulp.watch(config.dir.src + '/scss/**/*.scss', ['css']);
+    gulp.watch(config.dir.src + '/js/*.js', ['js']);
+    gulp.watch('app/*.html').on('change', browserSync.reload);
 });
 
-gulp.task('default', ['css', 'js', 'browser-sync'], function () {
-    gulp.watch("src/scss/*/*.scss", ['css']);
-    gulp.watch("src/js/*.js", ['js']);
-    gulp.watch("app/*.html", ['bs-reload']);
-});
+// gulp.task('bs-reload', function () {
+//   browserSync.reload();
+// });
+
+gulp.task('default', ['bower', 'icons', 'comps', 'serve']);

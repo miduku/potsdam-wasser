@@ -42,7 +42,7 @@
      * Magical things with ScrollMagic
      */
     // init ScrollMagic controller
-    var Controller = new ScrollMagic.Controller({loglevel: 3});
+    var Controller = new ScrollMagic.Controller();
 
 
     // create indicators for the sections which will display in the progressbar

@@ -1,0 +1,33 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-unused-vars": "warn",
+    "no-undef": "warn",
+    "no-console": "warn"
+  },
+  "globals": {
+    "jQuery": true,
+    "$": true,
+    "ScrollMagic": true,
+    "TweenMax": true
+  }
+}
