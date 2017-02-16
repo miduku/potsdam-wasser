@@ -24,6 +24,10 @@ textarea {
   color: $text-black;
 }
 
+nav {
+  font-family: $font-sans;
+}
+
 blockquote,
 dl,
 form,
@@ -49,12 +53,12 @@ h4,
 h5,
 h6 {
   font-family: $font-sans;
+  @extend .uppercase;
   @include vr(
     $padding: 0,
     $margin-top: 2
   );
 
-  section > &:first-child ,
   & + h1,
   & + h2,
   & + h3,
@@ -64,14 +68,12 @@ h6 {
   & + p {
     margin-top: 0
   }
+}
 
-  .heading & {
-    margin-bottom: 0;
-  }
-
-  > a {
-    line-height: inherit;
-  }
+h4,
+h5,
+h6 {
+  font-weight: bold;
 }
 
 h1 {
@@ -92,33 +94,12 @@ h5 {
 h6 {
 }
 
-// h5,
-h6 {
-  @include vr(
-    $margin-bottom: 0
-  );
-}
-
-.l,
-.m,
-.header-article .r {
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @include vr(
-      $margin-left: 1,
-      $margin-right: 1
-    );
-
-    &:first-child {
-      margin-top: 0;
+p {
+    main section header & {
+      font-family: $font-sans;
     }
-  }
 }
+
 
 small,
 .font-small {

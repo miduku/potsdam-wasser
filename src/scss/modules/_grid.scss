@@ -71,7 +71,7 @@
     flex: 0 0 auto;
   }
 
-  @for $i from 1 through 12 {
+  @for $i from 0 through 12 {
     .span#{$i} {
       flex-basis: ($unit * $i) + ($margin * ($i - 1));
       margin-left: $margin;
@@ -82,4 +82,8 @@
       margin-left: ($unit * $i) + ($margin * ($i + 1)) !important;
     }
   }
+
+  // .offset0 {
+  //   margin-left: 0 !important;
+  // }
 }

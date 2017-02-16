@@ -29,8 +29,8 @@
      */
 
     var _base = 0,
-        _breakpoints = {},
-        _dynamicBase;
+      _breakpoints = {},
+      _dynamicBase;
 
     /**
      * @name     _setBase
@@ -45,7 +45,7 @@
 
     function _setBase (element) {
       var height = element.offsetHeight,
-          current, old;
+        current, old;
 
       if( _dynamicBase ) {
 
@@ -54,7 +54,7 @@
            * This could be used to get the current grid size for different breakpoints
            * from an actual element property instead of defining those breakpoints in the options.
            */
-          _base = _dynamicBase();
+        _base = _dynamicBase();
 
       }
       else {
@@ -122,7 +122,7 @@
        */
 
       var targets = typeof elements === 'string' ? document.querySelectorAll(elements) : elements,
-          len = targets.length;
+        len = targets.length;
 
       /**
        * Decide whether to set the `_breakpoints` or `_dynamicBase` variables or not.
@@ -132,7 +132,7 @@
       if (typeof options === 'number') {
         _base = parseInt(options, 10);
       } else if (typeof options === 'function') {
-          _dynamicBase = options;
+        _dynamicBase = options;
       } else if (typeof options === 'object') {
         var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
 
@@ -161,7 +161,7 @@
    * otherwise export as a browser global.
    */
 
-  if (typeof $ !== "undefined") {
+  if (typeof $ !== 'undefined') {
     $.extend($.fn, {
       baseline: function (options) {
         return baseline(this, options);
@@ -183,30 +183,21 @@
   // cache some jQuery elements
   var $$ = {
     w: $(window),
-    main: $('.main'),
-    content: $('.content'),
-    footer: $('.footer'),
-    header_container: $('.header .container'),
-    headerSticky: $('.header-sticky'),
-    headerArticle: $('.header-article'),
-    headerStream: $('.header-stream'),
-    // sectionGewinnung_headerArticle: $('.section-gewinnung .header-article'),
-    sectionReinigung_headerArticle: $('.section-reinigung .header-article'),
-    sectionVersorgung_headerArticle: $('.section-versorgung .header-article'),
-    fullscreen: $('.fullscreen'),
-    baselineElements: $('picture > *, .group-img img, .embed, figure img, figure figcaption, .fullscreen, .header-article .l img'),
-
-    // for animations
-    anim: {
-      rain: $('.anim-rain')
-    }
+    container: {
+      intro: $('.container-intro')
+    },
+    icons:  $('.container .icon i'),
+    icon: {
+      gewinnung: $('.container-gewinnung .icon i'),
+      versorgung: $('.container-versorgung .icon i'),
+      reinigung: $('.container-reinigung .icon i'),
+    },
+    footer: $('footer h1')
   };
 
   // water stream settings
-  var stream = {
-    offsetLeft: 0,
-    offsetTop: 0.8,
-    width: 10,
+  var water = {
+    iconPositionsArray: [$$.icon.gewinnung, $$.icon.versorgung, $$.icon.reinigung, $$.footer],
     colors: {
       gewinnung: [40, 137, 179],
       versorgung: [56, 115, 184],
@@ -215,51 +206,13 @@
   };
 
 
+
+
   $(function() { // The $ is now locally scoped
 
-    //------------------------//
-    //** The DOM is ready!  **//
-
-    $$.w.scrollTop(0);
-
-    // create flood effect elements
-    $$.headerArticle.append('<span class="circle"></span>');
-
-    // vertical center and stuff
-    $(window).trigger('resize');
-
-    // create stream elements
-    $$.content.append('<div class="stream"><span class="water"></span></div>')
-      .children('.stream')
-      .css({
-        position: 'absolute',
-        left: stream.offsetLeft * 100 + '%',
-        width: stream.width + 'px',
-        marginLeft: -(stream.width / 2) + 'px'
-      });
-
-    // smooth scroll for nav-main
-    $('.nav-main a[href^="#"]').bind('click.smoothscroll', function(e) {
-      e.preventDefault();
-
-      var target = this.hash,
-        $target = $(target);
-
-      $('html, body').stop().animate({
-        'scrollTop': $target.offset().top - 64
-      }, 900, 'swing', function() {
-        window.location.hash = target;
-      });
-    });
-
-    /**
-     * baseline-element plug-in
-     */
-    $$.baselineElements.baseline(function() {
-      // Get the current font-size from the HTML tag – the root font-size `rem` – which may change through to some CSS media queries
-      return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
-    });
-
+    // add stream to icons
+    $$.icons
+      .append('<div class="waterpipe"><div class="water"></div></div>');
 
     /**
      * Scroll Magic!
@@ -268,156 +221,81 @@
       // init ScrollMagic controller
       Controller: new ScrollMagic.Controller(),
 
-
-      // build tween
-      tween: {
-        CloudFromRight: TweenMax.staggerFromTo('.cloudFromRight', 2, { left: '100%' }, { left: '0%', ease: Power1.easeInOut }, 1),
-        CloudFromLeft: TweenMax.staggerFromTo('.cloudFromLeft', 2, { right: '100%' }, { right: '0%', ease: Power1.easeInOut }, 1)
-      },
-
-
-      // build scene
-      scene: {
-        CloudsFromRight: new ScrollMagic
-          .Scene({
-            triggerElement: '.anim-rain',
-            triggerHook: 1,
-            duration: $$.anim.rain.innerHeight() / 3
-          }),
-
-        CloudsFromLeft: new ScrollMagic
-          .Scene({
-            triggerElement: '.anim-rain',
-            triggerHook: 1,
-            duration: $$.anim.rain.innerHeight() / 3
-          })
-      },
-
-
-      // put it all together
+      // cast some magic -> put it all together
       cast: {
-        CloudsFromRight: function() {
-          return magic.scene.CloudsFromRight
+        Waterpipe: function($el) {
+          // colors
+          var color = [
+            water.colors.gewinnung,
+            water.colors.versorgung,
+            water.colors.reinigung,
+            water.colors.gewinnung
+          ];
+
+
+
+          return $el.each(function(i, el) {
+            var rgbDiff = [
+              color[i + 1][0] - color[i][0],
+              color[i + 1][1] - color[i][1],
+              color[i + 1][2] - color[i][2]
+            ];
+
+            var scene = new ScrollMagic.Scene({
+              triggerElement: el,
+              triggerHook: .8
+            })
             .addTo(magic.Controller)
-            .setTween(magic.tween.CloudFromRight)
-            .addIndicators({ name: 'staggering' });
-        },
+            .addIndicators({ name: 'Waterpipe' + i })
+            .on('progress', function(e) {
+              var progress = e.progress.toFixed(3);
+              var progressFunction = (progress * 100 ) * progress + '%';
 
-        CloudsFromLeft: function() {
-          return magic.scene.CloudsFromLeft
-            .addTo(magic.Controller)
-            .setTween(magic.tween.CloudFromLeft)
-            .addIndicators({ name: 'staggering2' });
-        },
+              var indicatorColor = [
+                Math.round(color[i][0] + rgbDiff[0] * progress),
+                Math.round(color[i][1] + rgbDiff[1] * progress),
+                Math.round(color[i][2] + rgbDiff[2] * progress)
+              ];
 
-        Flood: function($el) {
-          return $el
-            .each(function(index, el) {
-              new ScrollMagic
-                .Scene({
-                  triggerElement: el,
-                  triggerHook: stream.offsetTop,
-                  duration: $(el).outerHeight()
-                })
-                .addTo(magic.Controller)
-                .addIndicators({ name: 'flood' + index })
-                .on('progress end', function(event) {
-                  // console.log('stream'+index, event.state, event.type);
-                  // console.log('stream'+index, event.progress.toFixed(3));
+              var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
 
-                  if (event.state === 'AFTER') { /////
-                    // console.log('after');
 
-                    $(el)
-                      .children('.circle')
-                      .css({ transform: 'scale(1)' });
-                  } else {
-                    $(el)
-                      .children('.circle')
-                      .css({ transform: 'scale(' + event.progress.toFixed(3) + ')' });
-                  }
+              // water in waterpipe
+              $(el)
+                .children('.water')
+                .css({
+                  background: backgroundGradient,
+                  // backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
+                  height: progressFunction
                 });
             });
-        },
 
-        Stream: function($el) {
-          var streamDurationNextElements = [$$.sectionVersorgung_headerArticle, $$.sectionReinigung_headerArticle, $$.footer];
+            $$.w.on('resize', function() {
+              scene
+                .duration(setPipeLength(water.iconPositionsArray[i], water.iconPositionsArray[i+1]));
 
-          return $el.each(function(index, el) {
-            var maxHeight = setStreamDuration($(el).parent(), streamDurationNextElements[index]);
-            var duration = maxHeight - $$.w.outerHeight();
-
-            // colors
-            var color = [
-              stream.colors.gewinnung,
-              stream.colors.versorgung,
-              stream.colors.reinigung,
-              stream.colors.gewinnung
-            ];
-            var rgbDiff = [
-              color[index + 1][0] - color[index][0],
-              color[index + 1][1] - color[index][1],
-              color[index + 1][2] - color[index][2]
-            ];
-
-            // magic
-            var scene = new ScrollMagic.Scene({
-                triggerElement: el,
-                triggerHook: 0,
-                duration: duration
-              })
-              .addTo(magic.Controller)
-              .setPin(el)
-              .addIndicators({ name: 'Stream' + index })
-              .on('progress', function(event) {
-                var progress = event.progress.toFixed(3);
-
-                var indicatorColor = [
-                  Math.round(color[index][0] + rgbDiff[0] * progress),
-                  Math.round(color[index][1] + rgbDiff[1] * progress),
-                  Math.round(color[index][2] + rgbDiff[2] * progress)
-                ];
-
-                // stream
-                $(el).children('.water').css({
-                  backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
-                  height: progress * 100 + '%'
-                });
-
-                // header-stream
-                if (index < 2) {
-                  $$.headerStream
-                    .children()
-                    .children()
-                    .eq(index)
-                    .children()
-                    .css({
-                      // backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
-                      background: 'linear-gradient(to right, rgb(' + color[index][0] + ',' + color[index][1] + ',' + color[index][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)',
-                      width: progress * 100 + '%'
-                    });
-                }
-              });
-
-
-            // load resize
-            $$.w.on('load resize', function() {
-              $(el).css({ maxHeight: maxHeight + 'px' });
-              scene.duration(setStreamDuration($(el).parent(), streamDurationNextElements[index]) - $$.w.outerHeight());
-              scene.refresh();
+              scene
+                .refresh();
             });
           });
         }
       }
     };
 
-    // put the magic all together
-    magic.cast.CloudsFromRight();
-    magic.cast.CloudsFromLeft();
+    magic.cast.Waterpipe( $('.waterpipe'));
 
-    magic.cast.Flood($$.headerArticle);
-    magic.cast.Stream($('.stream'));
-  });
+
+    /**
+     * baseline-element plug-in
+     */
+    // $$.baselineElements.baseline(function() {
+    //   // Get the current font-size from the HTML tag – the root font-size `rem` – which may change through to some CSS media queries
+    //   return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
+    // });
+
+    $(window).trigger('resize');
+
+  }); // END $ (locally)
 
 
   //---------------------------------------//
@@ -433,50 +311,23 @@
   };
 
 
-  // load, resize
-  $$.w.on('load resize', function() {
-    // resize accordingly to screen height
-    var $windowHeight = $$.w.outerHeight();
-    $$.fullscreen.outerHeight($windowHeight);
-    $$.anim.rain.outerHeight($windowHeight * 3);
-    // $('.stream').outerHeight($windowHeight - $(this).siblings('.header-article').outerHeight());
-    $('.stream').css({
-      height: $windowHeight + 'px'
+  $$.w.on('resize', function() {
+    // set container-intro's height to 100%
+    $$.container.intro
+      .css( 'height', $$.w.outerHeight());
+
+    // waterpipe length
+    $('.waterpipe').each(function(i, el) {
+      $(el)
+        .css( 'height', setPipeLength(water.iconPositionsArray[i], water.iconPositionsArray[i+1]) );
     });
-
-
-    // vertical center header container
-    verticalCenter($$.header_container);
-
-    // update flood size
-    $$.headerArticle.each(function() {
-      var width = $(this).innerWidth();
-      var height = $(this).innerHeight();
-      var p1 = [width * stream.offsetLeft, 0];
-
-      var padding = fillSquare(p1, width, height);
-
-      $(this).children('.circle')
-        .css({
-          transform: 'scale(0)',
-          padding: padding,
-          marginLeft: -padding,
-          marginTop: -padding,
-          left: stream.offsetLeft * 100 + '%'
-        });
-    });
-
   });
-
 
   // load, scroll WITH delay
   $$.w.on('load scroll', function() {
     if (eventHandling.allow) {
 
-      // sticky logo
-      var fromTop = $$.w.scrollTop();
-      $$.headerSticky.toggleClass('sticking', (fromTop > $$.header_container.position().top));
-
+      // code...
 
       // trottle the event
       eventHandling.allow = false;
@@ -489,65 +340,55 @@
 
 
 
-  /**
-   * set vertical center for an element
-   */
-  function verticalCenter($el) {
-    var parentHeight = $el.parent().innerHeight();
-    var elHeight = $el.innerHeight();
-    var elWidth = $el.innerWidth();
+  // /**
+  //  * set vertical center for an element
+  //  */
+  // function verticalCenter($el) {
+  //   var parentHeight = $el.parent().innerHeight();
+  //   var elHeight = $el.innerHeight();
+  //   var elWidth = $el.innerWidth();
 
-    return $el.css({
-      'position': 'absolute',
-      'top': parentHeight / 2 - elHeight / 2,
-      'left': $$.w.outerWidth() / 2 - elWidth / 2,
-      'paddingTop': 0
-    });
-  }
+  //   return $el.css({
+  //     'position': 'absolute',
+  //     'top': parentHeight / 2 - elHeight / 2,
+  //     'left': $$.w.outerWidth() / 2 - elWidth / 2,
+  //     'paddingTop': 0
+  //   });
+  // }
 
 
   /**
    * Calculate the height of each water stream
    * and position
    */
-  function setStreamDuration($el1, $el2) {
+  function setPipeLength($el1, $el2) {
     return $el2.offset().top - $el1.offset().top;
   }
 
-  // function positionStream($el, $fromEl, $toEl) {
-  //   var height = $$.w.outerHeight();
-  //   // var height = setStreamDuration( $fromEl, $toEl ) - $fromEl.outerHeight();
-  //   var top = $fromEl.offset().top + $fromEl.outerHeight();
 
-  //   return $el.css({
-  //     height: height + 'px',
-  //     top: top + 'px'
-  //   });
+
+
+  // /**
+  //  * Calculate the circle to fill a square at given coordinates
+  //  */
+  // // return distance between 2 points
+  // function distance(p1, p2) {
+  //   var xs = p2[0] - p1[0];
+  //   var ys = p2[1] - p1[1];
+
+  //   return Math.sqrt((xs * xs) + (ys * ys));
   // }
 
+  // // return max width of a circle needed to cover a rectangle
+  // function fillSquare(p1, width, height) {
+  //   // calculate radius from point to each corner of square
+  //   var nw = distance(p1, [0, 0]);
+  //   var ne = distance(p1, [width, 0]);
+  //   var se = distance(p1, [width, height]);
+  //   var sw = distance(p1, [0, height]);
 
-
-  /**
-   * Calculate the circle to fill a square at given coordinates
-   */
-  // return distance between 2 points
-  function distance(p1, p2) {
-    var xs = p2[0] - p1[0];
-    var ys = p2[1] - p1[1];
-
-    return Math.sqrt((xs * xs) + (ys * ys));
-  }
-
-  // return max width of a circle needed to cover a rectangle
-  function fillSquare(p1, width, height) {
-    // calculate radius from point to each corner of square
-    var nw = distance(p1, [0, 0]);
-    var ne = distance(p1, [width, 0]);
-    var se = distance(p1, [width, height]);
-    var sw = distance(p1, [0, height]);
-
-    // return diameter required
-    return Math.max(nw, ne, se, sw);
-  }
+  //   // return diameter required
+  //   return Math.max(nw, ne, se, sw);
+  // }
 
 }(jQuery, window, document)); // END iife

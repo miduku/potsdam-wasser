@@ -1,5 +1,90 @@
 main {
+  // background-color: rgba(hotpink, .2);
+
   section {
+    @extend .clear;
+
+    header,
+    article {
+      @extend .span6;
+      @extend .offset3;
+      @include vr($margin-bottom: 2);
+    }
+
+    .icon {
+      @extend .span1;
+      @extend .offset2;
+      @include vr( $margin-top: 2 );
+
+      & + header {
+        @extend .offset0;
+      }
+
+      i {
+        position: relative;
+        // background-color: rgba(hotpink, .2);
+        background-size: 56px !important;
+        width: 4rem;
+        display: inline-block;
+        border-radius: 50%;
+        @include vr(
+          $margin-right: .5,
+          $height: 2
+        );
+
+        .waterpipe {
+          $width: 6px;
+          position: absolute;
+          width: $width;
+          top: 4rem;
+          left: 50%;
+          margin-left: -($width / 2);
+          background-color: rgba(grey, .2);
+
+          .water {
+            height: 20px;
+            // background: hotpink;
+          }
+        }
+      }
+    }
+
+    &.container-intro {
+      @extend .fullscreen;
+      @include vr(
+        $padding-bottom: 2
+      );
+
+      header,
+      article {
+        @extend .span5;
+        @extend .offset4;
+      }
+    }
+
+    &.container-gewinnung {
+      .icon {
+        i {
+          background: $color-gewinnung url(../img/i-gewinnung.svg) 50% 50% no-repeat;
+        }
+      }
+    }
+
+    &.container-versorgung {
+      .icon {
+        i {
+          background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat;
+        }
+      }
+    }
+
+    &.container-reinigung {
+      .icon {
+        i {
+          background: $color-reinigung url(../img/i-reinigung.svg) 50% 50% no-repeat;
+        }
+      }
+    }
 
   }
 } // main

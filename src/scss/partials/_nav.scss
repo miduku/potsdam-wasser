@@ -1,3 +1,104 @@
 nav {
 
+  &.nav-main {
+    position: absolute;
+
+    &.retracted {
+      @extend .offset3;
+    }
+
+      ul {
+        @include vr( $padding: .5 0 );
+        border-radius: $br;
+      }
+
+        li {
+          position: relative;
+
+          &.nav-main-gewinnung a { color: $color-gewinnung; }
+          &.nav-main-versorgung a { color: $color-versorgung; }
+          &.nav-main-reinigung a { color: $color-reinigung; }
+          &.nav-main-natur a { color: $color-natur; }
+
+          &.nav-main-gewinnung i { background: $color-gewinnung url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
+          &.nav-main-versorgung i { background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat; }
+          &.nav-main-reinigung i { background: $color-reinigung url(../img/i-reinigung.svg) 50% 50% no-repeat; }
+          &.nav-main-natur i {
+            background: $color-natur;
+            transform: scale(.2);
+          }
+
+          a {
+            top: 0;
+            display: block;
+            text-decoration: none;
+            @include vr(
+              $margin-bottom: .5,
+              $padding-left: .5,
+              $font-size: 0,
+              $line-height: 1
+            );
+
+            i {
+              width: 2rem;
+              display: inline-block;
+              border-radius: 50%;
+              @include vr(
+                $margin-right: .5,
+                $height: 1
+              );
+            }
+
+            span {
+              position: absolute;
+            }
+          }
+
+          &:last-child a {
+            margin-bottom: 0;
+          }
+        }
+
+
+      // extended navigation
+      &.extended {
+        height: 100%;
+        position: fixed;
+        left: 0;
+        @include vr( $padding: .25 );
+
+        ul {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          background-color: rgba(#fff, .75);
+          border: 1px solid rgba($blue-grey, .25);
+        }
+
+          li {
+            flex: 0 1 auto;
+
+            &.nav-main-versorgung {
+              margin: auto;
+            }
+
+            a {
+              &:focus,
+              &:hover {
+                span {
+                  display: inline-block;
+                }
+              }
+
+              span {
+                display: none;
+                @include vr( $padding: 0 .5 );
+                margin-left: 1px;
+                background-color: rgba(#fff, .75);
+              }
+            }
+          }
+      }
+  }
 } // nav

@@ -7,7 +7,7 @@ $vr-helpers:       false;
 $vr-box-sizing:    border-box;
 $vr-font-size:     14px;
 $vr-line-height:   2;
-$vr-modular-scale: augmented-fourth;
+$vr-modular-scale: major-third;
 $vr-breakpoints: (
     $bp-tablet: (
         font-size: 16px,
@@ -25,8 +25,8 @@ $font-mono:  Monaco, Menlo, Consolas, "Courier New", monospace;
 
 
 // Consistency settings
-$br: 2px; // Border-radius
-$br-btn: 2px; // Button border-radius
+$br: 3px; // Border-radius
+$br-btn: 3px; // Button border-radius
 $padding: 48px;
 
 
@@ -65,6 +65,7 @@ $black:       #000;
 $color-gewinnung:  #2889B3;
 $color-versorgung: #3873B8;
 $color-reinigung:  #829AAF;
+$color-natur:      #2E9CCC;
 
 
 // Project color variables
