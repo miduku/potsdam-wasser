@@ -28,13 +28,6 @@ nav {
   overflow: hidden;
 }
 
-.m {
-  @extend .offset2;
-  @extend .span8;
-}
-.l { @extend .span9; }
-.r { @extend .span3; }
-
 
 .fullscreen {
   height: 100%;
