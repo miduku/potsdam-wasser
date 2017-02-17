@@ -2,55 +2,58 @@ main {
   // background-color: rgba(hotpink, .2);
 
   section {
-    @extend .clear;
+    // @extend .clear;
 
     header,
     article {
       @extend .span6;
       @extend .offset3;
-      @include vr($margin-bottom: 2);
+      @include vr($margin-bottom: 1);
     }
 
-    .icon {
-      @extend .span1;
-      @extend .offset2;
-      @include vr( $margin-top: 2 );
+    .wide {
+      background: lightyellow;
+    }
 
-      & + header {
-        @extend .offset0;
-      }
+      .icon {
+        @extend .span1;
+        @extend .offset2;
+        @include vr( $margin-top: 2 );
 
-      i {
-        position: relative;
-        // background-color: rgba(hotpink, .2);
-        background-size: 56px !important;
-        width: 4rem;
-        display: inline-block;
-        border-radius: 50%;
-        @include vr(
-          $margin-right: .5,
-          $height: 2
-        );
+        & + header {
+          @extend .offset0;
+          @include vr( $margin-bottom: 1 );
+        }
 
-        .waterpipe {
-          $width: 6px;
-          position: absolute;
-          width: $width;
-          top: 4rem;
-          left: 50%;
-          margin-left: -($width / 2);
-          background-color: rgba(grey, .2);
+        i {
+          position: relative;
+          // background-color: rgba(hotpink, .2);/**/
+          background-size: 56px !important;
+          width: 4rem;
+          display: inline-block;
+          border-radius: 50%;
+          @include vr(
+            $margin-right: .5,
+            $height: 2
+          );
 
-          .water {
-            height: 20px;
-            // background: hotpink;
+          .waterpipe {
+            $width: 6px;
+            position: absolute;
+            width: $width;
+            top: 4rem;
+            left: 50%;
+            margin-left: -($width / 2);
+            background-color: rgba(grey, .2);/**/
+
+            .water {
+              height: 20px;
+            }
           }
         }
       }
-    }
 
-    &.container-intro {
-      @extend .fullscreen;
+    &#section-intro {
       @include vr(
         $padding-bottom: 2
       );
@@ -58,11 +61,30 @@ main {
       header,
       article {
         @extend .span5;
-        @extend .offset4;
+        @extend .offset0;
       }
     }
 
-    &.container-gewinnung {
+    &#section-natur {
+      background: $color-natur;
+
+      .container-natur {
+        position: relative;
+        height: 100%;
+
+        .group {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+        }
+
+        .icon {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &#section-gewinnung {
       .icon {
         i {
           background: $color-gewinnung url(../img/i-gewinnung.svg) 50% 50% no-repeat;
@@ -70,7 +92,7 @@ main {
       }
     }
 
-    &.container-versorgung {
+    &#section-versorgung {
       .icon {
         i {
           background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat;
@@ -78,7 +100,7 @@ main {
       }
     }
 
-    &.container-reinigung {
+    &#section-reinigung {
       .icon {
         i {
           background: $color-reinigung url(../img/i-reinigung.svg) 50% 50% no-repeat;

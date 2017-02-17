@@ -8,13 +8,13 @@
   body {
     overflow-x: auto; } }
 
-.clear:before, .alert:before, main section:before, footer:before, .clear:after, .alert:after, main section:after, footer:after {
+.clear:before, .alert:before, .clear:after, .alert:after {
   content: ' ';
   display: table; }
 
-.clear, .alert, main section, footer {
+.clear, .alert {
   *zoom: 1; }
-  .clear:after, .alert:after, main section:after, footer:after {
+  .clear:after, .alert:after {
     clear: both; }
 
 * {
@@ -37,11 +37,11 @@ nav ul {
   overflow: hidden; }
 
 .fullscreen, html,
-body, main section.container-intro {
+body {
   height: 100%;
   min-height: 100%; }
 
-.animations {
+.animations, nav.nav-main, nav.nav-main.retracted, nav.nav-main ul, nav.nav-main li, nav.nav-main.extended li {
   transition: all 0.5s; }
 
 .animations-quick {
@@ -2964,11 +2964,12 @@ figure figcaption h6 {
 
 .span1, main section .icon,
 .span2,
+.nav-container,
 .span3,
 .span4,
 .span5,
-main section.container-intro header,
-main section.container-intro article,
+main section#section-intro header,
+main section#section-intro article,
 .span6,
 main section header,
 main section article,
@@ -2976,6 +2977,7 @@ main section article,
 .span8,
 .span9,
 .span10,
+footer .wide .content,
 .span11,
 .span12 {
   margin-bottom: 2.00001rem; }
@@ -2992,11 +2994,12 @@ main section article,
     margin-left: -2.1277%; }
   .span1, main section .icon,
   .span2,
+  .nav-container,
   .span3,
   .span4,
   .span5,
-  main section.container-intro header,
-  main section.container-intro article,
+  main section#section-intro header,
+  main section#section-intro article,
   .span6,
   main section header,
   main section article,
@@ -3004,6 +3007,7 @@ main section article,
   .span8,
   .span9,
   .span10,
+  footer .wide .content,
   .span11,
   .span12 {
     flex: 0 0 auto; }
@@ -3011,36 +3015,36 @@ main section article,
     flex-basis: -2.1277%;
     margin-left: 2.1277%;
     max-width: -2.1277%; }
-  .offset0, main section .icon + header {
+  .offset0, main section .icon + header, main section#section-intro header,
+  main section#section-intro article {
     margin-left: 2.1277% !important; }
   .span1, main section .icon {
     flex-basis: 6.20563%;
     margin-left: 2.1277%;
     max-width: 6.20563%; }
-  .offset1 {
+  .offset1, footer .wide .content {
     margin-left: 10.46103% !important; }
-  .span2 {
+  .span2, .nav-container {
     flex-basis: 14.53897%;
     margin-left: 2.1277%;
     max-width: 14.53897%; }
-  .offset2, main section .icon {
+  .offset2, .nav-container, main section .icon {
     margin-left: 18.79437% !important; }
   .span3 {
     flex-basis: 22.8723%;
     margin-left: 2.1277%;
     max-width: 22.8723%; }
-  .offset3, nav.nav-main.retracted, main section header,
+  .offset3, main section header,
   main section article {
     margin-left: 27.1277% !important; }
   .span4 {
     flex-basis: 31.20563%;
     margin-left: 2.1277%;
     max-width: 31.20563%; }
-  .offset4, main section.container-intro header,
-  main section.container-intro article {
+  .offset4 {
     margin-left: 35.46103% !important; }
-  .span5, main section.container-intro header,
-  main section.container-intro article {
+  .span5, main section#section-intro header,
+  main section#section-intro article {
     flex-basis: 39.53897%;
     margin-left: 2.1277%;
     max-width: 39.53897%; }
@@ -3071,7 +3075,7 @@ main section article,
     max-width: 72.8723%; }
   .offset9 {
     margin-left: 77.1277% !important; }
-  .span10 {
+  .span10, footer .wide .content {
     flex-basis: 81.20563%;
     margin-left: 2.1277%;
     max-width: 81.20563%; }
@@ -3129,82 +3133,113 @@ main section article,
   h3 {
     page-break-after: avoid; } }
 
-header.header-main .container {
+header.header-main {
+  width: 100%;
+  background: greenyellow; }
+  header.header-main .container {
+    position: relative;
+    background: red; }
+
+.nav-container {
   position: relative; }
 
-nav.nav-main {
-  position: absolute; }
-  nav.nav-main ul {
-    padding: 1.00001rem 0;
-    border-radius: 3px; }
-  nav.nav-main li {
-    position: relative; }
-    nav.nav-main li.nav-main-gewinnung a {
-      color: #2889B3; }
-    nav.nav-main li.nav-main-versorgung a {
-      color: #3873B8; }
-    nav.nav-main li.nav-main-reinigung a {
-      color: #829AAF; }
-    nav.nav-main li.nav-main-natur a {
-      color: #2E9CCC; }
-    nav.nav-main li.nav-main-gewinnung i {
-      background: #2889B3 url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
-    nav.nav-main li.nav-main-versorgung i {
-      background: #3873B8 url(../img/i-versorgung.svg) 50% 50% no-repeat; }
-    nav.nav-main li.nav-main-reinigung i {
-      background: #829AAF url(../img/i-reinigung.svg) 50% 50% no-repeat; }
-    nav.nav-main li.nav-main-natur i {
-      background: #2E9CCC;
-      transform: scale(0.2); }
-    nav.nav-main li a {
-      top: 0;
-      display: block;
-      text-decoration: none;
-      font-size: 1rem;
-      line-height: 2.00001rem;
-      line-height: 2.00001rem;
-      margin-bottom: 1.00001rem;
-      padding-left: 1.00001rem; }
-      nav.nav-main li a i {
-        width: 2rem;
-        display: inline-block;
-        border-radius: 50%;
-        height: 2.00001rem;
-        margin-right: 1.00001rem; }
-      nav.nav-main li a span {
-        position: absolute; }
-    nav.nav-main li:last-child a {
-      margin-bottom: 0; }
-  nav.nav-main.extended {
-    height: 100%;
-    position: fixed;
-    left: 0;
-    padding: 0.5rem; }
-    nav.nav-main.extended ul {
-      height: 100%;
+nav {
+  position: relative;
+  height: 0;
+  top: 0; }
+  nav.nav-main {
+    position: fixed; }
+    nav.nav-main.retracted {
+      padding-top: 10.00005rem; }
+    nav.nav-main ul {
+      border-radius: 3px;
+      background: transparent;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      background-color: rgba(255, 255, 255, 0.75);
-      border: 1px solid rgba(96, 125, 139, 0.25); }
-    nav.nav-main.extended li {
+      flex-direction: column; }
+    nav.nav-main li {
+      position: relative;
       flex: 0 1 auto; }
+      nav.nav-main li.nav-main-gewinnung a {
+        color: #2889B3; }
+      nav.nav-main li.nav-main-versorgung a {
+        color: #3873B8; }
+      nav.nav-main li.nav-main-reinigung a {
+        color: #829AAF; }
+      nav.nav-main li.nav-main-natur a {
+        color: #2E9CCC; }
+      nav.nav-main li.nav-main-gewinnung i {
+        background: #2889B3 url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
+      nav.nav-main li.nav-main-versorgung i {
+        background: #3873B8 url(../img/i-versorgung.svg) 50% 50% no-repeat; }
+      nav.nav-main li.nav-main-reinigung i {
+        background: #829AAF url(../img/i-reinigung.svg) 50% 50% no-repeat; }
+      nav.nav-main li.nav-main-natur i {
+        background: #2E9CCC;
+        transform: scale(0.2); }
+        nav.nav-main li.nav-main-natur i .waterpipeNav {
+          transform: scale(5);
+          transform-origin: top; }
+      nav.nav-main li a {
+        top: 0;
+        display: block;
+        text-decoration: none;
+        font-size: 1rem;
+        line-height: 2.00001rem;
+        line-height: 2.00001rem;
+        margin-bottom: 1.00001rem;
+        padding-left: 1.00001rem; }
+        nav.nav-main li a i {
+          position: relative;
+          width: 2rem;
+          display: inline-block;
+          border-radius: 50%;
+          height: 2.00001rem;
+          margin-right: 1.00001rem; }
+          nav.nav-main li a i .waterpipeNav {
+            position: absolute;
+            display: none;
+            width: 2px;
+            top: 2em;
+            left: 50%;
+            margin-left: -1px; }
+        nav.nav-main li a span {
+          position: absolute; }
+      nav.nav-main li:last-child a {
+        margin-bottom: 0; }
+    nav.nav-main.extended {
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      padding: 0.5rem; }
+      nav.nav-main.extended ul {
+        height: 100%; }
       nav.nav-main.extended li.nav-main-versorgung {
         margin: auto; }
       nav.nav-main.extended li a:focus span, nav.nav-main.extended li a:hover span {
         display: inline-block; }
+      nav.nav-main.extended li a i {
+        background-size: 24px !important;
+        /**/ }
+        nav.nav-main.extended li a i .waterpipeNav {
+          display: block; }
       nav.nav-main.extended li a span {
         display: none;
-        padding: 0px 1.00001rem;
-        margin-left: 1px;
-        background-color: rgba(255, 255, 255, 0.75); }
+        padding: 0px 1.00001rem; }
+    nav.nav-main.hidden {
+      transform: translateX(-100%); }
 
 main section header,
 main section article {
-  margin-bottom: 4.00002rem; }
+  margin-bottom: 2.00001rem; }
+
+main section .wide {
+  background: lightyellow; }
 
 main section .icon {
   margin-top: 4.00002rem; }
+  main section .icon + header {
+    margin-bottom: 2.00001rem; }
   main section .icon i {
     position: relative;
     background-size: 56px !important;
@@ -3219,20 +3254,33 @@ main section .icon {
       top: 4rem;
       left: 50%;
       margin-left: -3px;
-      background-color: rgba(128, 128, 128, 0.2); }
+      background-color: rgba(128, 128, 128, 0.2);
+      /**/ }
       main section .icon i .waterpipe .water {
         height: 20px; }
 
-main section.container-intro {
+main section#section-intro {
   padding-bottom: 4.00002rem; }
 
-main section.container-gewinnung .icon i {
+main section#section-natur {
+  background: #2E9CCC; }
+  main section#section-natur .container-natur {
+    position: relative;
+    height: 100%; }
+    main section#section-natur .container-natur .group {
+      position: absolute;
+      width: 100%;
+      bottom: 0; }
+    main section#section-natur .container-natur .icon {
+      margin-bottom: 0; }
+
+main section#section-gewinnung .icon i {
   background: #2889B3 url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
 
-main section.container-versorgung .icon i {
+main section#section-versorgung .icon i {
   background: #3873B8 url(../img/i-versorgung.svg) 50% 50% no-repeat; }
 
-main section.container-reinigung .icon i {
+main section#section-reinigung .icon i {
   background: #829AAF url(../img/i-reinigung.svg) 50% 50% no-repeat; }
 
 .anim-rain {
@@ -3248,3 +3296,6 @@ main section.container-reinigung .icon i {
       text-align: left; }
     .anim-rain .cloud + .cloudFromLeft {
       text-align: right; }
+
+footer .wide {
+  background: #2E9CCC; }

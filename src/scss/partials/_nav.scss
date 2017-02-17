@@ -1,31 +1,55 @@
+.nav-container {
+  @extend .span2;
+  @extend .offset2;
+  position: relative;
+}
+
 nav {
+  position: relative;
+  height: 0;
+  top: 0;
+  // background: pink;
+
 
   &.nav-main {
-    position: absolute;
+    position: fixed;
+    @extend .animations;
 
     &.retracted {
-      @extend .offset3;
+      @include vr( $padding-top: 5 );
+    @extend .animations;
     }
 
       ul {
-        @include vr( $padding: .5 0 );
         border-radius: $br;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        @extend .animations;
+        // @include vr( $padding: .5 0 );
       }
 
         li {
           position: relative;
+          flex: 0 1 auto;
+          @extend .animations;
 
-          &.nav-main-gewinnung a { color: $color-gewinnung; }
+          &.nav-main-gewinnung a  { color: $color-gewinnung; }
           &.nav-main-versorgung a { color: $color-versorgung; }
-          &.nav-main-reinigung a { color: $color-reinigung; }
-          &.nav-main-natur a { color: $color-natur; }
+          &.nav-main-reinigung a  { color: $color-reinigung; }
+          &.nav-main-natur a      { color: $color-natur; }
 
-          &.nav-main-gewinnung i { background: $color-gewinnung url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
+          &.nav-main-gewinnung i  { background: $color-gewinnung url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
           &.nav-main-versorgung i { background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat; }
-          &.nav-main-reinigung i { background: $color-reinigung url(../img/i-reinigung.svg) 50% 50% no-repeat; }
+          &.nav-main-reinigung i  { background: $color-reinigung url(../img/i-reinigung.svg) 50% 50% no-repeat; }
           &.nav-main-natur i {
             background: $color-natur;
             transform: scale(.2);
+
+            .waterpipeNav {
+              transform: scale(5);
+              transform-origin: top;
+            }
           }
 
           a {
@@ -40,6 +64,7 @@ nav {
             );
 
             i {
+              position: relative;
               width: 2rem;
               display: inline-block;
               border-radius: 50%;
@@ -47,6 +72,17 @@ nav {
                 $margin-right: .5,
                 $height: 1
               );
+
+              .waterpipeNav {
+                $width: 2px;
+                position: absolute;
+                display: none;
+                width: $width;
+                top: 2em;
+                left: 50%;
+                margin-left: -($width / 2);
+                // background-color: rgba(lawngreen, .5);/**/
+              }
             }
 
             span {
@@ -57,48 +93,59 @@ nav {
           &:last-child a {
             margin-bottom: 0;
           }
+
         }
 
 
-      // extended navigation
-      &.extended {
+    // extended navigation
+    &.extended {
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      @include vr( $padding: .25 );
+
+      ul {
         height: 100%;
-        position: fixed;
-        left: 0;
-        @include vr( $padding: .25 );
+        // background-color: rgba(#fff, .75);
+        // border: 1px solid rgba($blue-grey, .25);
+      }
 
-        ul {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          background-color: rgba(#fff, .75);
-          border: 1px solid rgba($blue-grey, .25);
-        }
+        li {
+            @extend .animations;
 
-          li {
-            flex: 0 1 auto;
+          &.nav-main-versorgung {
+            margin: auto;
+          }
 
-            &.nav-main-versorgung {
-              margin: auto;
+          a {
+            &:focus,
+            &:hover {
+              span {
+                display: inline-block;
+              }
             }
 
-            a {
-              &:focus,
-              &:hover {
-                span {
-                  display: inline-block;
-                }
-              }
+            i {
+              background-size: 24px !important;/**/
 
-              span {
-                display: none;
-                @include vr( $padding: 0 .5 );
-                margin-left: 1px;
-                background-color: rgba(#fff, .75);
+              .waterpipeNav {
+                display: block;
               }
+            }
+
+            span {
+              display: none;
+              @include vr( $padding: 0 .5 );
+              // margin-left: 1px;
+              // background-color: rgba(#fff, .75);
             }
           }
-      }
+        }
+    }
+
+    &.hidden {
+      transform: translateX(-100%);
+    }
   }
 } // nav

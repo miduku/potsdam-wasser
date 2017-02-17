@@ -1,3 +1,12 @@
 footer {
-  @extend .clear;
+  .wide {
+    background: $color-natur;
+    // @extend .clear;
+
+    .content {
+      @extend .span10;
+      @extend .offset1;
+    }
+  }
+
 }

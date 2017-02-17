@@ -8,25 +8,51 @@
   // cache some jQuery elements
   var $$ = {
     w: $(window),
-    container: {
-      intro: $('.container-intro')
+    navContainer: $('.nav-container'),
+    navMain: {
+      _this: $('.nav-main'),
+
+      icon: {
+        _this: $('.nav-main ul i'),
+
+        gewinnung:  $('.nav-main-gewinnung i'),
+        versorgung: $('.nav-main-versorgung i'),
+        reinigung:  $('.nav-main-reinigung i'),
+        natur:      $('.nav-main-natur i'),
+        last:       $('.nav-main-last i')
+      }
     },
-    icons:  $('.container .icon i'),
+
+    section: {
+      intro: $('#section-intro'),
+      natur: $('#section-natur')
+    },
+
     icon: {
-      gewinnung: $('.container-gewinnung .icon i'),
-      versorgung: $('.container-versorgung .icon i'),
-      reinigung: $('.container-reinigung .icon i'),
+      _this: $('.container .icon i'),
+
+      gewinnung:  $('#section-gewinnung .icon i'),
+      versorgung: $('#section-versorgung .icon i'),
+      reinigung:  $('#section-reinigung .icon i'),
+      natur:      $('#section-natur .icon i')
     },
-    footer: $('footer h1')
+
+    footer: {
+      _this: $('footer')
+    }
   };
 
   // water stream settings
   var water = {
-    iconPositionsArray: [$$.icon.gewinnung, $$.icon.versorgung, $$.icon.reinigung, $$.footer],
+    iconPositionsArr: {
+      mainIcons: [$$.icon.natur, $$.icon.gewinnung, $$.icon.versorgung, $$.icon.reinigung, $$.footer._this],
+      navIcons: [$$.navMain.icon.natur, $$.navMain.icon.gewinnung, $$.navMain.icon.versorgung, $$.navMain.icon.reinigung, $$.navMain.icon.last]
+    },
     colors: {
-      gewinnung: [40, 137, 179],
+      gewinnung:  [40, 137, 179],
       versorgung: [56, 115, 184],
-      reinigung: [130, 154, 175]
+      reinigung:  [130, 154, 175],
+      natur:      [46, 156, 204]
     }
   };
 
@@ -35,9 +61,33 @@
 
   $(function() { // The $ is now locally scoped
 
-    // add stream to icons
-    $$.icons
+    // add main waterpipe to icons and container-animation
+    $$.icon._this
       .append('<div class="waterpipe"><div class="water"></div></div>');
+
+    // add navigation waterpipe
+    $$.navMain._this
+      .children('ul')
+      .find('li:not(:last) i')
+      .append('<div class="waterpipeNav"><div class="water"></div></div>');
+
+
+    // smooth scroll for nav-main
+    $('.nav-main a[href^="#"]').bind('click.smoothscroll', function(e) {
+      e.preventDefault();
+
+      var target = this.hash;
+      var $target = $(target);
+
+      $('html, body')
+        .stop()
+        .animate({
+          'scrollTop': $target.offset().top
+        }, 900, 'swing', function() {
+          window.location.hash = target;
+        });
+    });
+
 
     /**
      * Scroll Magic!
@@ -46,35 +96,78 @@
       // init ScrollMagic controller
       Controller: new ScrollMagic.Controller(),
 
+      // scenes for casting
+      scene: {
+        NavSticky: new ScrollMagic.Scene({
+          triggerElement: '#section-intro',
+          triggerHook: 0,
+          duration: getDistance($$.section.intro, $$.section.natur)*2
+        })
+      },
+
       // cast some magic -> put it all together
       cast: {
-        Waterpipe: function($el) {
-          // colors
+        NavSticky: function() {
+          return magic.scene.NavSticky
+            .addTo(magic.Controller)
+            .addIndicators({ name: 'navSticky' })
+            .on('progress resize', function(e){
+              var progress = e.progress;
+
+              if (0.5 <= progress && progress < 1) {
+                $$.navMain._this
+                  .removeClass('retracted hidden')
+                  .addClass('extended')
+                  .css({
+                    'left': 0
+                  });
+              } else if (progress === 1) {
+                $$.navMain._this
+                  .removeClass('retracted extended')
+                  .addClass('hidden extended')
+                  .css({
+                    'left': 0
+                  });
+              } else {
+                $$.navMain._this
+                  .removeClass('extended hidden')
+                  .addClass('retracted')
+                  .css({
+                    'left': $$.navContainer.offset().left
+                  });
+              }
+            });
+        },
+
+        Waterpipe: function($el, $iconPositionsArr) {
+          // colors sequence
           var color = [
+            water.colors.natur,
             water.colors.gewinnung,
             water.colors.versorgung,
             water.colors.reinigung,
-            water.colors.gewinnung
+            water.colors.natur
           ];
-
-
 
           return $el.each(function(i, el) {
             var rgbDiff = [
-              color[i + 1][0] - color[i][0],
-              color[i + 1][1] - color[i][1],
-              color[i + 1][2] - color[i][2]
+              color[i+1][0] - color[i][0],
+              color[i+1][1] - color[i][1],
+              color[i+1][2] - color[i][2]
             ];
 
+            // magic here
             var scene = new ScrollMagic.Scene({
               triggerElement: el,
-              triggerHook: .8
+              triggerHook: .75
             })
             .addTo(magic.Controller)
             .addIndicators({ name: 'Waterpipe' + i })
             .on('progress', function(e) {
               var progress = e.progress.toFixed(3);
-              var progressFunction = (progress * 100 ) * progress + '%';
+
+              var progressLin = (progress * 100);
+              var progressExp = progressLin * progress;
 
               var indicatorColor = [
                 Math.round(color[i][0] + rgbDiff[0] * progress),
@@ -85,19 +178,28 @@
               var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
 
 
-              // water in waterpipe
+              // water in main waterpipe
               $(el)
                 .children('.water')
                 .css({
                   background: backgroundGradient,
-                  // backgroundColor: 'rgb(' + indicatorColor.join(',') + ')',
-                  height: progressFunction
+                  height: progressExp + '%'
+                });
+
+              // water in navigation waterpipe
+              $$.navMain.icon._this
+                .eq(i)
+                .children('.waterpipeNav')
+                .children('.water')
+                .css({
+                  background: backgroundGradient,
+                  height: progressLin + '%'
                 });
             });
 
             $$.w.on('resize', function() {
               scene
-                .duration(setPipeLength(water.iconPositionsArray[i], water.iconPositionsArray[i+1]));
+                .duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
 
               scene
                 .refresh();
@@ -107,7 +209,8 @@
       }
     };
 
-    magic.cast.Waterpipe( $('.waterpipe'));
+    magic.cast.Waterpipe( $('.waterpipe'), water.iconPositionsArr.mainIcons);
+    magic.cast.NavSticky();
 
 
     /**
@@ -118,7 +221,12 @@
     //   return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
     // });
 
-    $(window).trigger('resize');
+    // trigger
+    $$.w
+      .trigger('resize');
+    $$.navMain._this
+      .trigger('resize');
+
 
   }); // END $ (locally)
 
@@ -136,29 +244,57 @@
   };
 
 
-  $$.w.on('resize', function() {
-    // set container-intro's height to 100%
-    $$.container.intro
-      .css( 'height', $$.w.outerHeight());
+  $$.w
+    .on('resize', function() {
+      // set section-intro's height to 100%
+      $$.section.intro
+        .css('height', $$.w.outerHeight());
 
-    // waterpipe length
-    $('.waterpipe').each(function(i, el) {
-      $(el)
-        .css( 'height', setPipeLength(water.iconPositionsArray[i], water.iconPositionsArray[i+1]) );
+      // set section-natur's height to 200% and margin-bottom 100%
+      $$.section.natur
+        .css({
+          'height': $$.w.outerHeight()*2,
+          'marginBottom' : $$.w.outerHeight()
+        });
+
+
+      // waterpipe length
+      $('.waterpipe')
+        .each(function(i, el) {
+          $(el)
+            .css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
+        });
     });
-  });
+
+
+  $$.navMain._this
+    .bind('resize', function() {
+      console.log('navMain resized');
+
+      $$.navMain.icon._this
+        .each(function(i, el) {
+          if (i < water.iconPositionsArr.navIcons.length - 1) {
+            $(el)
+              .children('.waterpipeNav')
+              .css('height', getPipeLength( water.iconPositionsArr.navIcons[i], water.iconPositionsArr.navIcons[i+1] ));
+          }
+        });
+
+    });
+
 
   // load, scroll WITH delay
-  $$.w.on('load scroll', function() {
-    if (eventHandling.allow) {
+  $$.w
+    .on('load scroll', function() {
+      if (eventHandling.allow) {
 
-      // code...
+        // insert code to throttle here...
 
-      // trottle the event
-      eventHandling.allow = false;
-      setTimeout(eventHandling.reallow, eventHandling.delay);
-    } // END event handling
-  });
+        // trottle the event
+        eventHandling.allow = false;
+        setTimeout(eventHandling.reallow, eventHandling.delay);
+      } // END event handling
+    });
 
 
 
@@ -183,10 +319,17 @@
 
 
   /**
-   * Calculate the height of each water stream
-   * and position
+   * Calculate the length of each water stream
    */
-  function setPipeLength($el1, $el2) {
+  function getPipeLength($el1, $el2) {
+    return $el2.offset().top - $el1.offset().top - $el1.outerHeight();
+  }
+
+
+  /**
+   * Calculate the distance between two elements
+   */
+  function getDistance($el1, $el2) {
     return $el2.offset().top - $el1.offset().top;
   }
 

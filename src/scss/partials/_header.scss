@@ -1,7 +1,11 @@
 header {
   &.header-main {
+    width: 100%;
+    background: greenyellow;
+
     .container {
       position: relative;
+      background: red;
     }
   }
 } // header
