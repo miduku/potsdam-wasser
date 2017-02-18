@@ -1,11 +1,20 @@
 header {
   &.header-main {
     width: 100%;
-    background: greenyellow;
+    // background: greenyellow;
 
-    .container {
-      position: relative;
-      background: red;
+    section {
+      &#section-intro {
+        @include vr(
+          $padding-bottom: 2
+        );
+
+        header,
+        article {
+          @extend .span5;
+          @extend .offset0;
+        }
+      }
     }
   }
 } // header

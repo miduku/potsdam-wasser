@@ -182,11 +182,15 @@
 
   // cache some jQuery elements
   var $$ = {
-    w: $(window),
+    win: $(window),
+    bod: $('body'),
     navContainer: $('.nav-container'),
+    wide: $('main .wide'),
+
     navMain: {
       _this: $('.nav-main'),
 
+      a: $('.nav-main a'),
       icon: {
         _this: $('.nav-main ul i'),
 
@@ -228,8 +232,24 @@
       versorgung: [56, 115, 184],
       reinigung:  [130, 154, 175],
       natur:      [46, 156, 204]
+    },
+    offset: {
+      fromTop: 0.75
     }
   };
+
+  // Event handling: reduce frequency of handler calls
+  var eventHandling = {
+    allow: true,
+    reallow: function() {
+      eventHandling.allow = true;
+    },
+    delay: 300
+  };
+
+
+
+
 
 
 
@@ -247,12 +267,28 @@
       .append('<div class="waterpipeNav"><div class="water"></div></div>');
 
 
+    // add flood element
+    $$.wide
+      .prepend('<div class="flood"><div class="circle"></div></div>');
+
+
+    // click events for main nav
+    //
+    // create overlays
+    $$.bod
+      .prepend('<div class="click-overlay"></div>');
+    $$.navMain._this
+      .prepend('<div class="click-navOverlay"></div>');
+
     // smooth scroll for nav-main
-    $('.nav-main a[href^="#"]').bind('click.smoothscroll', function(e) {
+    $('.nav-main:not(.hidden) a[href^="#"]').bind('click.smoothscroll', function(e) {
       e.preventDefault();
 
       var target = this.hash;
       var $target = $(target);
+
+      $('.click-overlay')
+        .removeClass('visible');
 
       $('html, body')
         .stop()
@@ -260,8 +296,38 @@
           'scrollTop': $target.offset().top
         }, 900, 'swing', function() {
           window.location.hash = target;
+
+          $$.navMain._this
+            .addClass('hidden');
+
         });
     });
+
+    $$.navMain._this
+      .children('.click-navOverlay')
+      .on('click', function(e) {
+        e.preventDefault();
+        var parent = $(this).parent();
+
+        if ( parent.hasClass('hidden') ) {
+          parent
+            .removeClass('hidden');
+          $('.click-overlay')
+            .addClass('visible');
+        }
+      });
+
+    $('.click-overlay')
+      .on('click', function(e) {
+        e.preventDefault();
+
+        $(this)
+          .removeClass('visible');
+
+        $$.navMain._this
+          .addClass('hidden');
+      });
+
 
 
     /**
@@ -276,7 +342,7 @@
         NavSticky: new ScrollMagic.Scene({
           triggerElement: '#section-intro',
           triggerHook: 0,
-          duration: getDistance($$.section.intro, $$.section.natur)*2
+          duration: getDistance($$.section.intro, $$.section.natur)
         })
       },
 
@@ -284,38 +350,84 @@
       cast: {
         NavSticky: function() {
           return magic.scene.NavSticky
-            .addTo(magic.Controller)
-            .addIndicators({ name: 'navSticky' })
-            .on('progress resize', function(e){
-              var progress = e.progress;
+              .addTo(magic.Controller)
+              .addIndicators({ name: 'navSticky' })
+              .on('progress resize', function(e){
+                var progress = e.progress;
 
-              if (0.5 <= progress && progress < 1) {
-                $$.navMain._this
-                  .removeClass('retracted hidden')
-                  .addClass('extended')
-                  .css({
-                    'left': 0
-                  });
-              } else if (progress === 1) {
-                $$.navMain._this
-                  .removeClass('retracted extended')
-                  .addClass('hidden extended')
-                  .css({
-                    'left': 0
-                  });
-              } else {
-                $$.navMain._this
-                  .removeClass('extended hidden')
-                  .addClass('retracted')
-                  .css({
-                    'left': $$.navContainer.offset().left
-                  });
-              }
-            });
+                if (0.5 <= progress && progress < 1) {
+                  $$.navMain._this
+                      .removeClass('retracted hidden')
+                      .addClass('extended')
+                      .css({
+                        'left': 0
+                      });
+
+                  $('.click-overlay')
+                      .removeClass('visible');
+
+                } else if (progress === 1) {
+                  $$.navMain._this
+                      .removeClass('retracted extended')
+                      .addClass('hidden extended')
+                      .css({
+                        'left': 0
+                      });
+                } else {
+                  $$.navMain._this
+                      .removeClass('extended hidden')
+                      .addClass('retracted')
+                      .css({
+                        'left': $$.navContainer.offset().left
+                      });
+                }
+              });
         },
 
-        Waterpipe: function($el, $iconPositionsArr) {
-          // colors sequence
+          // insert a flood effect to elemenet
+        Flood: function($el) {
+          return $el
+              .each(function(i, el) {
+                var $this = $(el);
+
+                // magic here
+                var scene = new ScrollMagic.Scene({
+                  triggerElement: el,
+                  triggerHook: .6,
+                  duration: $this.outerHeight()
+                })
+                .addTo(magic.Controller)
+                .addIndicators({ name: 'flood' + i })
+                .on('progress', function(e) {
+                  var progress = e.progress.toFixed(3);
+
+                  $this
+                    .children('.flood')
+                    .children('.circle')
+                    .css({
+                      'transform': 'scale(' + progress + ')'
+                    });
+
+                  if (progress >= 0.25) {
+                    $this
+                      .addClass('showText');
+                  } else {
+                    $this
+                      .removeClass('showText');
+                  }
+                })
+                .on('update leave', function(e) {
+                  if (e.type === 'leave' && e.target.controller().info('scrollDirection') === 'FORWARD') {
+                    $this
+                      .next('.container')
+                      .css('opacity', 1);
+                  }
+                });
+              });
+        },
+
+        Waterpipe: function($el, $iconPositionsArr, progressType) {
+            // colors sequence
           var color = [
             water.colors.natur,
             water.colors.gewinnung,
@@ -324,67 +436,72 @@
             water.colors.natur
           ];
 
-          return $el.each(function(i, el) {
-            var rgbDiff = [
-              color[i+1][0] - color[i][0],
-              color[i+1][1] - color[i][1],
-              color[i+1][2] - color[i][2]
-            ];
+          return $el
+              .each(function(i, el) {
+                var $this = $(el);
 
-            // magic here
-            var scene = new ScrollMagic.Scene({
-              triggerElement: el,
-              triggerHook: .75
-            })
-            .addTo(magic.Controller)
-            .addIndicators({ name: 'Waterpipe' + i })
-            .on('progress', function(e) {
-              var progress = e.progress.toFixed(3);
+                var rgbDiff = [
+                  color[i+1][0] - color[i][0],
+                  color[i+1][1] - color[i][1],
+                  color[i+1][2] - color[i][2]
+                ];
 
-              var progressLin = (progress * 100);
-              var progressExp = progressLin * progress;
+                // magic here
+                var scene = new ScrollMagic.Scene({
+                  triggerElement: el,
+                  triggerHook: water.offset.fromTop
+                })
+                .addTo(magic.Controller)
+                .addIndicators({ name: 'Waterpipe' + i })
+                .on('progress', function(e) {
+                  var progress = e.progress.toFixed(3);
+                  var prog     = (progress * 100);
 
-              var indicatorColor = [
-                Math.round(color[i][0] + rgbDiff[0] * progress),
-                Math.round(color[i][1] + rgbDiff[1] * progress),
-                Math.round(color[i][2] + rgbDiff[2] * progress)
-              ];
+                  var progLin = prog + '%';
+                  var progExp = prog * progress + '%';
 
-              var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
+                  var indicatorColor = [
+                    Math.round(color[i][0] + rgbDiff[0] * progress),
+                    Math.round(color[i][1] + rgbDiff[1] * progress),
+                    Math.round(color[i][2] + rgbDiff[2] * progress)
+                  ];
+
+                  var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
 
 
-              // water in main waterpipe
-              $(el)
-                .children('.water')
-                .css({
-                  background: backgroundGradient,
-                  height: progressExp + '%'
+                  // water in main waterpipe
+                  $this
+                    .children('.water')
+                    .css({
+                      background: backgroundGradient,
+                      height: progExp
+                    });
+
+                  // water in navigation waterpipe
+                  $$.navMain.icon._this
+                    .eq(i)
+                    .children('.waterpipeNav')
+                    .children('.water')
+                    .css({
+                      background: backgroundGradient,
+                      height: progLin
+                    });
                 });
 
-              // water in navigation waterpipe
-              $$.navMain.icon._this
-                .eq(i)
-                .children('.waterpipeNav')
-                .children('.water')
-                .css({
-                  background: backgroundGradient,
-                  height: progressLin + '%'
+                $$.win.on('resize', function() {
+                  scene
+                    .duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
+
+                  scene
+                    .refresh();
                 });
-            });
-
-            $$.w.on('resize', function() {
-              scene
-                .duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
-
-              scene
-                .refresh();
-            });
-          });
+              });
         }
       }
     };
 
-    magic.cast.Waterpipe( $('.waterpipe'), water.iconPositionsArr.mainIcons);
+    magic.cast.Waterpipe( $('.waterpipe'), water.iconPositionsArr.mainIcons, 'exponential');
+    magic.cast.Flood( $$.wide );
     magic.cast.NavSticky();
 
 
@@ -397,7 +514,7 @@
     // });
 
     // trigger
-    $$.w
+    $$.win
       .trigger('resize');
     $$.navMain._this
       .trigger('resize');
@@ -409,27 +526,17 @@
   //---------------------------------------//
   //** The rest of your code goes here!  **//
 
-  // reduce frequency of handler calls
-  var eventHandling = {
-    allow: true,
-    reallow: function() {
-      eventHandling.allow = true;
-    },
-    delay: 300
-  };
-
-
-  $$.w
+  $$.win
     .on('resize', function() {
       // set section-intro's height to 100%
       $$.section.intro
-        .css('height', $$.w.outerHeight());
+        .css('height', $$.win.outerHeight());
 
       // set section-natur's height to 200% and margin-bottom 100%
       $$.section.natur
         .css({
-          'height': $$.w.outerHeight()*2,
-          'marginBottom' : $$.w.outerHeight()
+          'height': $$.win.outerHeight()*2,
+          'marginBottom' : $$.win.outerHeight()
         });
 
 
@@ -439,13 +546,8 @@
           $(el)
             .css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
         });
-    });
 
-
-  $$.navMain._this
-    .bind('resize', function() {
-      console.log('navMain resized');
-
+      // nav waterpipe length
       $$.navMain.icon._this
         .each(function(i, el) {
           if (i < water.iconPositionsArr.navIcons.length - 1) {
@@ -455,21 +557,48 @@
           }
         });
 
+      // reposition flood effect
+      $$.wide
+        .each(function(i, el) {
+          var $this = $(el);
+
+          var $icon = {
+            _this: $this.find('.icon i'),
+            size: $this.find('.icon i').outerWidth()
+          };
+
+          var flood = {
+            posTop:  $icon._this.position().top,
+            posLeft: $icon._this.offset().left,
+            size:  $this.outerWidth()
+          };
+
+          $this
+            .children('.flood')
+            .children('.circle')
+            .css({
+              'left': flood.posLeft + $icon.size/2 - (flood.size),
+              'top': flood.posTop + $icon.size/2 - (flood.size),
+              'width': flood.size*2,
+              'height': flood.size*2
+            });
+        });
+
     });
 
 
-  // load, scroll WITH delay
-  $$.w
-    .on('load scroll', function() {
-      if (eventHandling.allow) {
+  // // load, scroll WITH delay
+  // $$.win
+  //   .on('load scroll', function() {
+  //     if (eventHandling.allow) {
 
-        // insert code to throttle here...
+  //       // insert code to throttle here...
 
-        // trottle the event
-        eventHandling.allow = false;
-        setTimeout(eventHandling.reallow, eventHandling.delay);
-      } // END event handling
-    });
+  //       // trottle the event
+  //       eventHandling.allow = false;
+  //       setTimeout(eventHandling.reallow, eventHandling.delay);
+  //     } // END event handling
+  //   });
 
 
 
@@ -487,7 +616,7 @@
   //   return $el.css({
   //     'position': 'absolute',
   //     'top': parentHeight / 2 - elHeight / 2,
-  //     'left': $$.w.outerWidth() / 2 - elWidth / 2,
+  //     'left': $$.win.outerWidth() / 2 - elWidth / 2,
   //     'paddingTop': 0
   //   });
   // }
