@@ -3,6 +3,7 @@
 //----------------------------------*/
 
 img,
+svg,
 video,
 audio,
 iframe,
@@ -24,7 +25,8 @@ object {
   padding-top: 0;
   position: relative;
 
-  iframe {
+  iframe,
+  svg {
     height: 100%;
     left: 0;
     position: absolute;
@@ -47,26 +49,58 @@ object {
   }
 
   &-4by3{
-    @include maintain-ratio(1 1.25);
+    @include maintain-ratio(4 3);
     @extend .embed;
-
-    @include mobilefirst($bp-tablet) {
-      @include maintain-ratio(4 3);
-    }
   }
 }
 
 figure {
+  font-family: $font-sans;
+  border: 1px solid #333;
+  border-radius: $br;
+  @include vr(
+    $margin: 0 0 1
+  );
 
-  img {
+  #section-gewinnung & {
+    border-color: rgba($color-gewinnung, .25);
+    background-color: rgba($color-gewinnung, .05);
+  }
+  #section-versorgung & {
+    border-color: rgba($color-versorgung, .25);
+    background-color: rgba($color-versorgung, .05);
+  }
+  #section-reinigung & {
+    border-color: rgba($color-reinigung, .25);
+    background-color: rgba($color-reinigung, .05);
+  }
+
+  svg {
+    @include vr(
+      $padding-top: .5
+    );
   }
 
   figcaption {
+    @include vr(
+      $padding:.75 .5 .25
+    );
 
     h4,
     h5,
     h6 {
       margin-top: 0;
+    }
+
+    h4,
+    h5,
+    h6,
+    p {
+      @extend .font-small;
+    }
+
+    .btn {
+      margin-bottom: 0;
     }
   }
 }

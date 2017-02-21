@@ -69,12 +69,17 @@ nav {
         background: transparent;
         display: flex;
         flex-direction: column;
+        height: 0;
         // @include vr( $padding: .5 0 );
       }
 
         li {
           position: relative;
           flex: 0 1 auto;
+
+          &.nav-main-versorgung {
+            margin: 0;
+          }
 
           &.nav-main-gewinnung a  { color: $color-gewinnung; }
           &.nav-main-versorgung a { color: $color-versorgung; }
@@ -143,7 +148,9 @@ nav {
       height: 100%;
       top: 0;
       left: 0;
-      @include vr( $padding: .25 );
+      @include vr(
+        $padding: .25
+      );
 
       ul {
         height: 100%;
@@ -152,6 +159,7 @@ nav {
 
         li {
           margin: 1%;
+
           &.nav-main-versorgung {
             margin: 15% 0;
           }
@@ -178,7 +186,9 @@ nav {
               visibility: hidden;
               opacity: 0;
               transform: translateX(-200%);
-              @include vr( $padding: 0 .5 );
+              @include vr(
+                $padding: 0 .5
+              );
               // background-color: rgba(#fff, .75);
             }
           }
@@ -190,7 +200,8 @@ nav {
       // background: lightgray;
       @include vr(
         $height: 2,
-        $padding: .25 .5
+        $padding: .25 .5,
+        $margin-top: .5
       );
 
       .click-navOverlay {
@@ -210,7 +221,7 @@ nav {
 
         li {
           &.nav-main-versorgung {
-            margin: unset;
+            margin: 0;
           }
 
           // &.nav-main-gewinnung i  { background: $color-gewinnung  url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
@@ -252,6 +263,7 @@ nav {
               transform: scale(.2);
               transform-origin: 50%;
               margin: 0;
+              box-shadow: 0 0 12px #fff;
               @include vr(
                 $margin-top: -($size / 2)
               );
@@ -266,7 +278,6 @@ nav {
                 $height: $size,
                 $line-height: $size
               );
-
             }
           }
         }

@@ -100,6 +100,7 @@ main {
 
     &#section-natur {
       // background: $color-natur;
+      position: relative;
 
       .container-natur {
         position: relative;
@@ -107,6 +108,7 @@ main {
         background: url(../img/potsdam.svg) 100% 100% no-repeat;
         background-size: 1271px 357px;
         border-bottom: 40px solid $color-natur;
+        // background: pink;
 
         .group {
           position: absolute;

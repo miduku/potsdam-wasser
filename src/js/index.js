@@ -1,7 +1,7 @@
 // IIFE - Immediately Invoked Function Expression
 // https://toddmotto.com/what-function-window-document-undefined-iife-really-means/
 // http://gregfranko.com/blog/jquery-best-practices/
-(function($, window, document, undefined) {
+(function($, d3, window, document, undefined) {
 
   'use strict';
 
@@ -72,6 +72,14 @@
     delay: 300
   };
 
+  var d3s = {
+    wasserbedarf: {
+      w: 800,
+      h: 600,
+      colors: ["#2889B3", "#3873B8", "#829AAF", "#2E9CCC"],
+      data: 'assets/data/taeglicher-gesamt-wasserbedarf-potsdams.csv'
+    }
+  };
 
 
 
@@ -82,28 +90,27 @@
   $(function() { // The $ is now locally scoped
 
     // add main waterpipe to icons and container-animation
-    $$.icon._this
-      .append('<div class="waterpipe"><div class="water"></div></div>');
+    $$.icon._this.append('<div class="waterpipe"><div class="water"></div></div>');
 
     // add navigation waterpipe
-    $$.navMain._this
-      .children('ul')
+    $$.navMain._this.children('ul')
       .find('li:not(:last) i')
       .append('<div class="waterpipeNav"><div class="water"></div></div>');
 
 
     // add flood element
-    $$.wide
-      .prepend('<div class="flood"><div class="circle"></div></div>');
+    $$.wide.prepend('<div class="flood"><div class="circle"></div></div>');
+
+    // add rain element
+    $$.section.natur.prepend('<div class="weather"><div class="rain"></div></div>');
+      // weather height because ScrollMagic doesn't like height: 100%
 
 
     // click events for main nav
     //
     // create overlays
-    $$.bod
-      .prepend('<div class="click-overlay"></div>');
-    $$.navMain._this
-      .prepend('<div class="click-navOverlay"></div>');
+    $$.bod.prepend('<div class="click-overlay"></div>');
+    $$.navMain._this.prepend('<div class="click-navOverlay"></div>');
 
     // smooth scroll for nav-main
     $('.nav-main:not(.hidden) a[href^="#"]').bind('click.smoothscroll', function(e) {
@@ -112,46 +119,42 @@
       var target = this.hash;
       var $target = $(target);
 
-      $('.click-overlay')
-        .removeClass('visible');
+      $('.click-overlay').removeClass('visible');
 
-      $('html, body')
-        .stop()
-        .animate({
-          'scrollTop': $target.offset().top
-        }, 900, 'swing', function() {
-          window.location.hash = target;
-
-          $$.navMain._this
-            .addClass('hidden');
-
-        });
-    });
-
-    $$.navMain._this
-      .children('.click-navOverlay')
-      .on('click', function(e) {
-        e.preventDefault();
-        var parent = $(this).parent();
-
-        if ( parent.hasClass('hidden') ) {
-          parent
-            .removeClass('hidden');
-          $('.click-overlay')
-            .addClass('visible');
-        }
-      });
-
-    $('.click-overlay')
-      .on('click', function(e) {
-        e.preventDefault();
-
-        $(this)
-          .removeClass('visible');
+      $('html, body').stop()
+      .animate({
+        'scrollTop': $target.offset().top
+      }, 900, 'swing', function() {
+        window.location.hash = target;
 
         $$.navMain._this
           .addClass('hidden');
+
       });
+    });
+
+    $$.navMain._this.children('.click-navOverlay')
+    .on('click', function(e) {
+      e.preventDefault();
+      var parent = $(this).parent();
+
+      if ( parent.hasClass('hidden') ) {
+        parent
+          .removeClass('hidden');
+        $('.click-overlay')
+          .addClass('visible');
+      }
+    });
+
+    $('.click-overlay').on('click', function(e) {
+      e.preventDefault();
+
+      $(this)
+        .removeClass('visible');
+
+      $$.navMain._this
+        .addClass('hidden');
+    });
 
 
 
@@ -209,49 +212,73 @@
               });
           },
 
-          // insert a flood effect to elemenet
-          Flood: function($el) {
-            return $el
-              .each(function(i, el) {
-                var $this = $(el);
+          // set when weather is shown
+          Weather: function($el) {
+            var className = $el.attr('id');
+            var $weatherElement = $el.find('.weather');
 
-                // magic here
-                var scene = new ScrollMagic.Scene({
-                  triggerElement: el,
-                  triggerHook: .6,
-                  duration: $this.outerHeight()
-                })
-                .addTo(magic.Controller)
-                .addIndicators({ name: 'flood' + i })
-                .on('progress', function(e) {
-                  var progress = e.progress.toFixed(3);
+            return new ScrollMagic.Scene({
+              triggerElement: '#' + className,
+              triggerHook: .5,
+              duration: $$.win.outerHeight()*3
+            })
+            .addTo(magic.Controller)
+            .addIndicators({ name: 'weather' })
+            .on('progress', function(e) {
+              var progress = e.progress.toFixed(1);
 
-                  $this
-                    .children('.flood')
-                    .children('.circle')
-                    .css({
-                      'transform': 'scale(' + progress + ')'
-                    });
-
-                  if (progress >= 0.25) {
-                    $this
-                      .addClass('showText');
-                  } else {
-                    $this
-                      .removeClass('showText');
-                  }
-                })
-                .on('update leave', function(e) {
-                  if (e.type === 'leave' && e.target.controller().info('scrollDirection') === 'FORWARD') {
-                    $this
-                      .next('.container')
-                      .css('opacity', 1);
-                  }
-                });
-              });
+              if (0.1 < progress && progress <= 0.8) {
+                $weatherElement
+                  .css('opacity', 1);
+              } else {
+                $weatherElement
+                  .css('opacity', 0);
+              }
+            });
           },
 
-          Waterpipe: function($el, $iconPositionsArr, progressType) {
+          // insert a flood effect to elemenet
+          Flood: function($el) {
+            return $el.each(function(i, el) {
+              var $this = $(el);
+
+              // magic here
+              new ScrollMagic.Scene({
+                triggerElement: el,
+                triggerHook: .6,
+                duration: $this.outerHeight()
+              })
+              .addTo(magic.Controller)
+              .addIndicators({ name: 'flood' + i })
+              .on('progress', function(e) {
+                var progress = e.progress.toFixed(3);
+
+                $this
+                  .children('.flood')
+                  .children('.circle')
+                  .css({
+                    'transform': 'scale(' + progress + ')'
+                  });
+
+                if (progress >= 0.25) {
+                  $this
+                    .addClass('showText');
+                } else {
+                  $this
+                    .removeClass('showText');
+                }
+              })
+              .on('update leave', function(e) {
+                if (e.type === 'leave' && e.target.controller().info('scrollDirection') === 'FORWARD') {
+                  $this
+                    .next('.container')
+                    .css('opacity', 1);
+                }
+              });
+            });
+          },
+
+          Waterpipe: function($el, $iconPositionsArr) {
             // colors sequence
             var color = [
               water.colors.natur,
@@ -261,70 +288,67 @@
               water.colors.natur
             ];
 
-            return $el
-              .each(function(i, el) {
-                var $this = $(el);
+            return $el.each(function(i, el) {
+              var $this = $(el);
 
-                var rgbDiff = [
-                  color[i+1][0] - color[i][0],
-                  color[i+1][1] - color[i][1],
-                  color[i+1][2] - color[i][2]
-                ];
+              var rgbDiff = [
+                color[i+1][0] - color[i][0],
+                color[i+1][1] - color[i][1],
+                color[i+1][2] - color[i][2]
+              ];
 
-                // magic here
-                var scene = new ScrollMagic.Scene({
-                  triggerElement: el,
-                  triggerHook: water.offset.fromTop
-                })
-                .addTo(magic.Controller)
-                .addIndicators({ name: 'Waterpipe' + i })
-                .on('progress', function(e) {
-                  var progress = e.progress.toFixed(3);
-                  var prog     = (progress * 100);
+              // magic here
+              var scene = new ScrollMagic.Scene({
+                triggerElement: el,
+                triggerHook: water.offset.fromTop
+              })
+              .addTo(magic.Controller)
+              .addIndicators({ name: 'Waterpipe' + i })
+              .on('progress', function(e) {
+                var progress = e.progress.toFixed(3);
+                var prog     = (progress * 100);
 
-                  var progLin = prog + '%';
-                  var progExp = prog * progress + '%';
+                var progLin = prog + '%';
+                var progExp = prog * progress + '%';
 
-                  var indicatorColor = [
-                    Math.round(color[i][0] + rgbDiff[0] * progress),
-                    Math.round(color[i][1] + rgbDiff[1] * progress),
-                    Math.round(color[i][2] + rgbDiff[2] * progress)
-                  ]
+                var indicatorColor = [
+                  Math.round(color[i][0] + rgbDiff[0] * progress),
+                  Math.round(color[i][1] + rgbDiff[1] * progress),
+                  Math.round(color[i][2] + rgbDiff[2] * progress)
+                ]
 
-                  var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
+                var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
 
 
-                  // water in main waterpipe
-                  $this
-                    .children('.water')
-                    .css({
-                      background: backgroundGradient,
-                      height: progExp
-                    });
+                // water in main waterpipe
+                $this
+                  .children('.water')
+                  .css({
+                    background: backgroundGradient,
+                    height: progExp
+                  });
 
-                  // water in navigation waterpipe
-                  $$.navMain.icon._this
-                    .eq(i)
-                    .children('.waterpipeNav')
-                    .children('.water')
-                    .css({
-                      background: backgroundGradient,
-                      height: progLin
-                    });
-                });
-
-                $$.win.on('resize', function() {
-                  scene
-                    .duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
-
-                  scene
-                    .refresh();
-                });
+                // water in navigation waterpipe
+                $$.navMain.icon._this
+                  .eq(i)
+                  .children('.waterpipeNav')
+                  .children('.water')
+                  .css({
+                    background: backgroundGradient,
+                    height: progLin
+                  });
               });
+
+              $$.win.on('resize', function() {
+                scene.duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
+                scene.refresh();
+              });
+            });
           }
       }
     };
 
+    magic.cast.Weather( $('#section-natur') );
     magic.cast.Waterpipe( $('.waterpipe'), water.iconPositionsArr.mainIcons, 'exponential');
     magic.cast.Flood( $$.wide );
     magic.cast.NavSticky();
@@ -338,11 +362,13 @@
     //   return parseFloat(getComputedStyle(document.documentElement, null).getPropertyValue('line-height'));
     // });
 
+    // D3
+    d3PieChart(d3s.wasserbedarf.w, d3s.wasserbedarf.h, d3s.wasserbedarf.colors, d3s.wasserbedarf.data);
+
+
     // trigger
-    $$.win
-      .trigger('resize');
-    $$.navMain._this
-      .trigger('resize');
+    $$.win.trigger('resize');
+    $$.navMain._this.trigger('resize');
 
 
   }); // END $ (locally)
@@ -351,65 +377,67 @@
   //---------------------------------------//
   //** The rest of your code goes here!  **//
 
-  $$.win
-    .on('resize', function() {
-      // set section-intro's height to 100%
-      $$.section.intro
-        .css('height', $$.win.outerHeight());
+  $$.win.on('resize', function() {
+    // set section-intro's height to 100%
+    $$.section.intro
+      .css('height', $$.win.outerHeight());
 
-      // set section-natur's height to 200% and margin-bottom 100%
-      $$.section.natur
-        .css({
-          'height': $$.win.outerHeight()*2,
-          'marginBottom' : $$.win.outerHeight()
-        });
+    // set section-natur's height to 200% and margin-bottom 100%
+    $$.section.natur
+      .css({
+        'height': $$.win.outerHeight()*4,
+        'marginBottom' : $$.win.outerHeight()
+      });
 
+    // weather height because ScrollMagic doesn't like height: 100%
+    $('.weather')
+      .css('height', $$.section.natur.outerHeight());
 
-      // waterpipe length
-      $('.waterpipe')
-        .each(function(i, el) {
+    // waterpipe length
+    $('.waterpipe')
+      .each(function(i, el) {
+        $(el)
+          .css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
+      });
+
+    // nav waterpipe length
+    $$.navMain.icon._this
+      .each(function(i, el) {
+        if (i < water.iconPositionsArr.navIcons.length - 1) {
           $(el)
-            .css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
-        });
+            .children('.waterpipeNav')
+            .css('height', getPipeLength( water.iconPositionsArr.navIcons[i], water.iconPositionsArr.navIcons[i+1] ));
+        }
+      });
 
-      // nav waterpipe length
-      $$.navMain.icon._this
-        .each(function(i, el) {
-          if (i < water.iconPositionsArr.navIcons.length - 1) {
-            $(el)
-              .children('.waterpipeNav')
-              .css('height', getPipeLength( water.iconPositionsArr.navIcons[i], water.iconPositionsArr.navIcons[i+1] ));
-          }
-        });
+    // reposition flood effect
+    $$.wide
+      .each(function(i, el) {
+        var $this = $(el);
 
-      // reposition flood effect
-      $$.wide
-        .each(function(i, el) {
-          var $this = $(el);
+        var $icon = {
+          _this: $this.find('.icon i'),
+          size: $this.find('.icon i').outerWidth()
+        };
 
-          var $icon = {
-            _this: $this.find('.icon i'),
-            size: $this.find('.icon i').outerWidth()
-          };
+        var flood = {
+          posTop:  $icon._this.position().top,
+          posLeft: $icon._this.offset().left,
+          size:  $this.outerWidth()
+        };
 
-          var flood = {
-            posTop:  $icon._this.position().top,
-            posLeft: $icon._this.offset().left,
-            size:  $this.outerWidth()
-          };
+        $this
+          .children('.flood')
+          .children('.circle')
+          .css({
+            'left': flood.posLeft + $icon.size/2 - (flood.size),
+            'top': flood.posTop + $icon.size/2 - (flood.size),
+            'width': flood.size*2,
+            'height': flood.size*2
+          });
+      });
 
-          $this
-            .children('.flood')
-            .children('.circle')
-            .css({
-              'left': flood.posLeft + $icon.size/2 - (flood.size),
-              'top': flood.posTop + $icon.size/2 - (flood.size),
-              'width': flood.size*2,
-              'height': flood.size*2
-            });
-        });
-
-    });
+  });
 
 
   // // load, scroll WITH delay
@@ -463,7 +491,109 @@
   }
 
 
+  /**
+   * D3
+   */
+  function d3PieChart(width, height, colorsArray, csvData) {
+    // pie chart
+    var pieWidth = width;
+    var pieHeight = height;
+    var pieRadius = Math.min(pieWidth, pieHeight) / 2;
+    var pieColor = d3.scaleOrdinal()
+      .range(colorsArray);
+    var pieArc = d3.arc()
+      .outerRadius(pieRadius - 50)
+      .innerRadius(0);
+    var pieLabelArc = d3.arc()
+      .outerRadius(pieRadius - 10)
+      .innerRadius(pieRadius - 10);
+    var pieData = csvData;
 
+
+    var d3Pie = d3.pie()
+      .sort(null)
+      .value(function(d) { return d.Value; })
+
+    var svgPie = d3.select('.d3Verteilung > div')
+        .append('svg')
+        .attr('preserveAspectRatio', 'xMinYMin meet')
+        .attr('viewBox', '0 0 ' + pieWidth + ' ' + pieHeight)
+          .append('g')
+          .attr('class', 'g')
+          .attr('transform', 'translate(' + pieWidth * 0.5 + ',' + pieHeight * 0.5 + ')' );
+
+    svgPie.append('g')
+      .attr('class', 'arcs');
+    svgPie.append('g')
+      .attr('class', 'labels');
+    svgPie.append('g')
+      .attr('class', 'lines');
+
+
+
+    d3.csv(pieData, typeIsNumbers, function(error, data) {
+      if (error) throw error;
+
+      var arc = svgPie.select('.arcs')
+        .selectAll('.arc')
+        .data( d3Pie(data) )
+        .enter();
+
+      arc.append('path')
+        .attr('class', 'arc')
+        .attr('d', pieArc)
+        .style('stroke', '#ffffff')
+        .style('stroke-linejoin', 'round')
+        .style('stroke-width', 2)
+        .style('fill', function(d) { return pieColor(d.data.Label); });
+
+
+      var text = svgPie.select('.labels')
+        .selectAll('.label')
+        .data( d3Pie(data) )
+        .enter();
+
+      text.append('text')
+        .attr('class', 'label')
+        .attr('dy', '.35em')
+        .attr("text-anchor", "middle")
+        .attr('transform', function(d) { return 'translate(' + pieLabelArc.centroid(d) + ')'; })
+        .style('font-size', '1.25em')
+        .text(function(d) { return d.data.Label + ': ' + d.data.Value });
+
+
+      var line = svgPie.select('.lines')
+        .selectAll('.line')
+        .data( d3Pie(data) )
+        .enter();
+
+      line.append('circle')
+        .attr('class', 'lineCircle')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('r', 4)
+        .attr('fill', '#000')
+        .attr('transform', function(d) { return 'translate(' + pieArc.centroid(d) + ')'; })
+        .style('opacity', .6);
+
+      line.append('line')
+        .attr('class', 'line')
+        .attr('stroke-width', 2)
+        .attr('stroke', '#000')
+        .attr('x1', function (d) { return pieArc.centroid(d)[0]; })
+        .attr('y1', function (d) { return pieArc.centroid(d)[1]; })
+        .attr('x2', function (d) { return pieLabelArc.centroid(d)[0] * .95; })
+        .attr('y2', function (d) { return pieLabelArc.centroid(d)[1] * .95; })
+        .style('opacity', .6);
+    });
+  }
+
+  function typeIsNumbers(d) {
+    // tell d3 that these are numbers, not strings
+    d.Value = +d.Value;
+
+    return d;
+  }
 
   // /**
   //  * Calculate the circle to fill a square at given coordinates
@@ -488,4 +618,4 @@
   //   return Math.max(nw, ne, se, sw);
   // }
 
-}(jQuery, window, document)); // END iife
+}(jQuery, d3, window, document)); // END iife
