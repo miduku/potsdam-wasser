@@ -74,10 +74,24 @@
 
   var d3s = {
     wasserbedarf: {
-      w: 800,
+      element: '.d3Verteilung > .d3',
+      w: 600,
       h: 600,
-      colors: ["#2889B3", "#3873B8", "#829AAF", "#2E9CCC"],
+      colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF"],
       data: 'assets/data/taeglicher-gesamt-wasserbedarf-potsdams.csv'
+    },
+    wasserverbrauch: {
+      element: '.d3Verbrauch > .d3',
+      w: 600,
+      h: 680,
+      margin: {
+        top: 20,
+        right: 40,
+        bottom: 30,
+        left: 50
+      },
+      colors: ["#3873B8", "#f44336", "#2889B3", "#2E9CCC", "#829AAF"],
+      data: 'assets/data/wasserverbrauch-proportianal-bevoelkerungsdichte.csv'
     }
   };
 
@@ -363,7 +377,8 @@
     // });
 
     // D3
-    d3PieChart(d3s.wasserbedarf.w, d3s.wasserbedarf.h, d3s.wasserbedarf.colors, d3s.wasserbedarf.data);
+    d3PieChart(d3s.wasserbedarf.element, d3s.wasserbedarf.w, d3s.wasserbedarf.h, d3s.wasserbedarf.colors, d3s.wasserbedarf.data);
+    d3MultiLineChart(d3s.wasserverbrauch.element, d3s.wasserverbrauch.w, d3s.wasserverbrauch.h, d3s.wasserverbrauch.margin, d3s.wasserverbrauch.colors, d3s.wasserverbrauch.data);
 
 
     // trigger
@@ -494,8 +509,9 @@
   /**
    * D3
    */
-  function d3PieChart(width, height, colorsArray, csvData) {
-    // pie chart
+  // pie chart
+  //
+  function d3PieChart(element, width, height, colorsArray, csvData) {
     var pieWidth = width;
     var pieHeight = height;
     var pieRadius = Math.min(pieWidth, pieHeight) / 2;
@@ -509,18 +525,14 @@
       .innerRadius(pieRadius - 10);
     var pieData = csvData;
 
-
-    var d3Pie = d3.pie()
-      .sort(null)
-      .value(function(d) { return d.Value; })
-
-    var svgPie = d3.select('.d3Verteilung > div')
-        .append('svg')
-        .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('viewBox', '0 0 ' + pieWidth + ' ' + pieHeight)
-          .append('g')
-          .attr('class', 'g')
-          .attr('transform', 'translate(' + pieWidth * 0.5 + ',' + pieHeight * 0.5 + ')' );
+    // setup
+    var svgPie = d3.select(element)
+      .append('svg')
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', '0 0 ' + pieWidth + ' ' + pieHeight)
+        .append('g')
+        .attr('class', 'g')
+        .attr('transform', 'translate(' + pieWidth * 0.5 + ',' + pieHeight * 0.5 + ')' );
 
     svgPie.append('g')
       .attr('class', 'arcs');
@@ -529,8 +541,11 @@
     svgPie.append('g')
       .attr('class', 'lines');
 
+    var d3Pie = d3.pie()
+      .sort(null)
+      .value(function(d) { return d.Value; })
 
-
+    // data
     d3.csv(pieData, typeIsNumbers, function(error, data) {
       if (error) throw error;
 
@@ -559,6 +574,7 @@
         .attr("text-anchor", "middle")
         .attr('transform', function(d) { return 'translate(' + pieLabelArc.centroid(d) + ')'; })
         .style('font-size', '1.25em')
+        .style('color', '#333')
         .text(function(d) { return d.data.Label + ': ' + d.data.Value });
 
 
@@ -571,29 +587,156 @@
         .attr('class', 'lineCircle')
         .attr('x', 0)
         .attr('y', 0)
-        .attr('r', 4)
-        .attr('fill', '#000')
-        .attr('transform', function(d) { return 'translate(' + pieArc.centroid(d) + ')'; })
-        .style('opacity', .6);
+        .attr('r', 3)
+        .attr('fill', '#333')
+        .attr('transform', function(d) { return 'translate(' + pieArc.centroid(d) + ')'; });
 
       line.append('line')
         .attr('class', 'line')
-        .attr('stroke-width', 2)
-        .attr('stroke', '#000')
+        .attr('stroke-width', 1)
+        .attr('stroke', '#333')
         .attr('x1', function (d) { return pieArc.centroid(d)[0]; })
         .attr('y1', function (d) { return pieArc.centroid(d)[1]; })
         .attr('x2', function (d) { return pieLabelArc.centroid(d)[0] * .95; })
-        .attr('y2', function (d) { return pieLabelArc.centroid(d)[1] * .95; })
-        .style('opacity', .6);
+        .attr('y2', function (d) { return pieLabelArc.centroid(d)[1] * .95; });
     });
-  }
 
-  function typeIsNumbers(d) {
     // tell d3 that these are numbers, not strings
-    d.Value = +d.Value;
+    function typeIsNumbers(d) {
+      d.Value = +d.Value;
 
-    return d;
+      return d;
+    }
   }
+
+  // multiline chart
+  //
+  function d3MultiLineChart(element, width, height, margins, colorsArray, csvData) {
+    var outerHeight = height;
+    var outerWidth = width;
+    var innerHeight = outerHeight - margins.left - margins.right;
+    var innerWidth = outerWidth - margins.top - margins.bottom;
+
+    var parseTime = d3.timeParse("%Y");
+
+    var scaleX = d3.scaleTime().range([0, innerWidth]);
+    var scaleY = d3.scaleLinear().range([innerHeight, 0]);
+    var scaleZ = d3.scaleOrdinal().range(colorsArray);
+
+
+    // setup
+    var svgLine = d3.select(element)
+      .append('svg')
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', '0 0 ' + outerWidth + ' ' + outerHeight)
+      .attr('width', outerWidth)
+      // .attr('height', outerHeight)
+        .append('g')
+        .attr('class', 'g')
+        .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')' );
+
+    var d3Line = d3.line()
+      .curve(d3.curveBasis)
+      .x(function(d) { return scaleX(d.date); })
+      .y(function(d) { return scaleY(d.liter); });
+
+    d3.csv(csvData, type, function(error, data) {
+      if (error) throw error;
+
+      // console.log('data', data);
+
+      // get the categorys and put them in a var
+      var kategorien = data.columns.slice(1)
+        .map(function(id) {
+          return {
+            id: id,
+            values: data.map(function(d) {
+              return {
+                date: d.Jahr,
+                liter: d[id]
+              };
+            })
+          }
+        });
+
+        // console.log('kategorien', kategorien);
+
+
+      scaleX.domain(d3.extent(data, function(d) { return d.Jahr; }));
+
+      scaleY.domain([
+        d3.min(kategorien, function(k) { return d3.min(k.values, function(d) { return d.liter; }); }),
+        d3.max(kategorien, function(k) { return d3.max(k.values, function(d) { return d.liter; }); })
+      ]);
+
+      scaleZ.domain(kategorien.map(function(k) { return k.id; }));
+
+    svgLine.append('g')
+      .attr('class', 'lines');
+    svgLine.append('g')
+      .attr('class', 'axis');
+
+
+      svgLine.select('.axis')
+        .append('g')
+        .attr('class', 'axis-x')
+        .attr('transform', 'translate(0, ' + innerHeight + ')')
+        .call(d3.axisBottom(scaleX));
+
+      svgLine.select('.axis')
+        .append('g')
+        .attr('class', 'axis-y')
+        .call(d3.axisLeft(scaleY))
+          .append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('y', 6)
+          .attr('dy', '0.71em')
+          .attr('fill', '#333')
+          .style('font-style', 'italic')
+          .text('Liter');
+
+      var line = svgLine.select('.lines')
+        .selectAll('.line')
+        .data(kategorien)
+        .enter()
+          .append('g');
+
+      line.append('path')
+        .attr('class', function(d) { return 'line line' + d.id; })
+        .attr('d', function(d) { return d3Line(d.values); })
+        .style('fill', 'none')
+        .style('stroke-width', 2)
+        .style('stroke', function(d) { return scaleZ(d.id); });
+
+      line.append('text')
+        .datum(function(d) {
+          return {
+            id: d.id,
+            value: d.values[d.values.length - 1]
+          };
+        })
+        .attr('class', 'label')
+        .attr('transform', function(d) { return 'translate(' + scaleX(d.value.date) + ', ' + scaleY(d.value.liter) + ')'; })
+        .attr('x', 3)
+        .attr('dy', '0.35em')
+        .style('font-size', '1.1em')
+        .text(function(d) { return d.id });
+    });
+
+    // tell d3 that these are date and numbers
+    function type(d, _, columns) {
+      d.Jahr = parseTime(d.Jahr);
+
+      for (var i = 1, n = columns.length, c; i < n; ++i) {
+        d[c = columns[i]] = +d[c]
+      };
+
+      return d;
+    }
+  }
+
+
+
 
   // /**
   //  * Calculate the circle to fill a square at given coordinates

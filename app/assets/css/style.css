@@ -2927,13 +2927,13 @@ object {
 .group-video {
   margin: 2.00001rem 0; }
 
-.embed, .media-ratio-16by9, .media-ratio-21by9, .media-ratio-4by3 {
+.embed, .media-ratio-16by9, .media-ratio-21by9, .media-ratio-4by3, .media-ratio-1by1 {
   display: inline-block;
   overflow: hidden;
   padding-top: 0;
   position: relative; }
-  .embed iframe, .media-ratio-16by9 iframe, .media-ratio-21by9 iframe, .media-ratio-4by3 iframe,
-  .embed svg, .media-ratio-16by9 svg, .media-ratio-21by9 svg, .media-ratio-4by3 svg {
+  .embed iframe, .media-ratio-16by9 iframe, .media-ratio-21by9 iframe, .media-ratio-4by3 iframe, .media-ratio-1by1 iframe,
+  .embed svg, .media-ratio-16by9 svg, .media-ratio-21by9 svg, .media-ratio-4by3 svg, .media-ratio-1by1 svg {
     height: 100%;
     left: 0;
     position: absolute;
@@ -2956,6 +2956,11 @@ object {
   height: 0;
   padding-bottom: 75%; }
 
+.media-ratio-1by1 {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; }
+
 figure {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
   border: 1px solid #333;
@@ -2971,6 +2976,7 @@ figure {
     border-color: rgba(130, 154, 175, 0.25);
     background-color: rgba(130, 154, 175, 0.05); }
   figure svg {
+    max-width: 100%;
     padding-top: 1.00001rem; }
   figure figcaption {
     padding: 1.50001rem 1.00001rem 0.5rem; }
@@ -3475,11 +3481,3 @@ footer .wide {
     background-position: 64px 0; }
   to {
     background-position: 64px 1024px; } }
-
-.d3 .wasserverbrauch-entwicklung {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white; }

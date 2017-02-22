@@ -52,6 +52,11 @@ object {
     @include maintain-ratio(4 3);
     @extend .embed;
   }
+
+  &-1by1{
+    @include maintain-ratio(1 1);
+    @extend .embed;
+  }
 }
 
 figure {
@@ -76,6 +81,7 @@ figure {
   }
 
   svg {
+    max-width: 100%;
     @include vr(
       $padding-top: .5
     );
