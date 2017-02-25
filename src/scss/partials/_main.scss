@@ -52,6 +52,10 @@ main {
         p {
           opacity: 1;
         }
+
+          .icon i {
+            background-size: 72px !important;
+          }
       }
     }
 
@@ -76,6 +80,7 @@ main {
           width: 4rem;
           display: inline-block;
           border-radius: 50%;
+          @extend .animations-quick;
           @include vr(
             $margin-right: .5,
             $height: 2
@@ -101,13 +106,19 @@ main {
     &#section-natur {
       // background: $color-natur;
       position: relative;
+      background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
+      background-size: 759px 130px, 292px 149px, 216px 365px;
+      background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
+      background-repeat: no-repeat;
+      border-bottom: 40px solid $color-natur;
+
+      @include mobilefirst($bp-tablet) {
+        background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0;
+      }
 
       .container-natur {
         position: relative;
         height: 100%;
-        background: url(../img/potsdam.svg) 100% 100% no-repeat;
-        background-size: 1271px 357px;
-        border-bottom: 40px solid $color-natur;
         // background: pink;
 
         .group {

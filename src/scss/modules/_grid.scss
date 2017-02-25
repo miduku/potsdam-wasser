@@ -30,8 +30,8 @@ $margin: 4rem; // Margin between the grid columns
 .span10,
 .span11,
 .span12 {
-  margin-left: $margin;
   @include vr(
+    $margin-left: 1.5,
     $margin-bottom: 1
   );
 }

@@ -81,9 +81,14 @@ figure {
   }
 
   svg {
-    max-width: 100%;
     @include vr(
       $padding-top: .5
+    );
+  }
+
+  img {
+    @include vr(
+      $margin: .5
     );
   }
 
@@ -95,7 +100,9 @@ figure {
     h4,
     h5,
     h6 {
+      font-weight: bold;
       margin-top: 0;
+      hyphens: none;
     }
 
     h4,

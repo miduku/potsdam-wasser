@@ -44,7 +44,7 @@ body {
 .animations, .click-overlay, nav.nav-main, nav.nav-main ul, nav.nav-main li, nav.nav-main li a, nav.nav-main li a i, main section .wide + .container, main section .wide h1, main section .wide p, .weather {
   transition: all 0.5s; }
 
-.animations-quick, nav.nav-main li a span {
+.animations-quick, nav.nav-main li a span, main section .icon i {
   transition: all 0.2s; }
 
 /*!
@@ -2567,6 +2567,7 @@ h4,
 h5,
 h6 {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
+  hyphens: auto;
   margin-top: 4.00002rem;
   padding: 0px; }
   h1 + h1,
@@ -2613,10 +2614,15 @@ h6 {
   h6 + p {
     margin-top: 0; }
 
+h3,
 h4,
 h5,
 h6 {
   font-weight: bold; }
+
+h5 + p,
+h6 + p {
+  margin-top: -2.00001rem; }
 
 main section header p {
   font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif; }
@@ -2710,11 +2716,21 @@ h3,
 h4,
 h5,
 h6 {
-  text-transform: uppercase;
-  letter-spacing: .05em; }
+  text-transform: uppercase; }
 
 .margin-top-0 {
   margin-top: 0; }
+
+.margin-bottom-0 {
+  margin-bottom: 0; }
+
+.letter-spacing, nav, main section header p, .uppercase, h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: .06em; }
 
 a.btn {
   line-height: 2.00001rem; }
@@ -2976,14 +2992,17 @@ figure {
     border-color: rgba(130, 154, 175, 0.25);
     background-color: rgba(130, 154, 175, 0.05); }
   figure svg {
-    max-width: 100%;
     padding-top: 1.00001rem; }
+  figure img {
+    margin: 1.00001rem; }
   figure figcaption {
     padding: 1.50001rem 1.00001rem 0.5rem; }
     figure figcaption h4,
     figure figcaption h5,
     figure figcaption h6 {
-      margin-top: 0; }
+      font-weight: bold;
+      margin-top: 0;
+      hyphens: none; }
     figure figcaption .btn {
       margin-bottom: 0; }
 
@@ -3023,8 +3042,8 @@ main section article,
 footer .wide .content,
 .span11,
 .span12 {
-  margin-left: 4rem;
-  margin-bottom: 2.00001rem; }
+  margin-bottom: 2.00001rem;
+  margin-left: 3.00002rem; }
 
 .group {
   display: flex;
@@ -3209,9 +3228,8 @@ nav {
     position: fixed;
     z-index: 9999; }
     nav.nav-main.retracted {
-      padding-top: 10.00005rem; }
+      margin-top: 10.00005rem; }
     nav.nav-main ul {
-      border-radius: 3px;
       background: transparent;
       display: flex;
       flex-direction: column;
@@ -3275,9 +3293,10 @@ nav {
       nav.nav-main.extended ul {
         height: 100%; }
       nav.nav-main.extended li {
-        margin: 1%; }
-        nav.nav-main.extended li.nav-main-versorgung {
-          margin: 15% 0; }
+        margin: 1% 0; }
+        @media screen and (min-width: 768px) {
+          nav.nav-main.extended li.nav-main-versorgung {
+            margin: 30% 0; } }
         nav.nav-main.extended li a:focus span, nav.nav-main.extended li a:hover span {
           visibility: visible;
           opacity: 1;
@@ -3334,6 +3353,20 @@ nav {
         nav.nav-main.hidden li a span {
           line-height: 1.00001rem;
           height: 1.00001rem; }
+    nav.nav-main.hidden.mobileAtTop {
+      margin-top: 6.00003rem;
+      animation-name: navWiggle;
+      animation-duration: 5s;
+      animation-delay: 2s;
+      animation-iteration-count: infinite; }
+
+@keyframes navWiggle {
+  0%, 40% {
+    transform: translateX(0); }
+  50% {
+    transform: translateX(-0.5rem); }
+  60%, 100% {
+    transform: translateX(0); } }
 
 main section header,
 main section article {
@@ -3363,6 +3396,8 @@ main section .wide {
     color: #fff; }
   main section .wide.showText p {
     opacity: 1; }
+  main section .wide.showText .icon i {
+    background-size: 72px !important; }
 
 main section .icon {
   margin-top: 4.00002rem; }
@@ -3391,13 +3426,18 @@ main section .icon {
           margin-left: -3px; } }
 
 main section#section-natur {
-  position: relative; }
+  position: relative;
+  background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
+  background-size: 759px 130px, 292px 149px, 216px 365px;
+  background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
+  background-repeat: no-repeat;
+  border-bottom: 40px solid #2E9CCC; }
+  @media screen and (min-width: 768px) {
+    main section#section-natur {
+      background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0; } }
   main section#section-natur .container-natur {
     position: relative;
-    height: 100%;
-    background: url(../img/potsdam.svg) 100% 100% no-repeat;
-    background-size: 1271px 357px;
-    border-bottom: 40px solid #2E9CCC; }
+    height: 100%; }
     main section#section-natur .container-natur .group {
       position: absolute;
       width: 100%;
@@ -3458,7 +3498,6 @@ footer .wide {
     background: transparent;
     background-size: 256px 1024px;
     background-image: url(../img/rain.svg);
-    image-rendering: pixelated;
     opacity: .5;
     transform: rotate(15deg);
     animation-name: rain;
@@ -3481,3 +3520,7 @@ footer .wide {
     background-position: 64px 0; }
   to {
     background-position: 64px 1024px; } }
+
+.d3Verbrauch .axis-x path,
+.d3Verbrauch2 .axis-x path {
+  display: none; }

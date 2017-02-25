@@ -60,12 +60,12 @@ nav {
         }
       }
 
+    // RETACTED navigation
     &.retracted {
-      @include vr( $padding-top: 5 );
+      @include vr( $margin-top: 5 );
     }
 
       ul {
-        border-radius: $br;
         background: transparent;
         display: flex;
         flex-direction: column;
@@ -143,7 +143,7 @@ nav {
         }
 
 
-    // extended navigation
+    // EXTENDED navigation
     &.extended {
       height: 100%;
       top: 0;
@@ -158,10 +158,12 @@ nav {
       }
 
         li {
-          margin: 1%;
+          margin: 1% 0;
 
           &.nav-main-versorgung {
-            margin: 15% 0;
+            @include mobilefirst($bp-tablet) {
+              margin: 30% 0;
+            }
           }
 
           a {
@@ -281,7 +283,29 @@ nav {
             }
           }
         }
+    }
 
+    // hidden navigation when mombile and at the top of page
+    &.hidden.mobileAtTop {
+      @include vr( $margin-top: 3 );
+      animation-name: navWiggle;
+      animation-duration: 5s;
+      animation-delay: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes navWiggle {
+      0%, 40% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(-.5rem);
+      }
+
+      60%, 100% {
+        transform: translateX(0);
+      }
     }
   }
 } // nav

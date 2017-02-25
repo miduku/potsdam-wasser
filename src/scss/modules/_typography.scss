@@ -26,6 +26,7 @@ textarea {
 
 nav {
   font-family: $font-sans;
+  @extend .letter-spacing;
 }
 
 blockquote,
@@ -53,11 +54,13 @@ h4,
 h5,
 h6 {
   font-family: $font-sans;
+  hyphens: auto;
   @extend .uppercase;
   @include vr(
     $padding: 0,
     $margin-top: 2
   );
+
 
   & + h1,
   & + h2,
@@ -70,10 +73,20 @@ h6 {
   }
 }
 
+h3,
 h4,
 h5,
 h6 {
   font-weight: bold;
+}
+
+h5,
+h6 {
+  + p {
+    @include vr(
+      $margin-top: -1
+    );
+  }
 }
 
 h1 {
@@ -97,7 +110,14 @@ h6 {
 p {
   main section header & {
     font-family: $font-sans;
+    @extend .letter-spacing;
   }
+}
+
+p,
+ul,
+ol {
+  // letter-spacing: .05em;
 }
 
 
@@ -225,9 +245,17 @@ hr {
 
 .uppercase {
   text-transform: uppercase;
-  letter-spacing: .05em;
+  @extend .letter-spacing;
 }
 
 .margin-top-0 {
   margin-top: 0;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.letter-spacing {
+  letter-spacing: .06em;
 }
