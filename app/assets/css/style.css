@@ -3524,3 +3524,12 @@ footer .wide {
 .d3Verbrauch .axis-x path,
 .d3Verbrauch2 .axis-x path {
   display: none; }
+
+.d3Wasserabgabe .lines .dotsJahresdurchschnitt circle {
+  fill: #3873B8; }
+
+.d3Wasserabgabe .lines .dotsTagesspitze circle {
+  fill: #f44336; }
+
+.d3Wasserabgabe .lines .dotsBevoelkerung circle {
+  fill: #2889B3; }

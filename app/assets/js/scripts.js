@@ -248,14 +248,15 @@
   };
 
   var d3s = {
-    wasserbedarf: {
+    wBedarf: {
       element: '.d3Verteilung > .d3',
       w: 600,
       h: 600,
       colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF'],
       data: 'assets/data/taeglicher-gesamt-wasserbedarf-potsdams.csv'
     },
-    wasserverbrauch: {
+
+    wVerbrauch: {
       element: '.d3Verbrauch > .d3',
       w: 600,
       h: 680,
@@ -267,9 +268,21 @@
       },
       colors: ['#3873B8', '#f44336', '#2889B3', '#2E9CCC', '#829AAF'],
       data: 'assets/data/wasserverbrauch-proportianal-bevoelkerungsdichte.csv',
+      dataType: function type(d, _, columns) {
+        // tell d3 that these are dates and numbers
+        var parseTime = d3.timeParse('%Y');
+        d.Jahr = parseTime(d.Jahr);
+
+        for (var i = 1, n = columns.length, c; i < n; ++i) {
+          d[c = columns[i]] = +d[c];
+        }
+
+        return d;
+      },
       curveType: d3.curveStep
     },
-    wasserverbrauch2: {
+
+    wVerbrauch2: {
       element: '.d3Verbrauch2 > .d3',
       w: 600,
       h: 680,
@@ -280,9 +293,43 @@
         left: 40
       },
       colors: ['#3873B8','#2889B3'],
-      data: 'assets/data/wasserverbrauch-vergleich-partnerstaedte.csv'
-    }
+      data: 'assets/data/wasserverbrauch-vergleich-partnerstaedte.csv',
+      dataType: function type(d) {
+        // tell d3 that these are numbers
+        d.Liter = +d.Liter;
+        return d;
+      }
+    },
+
+    wAbgabe: {
+      element: '.d3Wasserabgabe > .d3',
+      w: 600,
+      h: 680,
+      margin: {
+        top: 20,
+        right: 70,
+        bottom: 20,
+        left: 40
+      },
+      colors: ['#3873B8', '#f44336', '#2889B3', '#2E9CCC', '#829AAF'],
+      data: 'assets/data/wasserabgabe-versorgungsgebiet-potsdam-einwohner.csv',
+      dataType: function type(d, _, columns) {
+        // tell d3 that these are dates and numbers
+        var parseTime = d3.timeParse('%Y');
+        d.Jahr = parseTime(d.Jahr);
+
+        for (var i = 1, n = columns.length, c; i < n; ++i) {
+          d[c = columns[i]] = (d[c] !== 'NaN') ? +d[c] : null;
+        }
+        return d;
+      },
+      curveType: d3.curveLinear
+    },
   };
+
+
+
+
 
 
   /**
@@ -313,27 +360,27 @@
               // AT INSIDE
               if (0.5 <= progress && progress < 1) {
                 navMobileFirst(
-                    768, 
-                    $$.navMain._this, 
-                    ['retracted hidden mobileAtTop', 'extended', 0, true], 
+                    768,
+                    $$.navMain._this,
+                    ['retracted hidden mobileAtTop', 'extended', 0, true],
                     ['retracted mobileAtTop', 'hidden extended', 0]
                   );
-              } 
+              }
               // AT AFTER
               else if (progress === 1) {
                 navMobileFirst(
-                    768, 
-                    $$.navMain._this, 
-                    ['retracted mobileAtTop', 'hidden extended', 0], 
+                    768,
+                    $$.navMain._this,
+                    ['retracted mobileAtTop', 'hidden extended', 0],
                     ['retracted mobileAtTop', 'hidden extended', 0]
                   );
-              } 
+              }
               // AT TOP
               else {
                 navMobileFirst(
-                    768, 
-                    $$.navMain._this, 
-                    ['extended hidden mobile', 'retracted', $$.navContainer.offset().left], 
+                    768,
+                    $$.navMain._this,
+                    ['extended hidden mobile', 'retracted', $$.navContainer.offset().left],
                     ['', 'extended hidden mobileAtTop', 0]
                   );
               }
@@ -552,6 +599,7 @@
     magic.cast.NavSticky();
 
 
+
     /**
      * baseline-element plug-in
      */
@@ -560,10 +608,53 @@
     //   return parseFloat(getComputedStyle(document.documentElement, null).getPropertyLiter('line-height'));
     // });
 
+
+
     // D3
-    d3PieChart(d3s.wasserbedarf.element, d3s.wasserbedarf.w, d3s.wasserbedarf.h, d3s.wasserbedarf.colors, d3s.wasserbedarf.data);
-    d3MultiLineChart(d3s.wasserverbrauch.element, d3s.wasserverbrauch.w, d3s.wasserverbrauch.h, d3s.wasserverbrauch.margin, d3s.wasserverbrauch.colors, d3s.wasserverbrauch.data, d3s.wasserverbrauch.curveType);
-    d3BarChart(d3s.wasserverbrauch2.element, d3s.wasserverbrauch2.w, d3s.wasserverbrauch2.h, d3s.wasserverbrauch2.margin, d3s.wasserverbrauch2.colors, d3s.wasserverbrauch2.data);
+    d3PieChart(
+      d3s.wBedarf.element,
+      d3s.wBedarf.w,
+      d3s.wBedarf.h,
+      d3s.wBedarf.colors,
+      d3s.wBedarf.data
+    );
+
+    d3MultiLineChart(
+      d3s.wVerbrauch.element,
+      d3s.wVerbrauch.w,
+      d3s.wVerbrauch.h,
+      d3s.wVerbrauch.margin,
+      d3s.wVerbrauch.colors,
+      d3s.wVerbrauch.data,
+      d3s.wVerbrauch.dataType,
+      d3s.wVerbrauch.curveType
+    );
+
+    d3BarChart(
+      d3s.wVerbrauch2.element,
+      d3s.wVerbrauch2.w,
+      d3s.wVerbrauch2.h,
+      d3s.wVerbrauch2.margin,
+      d3s.wVerbrauch2.colors,
+      d3s.wVerbrauch2.data,
+      d3s.wVerbrauch2.dataType
+    );
+
+    d3MultiLineChart(
+      d3s.wAbgabe.element,
+      d3s.wAbgabe.w,
+      d3s.wAbgabe.h,
+      d3s.wAbgabe.margin,
+      d3s.wAbgabe.colors,
+      d3s.wAbgabe.data,
+      d3s.wAbgabe.dataType,
+      d3s.wAbgabe.curveType,
+      true,
+      true
+    );
+
+
+
 
     // trigger
     $$.win.trigger('resize');
@@ -789,7 +880,7 @@
 
   // bar chart
   //
-  function d3BarChart(element, width, height, margins, colorsArray, csvData) {
+  function d3BarChart(element, width, height, margins, colorsArray, csvData, dataType) {
     var outerWidth  = width;
     var outerHeight = height;
     var innerWidth  = outerWidth - margins.left - margins.right;
@@ -812,7 +903,7 @@
 
 
     // data
-    d3.csv(csvData, type, function(error, data) {
+    d3.csv(csvData, dataType, function(error, data) {
       if (error) throw error;
 
       scaleX.domain(data.map(function(d) { return d.Stadt; }));
@@ -881,23 +972,19 @@
 
     });
 
-    function type(d) {
-      d.Liter = +d.Liter;
-      return d;
-    }
   }
 
 
 
   // multiline chart
   //
-  function d3MultiLineChart(element, width, height, margins, colorsArray, csvData, d3CurveType) {
+  function d3MultiLineChart(element, width, height, margins, colorsArray, csvData, dataType, d3CurveType, showNullData, showDots) {
+
+    console.log(showNullData);
     var outerHeight = height;
     var outerWidth  = width;
     var innerHeight = outerHeight - margins.left - margins.right;
     var innerWidth  = outerWidth - margins.top - margins.bottom;
-
-    var parseTime = d3.timeParse('%Y');
 
     var scaleX = d3.scaleTime()
       .range([0, innerWidth]);
@@ -917,13 +1004,22 @@
         .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')' );
 
     var d3Line = d3.line()
+      .defined(function(d) { return d.liter !== null; })
       .curve(d3CurveType)
       .x(function(d) { return scaleX(d.date); })
       .y(function(d) { return scaleY(d.liter); });
 
 
+    // if (showNullData) {
+    //   // https://github.com/pbeshai/d3-line-chunked
+    //   var d3LineNull = d3.line()
+    //     // .curve(d3CurveType)
+    //     .x(function(d) { return scaleX(d.date); })
+    //     .y(function(d) { return scaleY(d.liter); });
+    // }
+
     // data
-    d3.csv(csvData, type, function(error, data) {
+    d3.csv(csvData, dataType, function(error, data) {
       if (error) throw error;
 
       // map the categorys and put them in a var
@@ -966,14 +1062,29 @@
 
       svgLine.select('.axis')
         .append('g')
+        .attr('class', 'grid-x')
+        .attr('transform', 'translate(0,' + innerHeight + ')')
+        .style('opacity', '0.15')
+        .call(d3.axisBottom(scaleX).ticks(10).tickSize(-innerHeight).tickFormat(''));
+
+      svgLine.select('.axis')
+        .append('g')
+        .attr('class', 'grid-y')
+        .style('opacity', '0.15')
+        .call(d3.axisLeft(scaleY).ticks(20).tickSize(-innerWidth).tickFormat(''));
+
+
+
+      svgLine.select('.axis')
+        .append('g')
         .attr('class', 'axis-x')
         .attr('transform', 'translate(0, ' + innerHeight + ')')
-        .call(d3.axisBottom(scaleX));
+        .call(d3.axisBottom().scale(scaleX).ticks(20));
 
       svgLine.select('.axis')
         .append('g')
         .attr('class', 'axis-y')
-        .call(d3.axisLeft(scaleY).ticks(20))
+        .call(d3.axisLeft().scale(scaleY).ticks(20))
           .append('text')
           .attr('transform', 'rotate(-90)')
           .attr('y', 6)
@@ -996,6 +1107,51 @@
         .style('stroke', function(d) { return scaleZ(d.id); });
 
 
+
+
+
+      // // if set, it will show the undefined data
+      // if (showNullData) {
+      //   console.log('showing NullData');
+      //   svgLine.append('g')
+      //     .attr('class', 'linesNull');
+      //     // console.log(kategorien);
+      //   var lineNull = svgLine.select('.linesNull')
+      //     .selectAll('.lineNull')
+      //     .data(kategorien)
+      //     .enter()
+
+      //   lineNull.append('path')
+      //     .attr('class', function(d) { return 'lineNull line' + d.id; })
+      //     .attr('d', function(d) { return d3Line(kategorien.filter(d3Line.defined(function(d) { return d.values }))); })
+      //     .style('fill', 'none')
+      //     .style('stroke-width', 1)
+      //     .style('stroke-dasharray', '1 4')
+      //     .style('stroke', function(d) { return scaleZ(d.id); });
+      // }
+
+
+      if (showDots) {
+        console.log('showing Dots');
+        var dots = svgLine.select('.lines')
+          .selectAll('.dots')
+          .data(kategorien)
+          .enter();
+
+        var dot = dots.append('g')
+          .attr('class', function(d) { return 'dots dots' + d.id; })
+          .selectAll('circle')
+          .data(function(d) { return d.values; })
+          .enter();
+
+        dot.append('circle')
+          .attr('cx', function(d) { return scaleX(d.date); })
+          .attr('cy', function(d) { return scaleY((d.liter !== null) ? d.liter : '0'); })
+          .attr('r', function(d) { return (d.liter !== null) ? '2' : '0'; })
+          .style('stroke', 'none');
+      }
+
+
       var label = svgLine.select('.labels')
         .selectAll('.label')
         .data(kategorien)
@@ -1009,7 +1165,7 @@
           };
         })
         .attr('class', 'label')
-        .attr('transform', function(d) { return 'translate(' + scaleX(d.value.date) + ', ' + scaleY(d.value.liter) + ')'; })
+        .attr('transform', function(d) { return 'translate(' + scaleX(d.value.date) + ', ' + scaleY(d.value.liter) + ') rotate(15)'; })
         .attr('x', 3)
         .attr('dy', '0.35em')
         .style('font-size', '1.1em')
@@ -1039,9 +1195,7 @@
       mousePerLine.append('circle')
         .attr('class', 'moCircle')
         .attr('r', 4)
-        .style('fill', function(d) {
-          return scaleZ(d.id);
-        })
+        .style('fill', function(d) { return scaleZ(d.id); })
         .style('opacity', '0');
 
       mousePerLine.append('rect')
@@ -1057,6 +1211,7 @@
       // setting up label backgrounds
       //
       var $texts = $(element + ' .moText');
+      // console.log($texts);
       var texts = d3.range($texts.length)
         .map(function() {
           return {
@@ -1078,25 +1233,25 @@
 
         // on mouse out hide line, circles and text
         .on('mouseout', function() {
-          d3.select('.mouseLine')
+          d3.select(element + ' .mouseLine')
             .style('opacity', '0');
-          d3.selectAll('.mousePerLine circle')
+          d3.selectAll(element + ' .mousePerLine circle')
             .style('opacity', '0');
-          d3.selectAll('.mousePerLine rect')
+          d3.selectAll(element + ' .mousePerLine rect')
             .style('opacity', '0');
-          d3.selectAll('.mousePerLine text')
+          d3.selectAll(element + ' .mousePerLine text')
             .style('opacity', '0');
         })
 
         // on mouse in show line, circles and text
         .on('mouseover', function() {
-          d3.select('.mouseLine')
+          d3.select(element + ' .mouseLine')
             .style('opacity', '1');
-          d3.selectAll('.mousePerLine circle')
+          d3.selectAll(element + ' .mousePerLine circle')
             .style('opacity', '1');
-          d3.selectAll('.mousePerLine rect')
+          d3.selectAll(element + ' .mousePerLine rect')
             .style('opacity', '0.75');
-          d3.selectAll('.mousePerLine text')
+          d3.selectAll(element + ' .mousePerLine text')
             .style('opacity', '1');
         })
 
@@ -1106,14 +1261,14 @@
           // console.log(innerWidth / mouse[0]);
 
           // create label backgrounds
-          d3.selectAll('.moText')
+          d3.selectAll(element + ' .moText')
             .each(function(d ,i) {
               $(this).attr('transform', 'translate(' + texts[i].translateX + ',' + texts[i].translateY + ')');
 
               texts[i].boxWidth = $(this).outerWidth()*1.5;
             });
 
-          d3.selectAll('.moLabelBackground')
+          d3.selectAll(element + ' .moLabelBackground')
             .each(function(d, i) {
               $(this).attr('transform', 'translate(' + (texts[i].translateX - texts[i].padding) + ',' + -4*texts[i].translateY + ')')
                 .attr('width', texts[i].boxWidth)
@@ -1121,14 +1276,14 @@
             });
 
 
-          d3.select('.mouseLine')
+          d3.select(element + ' .mouseLine')
             .attr('d', function() {
               var d = 'M' + mouse[0] + ',' + innerHeight;
               d += ' ' + mouse[0] + ',' + 0;
               return d;
             });
 
-          d3.selectAll('.mousePerLine')
+          d3.selectAll(element + ' .mousePerLine')
             .attr('transform', function(d, i) {
               // var xDate     = scaleX.invert(mouse[0]);
               // var bisect    = d3.bisector(function(d) { return d.date }).right;
@@ -1166,16 +1321,6 @@
 
     });
 
-    // tell d3 that these are dates and numbers
-    function type(d, _, columns) {
-      d.Jahr = parseTime(d.Jahr);
-
-      for (var i = 1, n = columns.length, c; i < n; ++i) {
-        d[c = columns[i]] = +d[c];
-      }
-
-      return d;
-    }
   }
 
 

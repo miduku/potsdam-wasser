@@ -6,3 +6,23 @@
     }
   }
 }
+
+.d3Wasserabgabe {
+  .lines {
+    .dotsJahresdurchschnitt {
+      circle {
+        fill: #3873B8
+      }
+    }
+    .dotsTagesspitze {
+      circle {
+        fill: #f44336
+      }
+    }
+    .dotsBevoelkerung {
+      circle {
+        fill: #2889B3
+      }
+    }
+  }
+}
