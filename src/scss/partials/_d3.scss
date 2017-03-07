@@ -1,28 +1,45 @@
-.d3Verbrauch,
-.d3Verbrauch2 {
+.d3GroupedBarChart,
+.d3MultiLineChart {
   .axis-x {
-    path {
-      display: none;
+    path { display: none; }
+    line { stroke: lighten(#333, 50); }
+    text { fill: lighten(#333, 25); }
+  }
+  .axis-y {
+    path,
+    line {
+      stroke: lighten(#333, 50);
     }
+
+    text { fill: lighten(#333, 25); }
   }
 }
+
+.d3PieChart {
+  .lineCircle { fill: #333; }
+  .line { stroke: #333; }
+}
+
+  .d3 {
+    text {
+      font-family: $font-sans;
+      fill: lighten(#333, 25);
+    }
+  }
+
+
 
 .d3Wasserabgabe {
   .lines {
     .dotsJahresdurchschnitt {
-      circle {
-        fill: #3873B8
-      }
+      circle { fill: #3873B8 }
     }
     .dotsTagesspitze {
-      circle {
-        fill: #f44336
-      }
+      circle { fill: #f44336 }
     }
-    .dotsBevoelkerung {
-      circle {
-        fill: #2889B3
-      }
+    .dotsBevölkerung {
+      circle { fill: #2889B3 }
     }
   }
 }
+

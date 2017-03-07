@@ -1,18 +1,25 @@
 main {
   section {
-    header,
-    article {
-      @extend .span6;
-      @extend .offset3;
+    header/*,
+    article*/ {
+      @extend .span8;
+      // @extend .offset2;
       @include vr($margin-bottom: 1);
+    }
+
+    article {
+      @extend .group;
+
+      .text {
+        @extend .span6;
+        @extend .offset3;
+      }
     }
 
     .wide {
       position: relative;
 
-      .container {
-        position: relative;
-      }
+      .container { position: relative; }
 
       .flood {
         position: absolute;
@@ -45,23 +52,16 @@ main {
       }
 
       &.showText {
-        h1 {
-          color: #fff;
-        }
+        h1 { color: #fff; }
+        p { opacity: 1; }
 
-        p {
-          opacity: 1;
-        }
-
-          .icon i {
-            background-size: 72px !important;
-          }
+          .icon i { background-size: 72px !important; }
       }
     }
 
       .icon {
         @extend .span1;
-        @extend .offset2;
+        @extend .offset1;
         @include vr( $margin-top: 2 );
 
         @include mobilelast($bp-tablet) {

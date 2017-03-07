@@ -3,7 +3,7 @@
 //----------------------------------*/
 
 /* Import fonts from Google */
-@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i|PT+Serif:400,400i,700,700i');
 
 
 // vertical-rhythm-reset
@@ -73,7 +73,7 @@ h6 {
   }
 }
 
-h3,
+h1,
 h4,
 h5,
 h6 {
@@ -130,7 +130,10 @@ small,
     $margin: 0 0 .5
   );
 
-  @include mobilefirst($bp-tablet) {
+  br {
+    @include vr(
+      $line-height: 0.5
+    );
   }
 }
 

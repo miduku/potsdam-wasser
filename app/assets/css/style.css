@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i|PT+Serif:400,400i,700,700i");
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i|PT+Serif:400,400i,700,700i");
 @media screen and (min-width: 480px) {
   body {
     overflow-x: hidden; } }
@@ -44,8 +44,66 @@ body {
 .animations, .click-overlay, nav.nav-main, nav.nav-main ul, nav.nav-main li, nav.nav-main li a, nav.nav-main li a i, main section .wide + .container, main section .wide h1, main section .wide p, .weather {
   transition: all 0.5s; }
 
-.animations-quick, nav.nav-main li a span, main section .icon i {
+.animations-quick, nav.nav-main li a i .waterpipeNav, nav.nav-main li a span, main section .icon i {
   transition: all 0.2s; }
+
+.loadWrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 99999; }
+  .loadWrapper .loader,
+  .loadWrapper .loader:before,
+  .loadWrapper .loader:after {
+    border-radius: 50%;
+    width: 0.5em;
+    height: 0.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out; }
+  .loadWrapper .loader {
+    color: #3873B8;
+    font-size: 1em;
+    margin-top: -4em;
+    margin-left: -0.25em;
+    position: absolute;
+    text-indent: -9999em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+    left: 50%;
+    top: 50%; }
+  .loadWrapper .loader:before,
+  .loadWrapper .loader:after {
+    content: '';
+    position: absolute;
+    top: 0; }
+  .loadWrapper .loader:before {
+    left: -2em;
+    animation-delay: -0.32s;
+    color: #2889B3; }
+  .loadWrapper .loader:after {
+    left: 2em;
+    color: #829AAF; }
+
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em; }
+  40% {
+    box-shadow: 0 2.5em 0 0; } }
+
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em; }
+  40% {
+    box-shadow: 0 2.5em 0 0; } }
 
 /*!
  *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
@@ -2543,7 +2601,7 @@ textarea {
   color: #333; }
 
 nav {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif; }
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif; }
 
 blockquote,
 dl,
@@ -2566,7 +2624,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
   hyphens: auto;
   margin-top: 4.00002rem;
   padding: 0px; }
@@ -2614,7 +2672,7 @@ h6 {
   h6 + p {
     margin-top: 0; }
 
-h3,
+h1,
 h4,
 h5,
 h6 {
@@ -2625,7 +2683,7 @@ h6 + p {
   margin-top: -2.00001rem; }
 
 main section header p {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif; }
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif; }
 
 small,
 .font-small,
@@ -2638,6 +2696,12 @@ figure figcaption p {
   line-height: 2.00001rem;
   line-height: 1.00001rem;
   margin: 0px 0 1.00001rem; }
+  small br,
+  .font-small br, figure figcaption h4 br,
+  figure figcaption h5 br,
+  figure figcaption h6 br,
+  figure figcaption p br {
+    line-height: 1.00001rem; }
 
 em {
   font-style: italic; }
@@ -2943,13 +3007,12 @@ object {
 .group-video {
   margin: 2.00001rem 0; }
 
-.embed, .media-ratio-16by9, .media-ratio-21by9, .media-ratio-4by3, .media-ratio-1by1 {
+.media-ratio-16by9, .media-ratio-21by9, .media-ratio-4by3, .media-ratio-1by1 {
   display: inline-block;
   overflow: hidden;
   padding-top: 0;
   position: relative; }
-  .embed iframe, .media-ratio-16by9 iframe, .media-ratio-21by9 iframe, .media-ratio-4by3 iframe, .media-ratio-1by1 iframe,
-  .embed svg, .media-ratio-16by9 svg, .media-ratio-21by9 svg, .media-ratio-4by3 svg, .media-ratio-1by1 svg {
+  .media-ratio-16by9 iframe, .media-ratio-21by9 iframe, .media-ratio-4by3 iframe, .media-ratio-1by1 iframe, .media-ratio-16by9 svg, .media-ratio-21by9 svg, .media-ratio-4by3 svg, .media-ratio-1by1 svg {
     height: 100%;
     left: 0;
     position: absolute;
@@ -2978,25 +3041,21 @@ object {
   padding-bottom: 100%; }
 
 figure {
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
-  border: 1px solid #333;
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
   border-radius: 3px;
   margin: 0px 0 2.00001rem; }
-  #section-gewinnung figure {
-    border-color: rgba(40, 137, 179, 0.25);
-    background-color: rgba(40, 137, 179, 0.05); }
-  #section-versorgung figure {
-    border-color: rgba(56, 115, 184, 0.25);
-    background-color: rgba(56, 115, 184, 0.05); }
-  #section-reinigung figure {
-    border-color: rgba(130, 154, 175, 0.25);
-    background-color: rgba(130, 154, 175, 0.05); }
   figure svg {
     padding-top: 1.00001rem; }
   figure img {
     margin: 1.00001rem; }
   figure figcaption {
-    padding: 1.50001rem 1.00001rem 0.5rem; }
+    border-top: 1px solid #cccccc;
+    color: #737373;
+    margin-top: 0.5rem;
+    padding: 1.50001rem 1.20001rem 0px; }
+    figure figcaption a,
+    figure figcaption .btn {
+      color: #737373; }
     figure figcaption h4,
     figure figcaption h5,
     figure figcaption h6 {
@@ -3033,10 +3092,12 @@ figure {
 header.header-main section#section-intro header,
 header.header-main section#section-intro article,
 .span6,
-main section header,
-main section article,
+main section article .text,
 .span7,
 .span8,
+figure,
+figure figcaption,
+main section header,
 .span9,
 .span10,
 footer .wide .content,
@@ -3045,14 +3106,14 @@ footer .wide .content,
   margin-bottom: 2.00001rem;
   margin-left: 3.00002rem; }
 
-.group {
+.group, main section article {
   display: flex;
   flex: 0 1 auto;
   flex-direction: row;
   flex-wrap: wrap; }
 
 @media screen and (min-width: 768px) {
-  .group {
+  .group, main section article {
     flex-direction: row;
     margin-left: -2.1277%; }
   .span1, main section .icon,
@@ -3064,41 +3125,38 @@ footer .wide .content,
   header.header-main section#section-intro header,
   header.header-main section#section-intro article,
   .span6,
-  main section header,
-  main section article,
+  main section article .text,
   .span7,
   .span8,
+  figure,
+  figure figcaption,
+  main section header,
   .span9,
   .span10,
   footer .wide .content,
   .span11,
   .span12 {
     flex: 0 0 auto; }
-  .span0 {
-    flex-basis: -2.1277%;
-    margin-left: 2.1277%;
-    max-width: -2.1277%; }
   .offset0, header.header-main section#section-intro header,
   header.header-main section#section-intro article, main section .icon + header {
-    margin-left: 2.1277% !important; }
+    margin-left: 0 !important; }
   .span1, main section .icon {
     flex-basis: 6.20563%;
     margin-left: 2.1277%;
     max-width: 6.20563%; }
-  .offset1, footer .wide .content {
+  .offset1, main section .icon, footer .wide .content {
     margin-left: 10.46103% !important; }
   .span2, .nav-container {
     flex-basis: 14.53897%;
     margin-left: 2.1277%;
     max-width: 14.53897%; }
-  .offset2, .nav-container, main section .icon {
+  .offset2, figure, figure figcaption, .nav-container {
     margin-left: 18.79437% !important; }
   .span3 {
     flex-basis: 22.8723%;
     margin-left: 2.1277%;
     max-width: 22.8723%; }
-  .offset3, main section header,
-  main section article {
+  .offset3, main section article .text {
     margin-left: 27.1277% !important; }
   .span4 {
     flex-basis: 31.20563%;
@@ -3113,8 +3171,7 @@ footer .wide .content,
     max-width: 39.53897%; }
   .offset5 {
     margin-left: 43.79437% !important; }
-  .span6, main section header,
-  main section article {
+  .span6, main section article .text {
     flex-basis: 47.8723%;
     margin-left: 2.1277%;
     max-width: 47.8723%; }
@@ -3126,7 +3183,7 @@ footer .wide .content,
     max-width: 56.20563%; }
   .offset7 {
     margin-left: 60.46103% !important; }
-  .span8 {
+  .span8, figure, figure figcaption, main section header {
     flex-basis: 64.53897%;
     margin-left: 2.1277%;
     max-width: 64.53897%; }
@@ -3209,10 +3266,12 @@ header.header-main {
   width: 100%;
   height: 100%;
   opacity: 0;
+  visibility: hidden;
   z-index: 9998;
   transform: translateX(-100%); }
   .click-overlay.visible {
     opacity: 1;
+    visibility: visible;
     transform: translateX(0); }
 
 .nav-container {
@@ -3275,7 +3334,8 @@ nav {
           margin-right: 1.00001rem; }
           nav.nav-main li a i .waterpipeNav {
             position: absolute;
-            display: none;
+            opacity: 0;
+            visibility: hidden;
             width: 2px;
             top: 2em;
             left: 50%;
@@ -3297,20 +3357,24 @@ nav {
         @media screen and (min-width: 768px) {
           nav.nav-main.extended li.nav-main-versorgung {
             margin: 30% 0; } }
-        nav.nav-main.extended li a:focus span, nav.nav-main.extended li a:hover span {
+        nav.nav-main.extended li a {
           visibility: visible;
-          opacity: 1;
-          transform: translateX(0); }
-        nav.nav-main.extended li a i {
-          background-size: 24px !important;
-          /**/ }
-          nav.nav-main.extended li a i .waterpipeNav {
-            display: block; }
-        nav.nav-main.extended li a span {
-          visibility: hidden;
-          opacity: 0;
-          transform: translateX(-200%);
-          padding: 0px 1.00001rem; }
+          opacity: 1; }
+          nav.nav-main.extended li a:focus span, nav.nav-main.extended li a:hover span {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(0); }
+          nav.nav-main.extended li a i {
+            background-size: 24px !important;
+            /**/ }
+            nav.nav-main.extended li a i .waterpipeNav {
+              opacity: 1;
+              visibility: visible; }
+          nav.nav-main.extended li a span {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateX(-200%);
+            padding: 0px 1.00001rem; }
     nav.nav-main.hidden {
       height: 4.00002rem;
       margin-top: 1.00001rem;
@@ -3349,7 +3413,8 @@ nav {
           box-shadow: 0 0 12px #fff;
           margin-top: -0.5rem; }
           nav.nav-main.hidden li a i .waterpipeNav {
-            display: none; }
+            opacity: 0;
+            visibility: hidden; }
         nav.nav-main.hidden li a span {
           line-height: 1.00001rem;
           height: 1.00001rem; }
@@ -3368,8 +3433,7 @@ nav {
   60%, 100% {
     transform: translateX(0); } }
 
-main section header,
-main section article {
+main section header {
   margin-bottom: 2.00001rem; }
 
 main section .wide {
@@ -3438,7 +3502,7 @@ main section#section-natur {
   main section#section-natur .container-natur {
     position: relative;
     height: 100%; }
-    main section#section-natur .container-natur .group {
+    main section#section-natur .container-natur .group, main section#section-natur .container-natur article {
       position: absolute;
       width: 100%;
       bottom: 0; }
@@ -3521,9 +3585,37 @@ footer .wide {
   to {
     background-position: 64px 1024px; } }
 
-.d3Verbrauch .axis-x path,
-.d3Verbrauch2 .axis-x path {
+.d3GroupedBarChart .axis-x path,
+.d3MultiLineChart .axis-x path {
   display: none; }
+
+.d3GroupedBarChart .axis-x line,
+.d3MultiLineChart .axis-x line {
+  stroke: #b3b3b3; }
+
+.d3GroupedBarChart .axis-x text,
+.d3MultiLineChart .axis-x text {
+  fill: #737373; }
+
+.d3GroupedBarChart .axis-y path,
+.d3GroupedBarChart .axis-y line,
+.d3MultiLineChart .axis-y path,
+.d3MultiLineChart .axis-y line {
+  stroke: #b3b3b3; }
+
+.d3GroupedBarChart .axis-y text,
+.d3MultiLineChart .axis-y text {
+  fill: #737373; }
+
+.d3PieChart .lineCircle {
+  fill: #333; }
+
+.d3PieChart .line {
+  stroke: #333; }
+
+.d3 text {
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
+  fill: #737373; }
 
 .d3Wasserabgabe .lines .dotsJahresdurchschnitt circle {
   fill: #3873B8; }
@@ -3531,5 +3623,5 @@ footer .wide {
 .d3Wasserabgabe .lines .dotsTagesspitze circle {
   fill: #f44336; }
 
-.d3Wasserabgabe .lines .dotsBevoelkerung circle {
+.d3Wasserabgabe .lines .dotsBevölkerung circle {
   fill: #2889B3; }

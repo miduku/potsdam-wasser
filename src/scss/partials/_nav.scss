@@ -6,12 +6,14 @@
   width: 100%;
   height: 100%;
   opacity: 0;
+  visibility: hidden;
   z-index: 9998;
   @extend .animations;
   transform: translateX(-100%);
 
   &.visible {
     opacity: 1;
+    visibility: visible;
     transform: translateX(0);
   }
 }
@@ -52,6 +54,10 @@ nav {
 
           i {
             @extend .animations;
+
+            .waterpipeNav {
+              @extend .animations-quick;
+            }
           }
 
           span {
@@ -86,18 +92,18 @@ nav {
           &.nav-main-reinigung a  { color: $color-reinigung; }
           &.nav-main-natur a      { color: $color-natur; }
 
-          &.nav-main-gewinnung i  { background: $color-gewinnung  url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
-          &.nav-main-versorgung i { background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat; }
-          &.nav-main-reinigung i  { background: $color-reinigung  url(../img/i-reinigung.svg) 50% 50% no-repeat; }
-          &.nav-main-natur i {
-            background: $color-natur;
-            transform: scale(.2);
+            &.nav-main-gewinnung i  { background: $color-gewinnung  url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
+            &.nav-main-versorgung i { background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat; }
+            &.nav-main-reinigung i  { background: $color-reinigung  url(../img/i-reinigung.svg) 50% 50% no-repeat; }
+            &.nav-main-natur i {
+              background: $color-natur;
+              transform: scale(.2);
 
-            .waterpipeNav {
-              transform: scale(5);
-              transform-origin: top;
+              .waterpipeNav {
+                transform: scale(5);
+                transform-origin: top;
+              }
             }
-          }
 
           a {
             top: 0;
@@ -122,12 +128,13 @@ nav {
               .waterpipeNav {
                 $width: 2px;
                 position: absolute;
-                display: none;
+                // display: none;
+                opacity: 0;
+                visibility: hidden;
                 width: $width;
                 top: 2em;
                 left: 50%;
                 margin-left: -($width / 2);
-                // background-color: rgba(lawngreen, .5);/**/
               }
             }
 
@@ -167,6 +174,9 @@ nav {
           }
 
           a {
+            visibility: visible;
+            opacity: 1;
+
             &:focus,
             &:hover {
               span {
@@ -180,7 +190,9 @@ nav {
               background-size: 24px !important;/**/
 
               .waterpipeNav {
-                display: block;
+                // display: block;
+                opacity: 1;
+                visibility: visible;
               }
             }
 
@@ -271,7 +283,9 @@ nav {
               );
 
               .waterpipeNav {
-                display: none;
+                // display: none;
+                opacity: 0;
+                visibility: hidden;
               }
             }
 
