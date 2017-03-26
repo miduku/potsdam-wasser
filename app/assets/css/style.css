@@ -89,14 +89,6 @@ body {
     left: 2em;
     color: #829AAF; }
 
-@-webkit-keyframes load7 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 2.5em 0 -1.3em; }
-  40% {
-    box-shadow: 0 2.5em 0 0; } }
-
 @keyframes load7 {
   0%,
   80%,
@@ -2681,9 +2673,6 @@ h6 {
 h5 + p,
 h6 + p {
   margin-top: -2.00001rem; }
-
-main section header p {
-  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif; }
 
 small,
 .font-small,

@@ -81,7 +81,7 @@
     wVerteilung: {
       element: '.d3Verteilung > .d3',
       w: 800,
-      h: 600,
+      h: 470,
       colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF"],
       data: 'assets/data/taeglicher-gesamt-wasserbedarf-potsdams.csv',
       dataType: function typeIsNumbers(d) {
@@ -96,7 +96,7 @@
     wFoerderkapazitaet: {
       element: '.d3Foerderkapazitaet > .d3',
       w: 850,
-      h: 600,
+      h: 470,
       colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF", "#f44336"],
       data: 'assets/data/foerderkapazitaet-wasserwerke-potsdam.csv',
       dataType: function typeIsNumbers(d) {
@@ -112,7 +112,7 @@
     wVerbrauch: {
       element: '.d3Verbrauch > .d3',
       w: 800,
-      h: 660,
+      h: 490,
       margin: {
         top: 20,
         right: 40,
@@ -138,7 +138,7 @@
     wAbgabe: {
       element: '.d3Wasserabgabe > .d3',
       w: 800,
-      h: 600,
+      h: 470,
       margin: {
         top: 20,
         right: 0,
@@ -165,7 +165,7 @@
     wVerbrauch2: {
       element: '.d3Verbrauch2 > .d3',
       w: 800,
-      h: 600,
+      h: 470,
       margin: {
         top: 20,
         right: 0,
@@ -185,7 +185,7 @@
     wAuslastungsgrenze: {
       element: '.d3Auslastungsgrenze > .d3',
       w: 880,
-      h: 600,
+      h: 470,
       margin: {
         top: 70,
         right: 0,
@@ -262,11 +262,11 @@
 
         // set when weather is shown
         Weather: function($el) {
-          var className = $el.attr('id');
+          var elId = $el.attr('id');
           var $weatherElement = $el.find('.weather');
 
           return new ScrollMagic.Scene({
-            triggerElement: '#' + className,
+            triggerElement: '#' + elId,
             triggerHook: .5,
             duration: $$.win.outerHeight()*3
           })
@@ -390,7 +390,20 @@
               scene.refresh();
             });
           });
-        }
+
+        // TODO: sticky city
+        }/*,
+
+        City: function() {
+          return new ScrollMagic.Scene({
+            triggerElement: '#' + elId,
+            triggerHook: .5,
+            duration: $$.win.outerHeight()*3
+          })
+          .addTo(magic.Controller)
+          .addIndicators({ name: 'weather' })
+          ;
+        }*/
     }
   };
 
