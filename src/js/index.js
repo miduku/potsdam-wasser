@@ -75,9 +75,10 @@
   var transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
 
-  // D3
+  ////
+  // 📊 D3
   var d3s = {
-    // Pie charts
+    // 🔸 Pie charts
     wVerteilung: {
       element: '.d3Verteilung > .d3',
       w: 800,
@@ -108,7 +109,8 @@
       dataValueString: 'Fördermenge in Kubikmeter'
     },
 
-    // Multiline chart
+
+    // 🔸 Multiline chart
     wVerbrauch: {
       element: '.d3Verbrauch > .d3',
       w: 800,
@@ -161,7 +163,8 @@
       yAxisLabel: 'm³/Tag'
     },
 
-    // Bar charts
+
+    // 🔸 Bar charts
     wVerbrauch2: {
       element: '.d3Verbrauch2 > .d3',
       w: 800,
@@ -207,203 +210,231 @@
   };
 
 
-   // Scroll Magic!
-    var magic = {
+  ////
+  // 🎩 Scroll Magic!
+  // http://scrollmagic.io/
+  var magic = {
     // init ScrollMagic controller
     Controller: new ScrollMagic.Controller(),
 
-    // scenes for casting
-    scene: {
-      NavSticky: new ScrollMagic.Scene({
-        triggerElement: '#section-intro',
-        triggerHook: 0,
-        duration: getDistance($$.section.intro, $$.section.natur)
-      })
-    },
+    // Scenes for casting
+    // scene: {
+    //   NavSticky: new ScrollMagic.Scene({
+    //     triggerElement: '#section-intro',
+    //     triggerHook: 0,
+    //     duration: getDistance($$.section.intro, $$.section.natur)
+    //   })
+    // },
 
-    // cast some magic -> put it all together
+
+    // Cast some magic: put it all together
     cast: {
-        NavSticky: function() {
-          return magic.scene.NavSticky
-            .addTo(magic.Controller)
-            // .addIndicators({ name: 'navSticky' })
-            .on('progress resize', function(e){
-              var progress = e.progress;
+      // 📍 Sticky navigation
+      NavSticky: function() {
+        // return magic.scene.NavSticky
+        return new ScrollMagic.Scene({
+          triggerElement: '#section-intro',
+          triggerHook: 0,
+          duration: getDistance($$.section.intro, $$.section.natur)
+        })
+          .addTo(magic.Controller)
+          // .addIndicators({ name: 'navSticky' })
+          .on('progress resize', function(e){
+            var progress = e.progress;
 
-              // AT INSIDE
-              if (0.5 <= progress && progress < 1) {
-                  navMobileFirst(
-                    768,
-                    $$.navMain._this,
-                    ['retracted hidden mobileAtTop', 'extended', 0, true],
-                    ['retracted mobileAtTop', 'hidden extended', 0]
-                  );
-              }
-              // AT AFTER
-              else if (progress === 1) {
-                  navMobileFirst(
-                    768,
-                    $$.navMain._this,
-                    ['retracted mobileAtTop', 'hidden extended', 0],
-                    ['retracted mobileAtTop', 'hidden extended', 0]
-                  );
-              }
-              // AT TOP
-              else {
-                  navMobileFirst(
-                    768,
-                    $$.navMain._this,
-                    ['extended hidden mobile', 'retracted', $$.navContainer.offset().left],
-                    ['', 'extended hidden mobileAtTop', 0]
-                  );
-              }
-          });
-        },
+            // console.log(progress);
 
-        // set when weather is shown
-        Weather: function($el) {
-          var elId = $el.attr('id');
-          var $weatherElement = $el.find('.weather');
+            // AT INSIDE
+            if (0.5 <= progress && progress < 1) {
+                navMobileFirst(
+                  $$.navMain._this,
+                  768,
+                  ['retracted hidden mobileAtTop', 'extended', 0, true],
+                  ['retracted mobileAtTop', 'hidden extended', 0]
+                );
+            }
+            // AT AFTER
+            else if (progress === 1) {
+                navMobileFirst(
+                  $$.navMain._this,
+                  768,
+                  ['retracted mobileAtTop', 'hidden extended', 0],
+                  ['retracted mobileAtTop', 'hidden extended', 0]
+                );
+            }
+            // AT TOP
+            else {
+                navMobileFirst(
+                  $$.navMain._this,
+                  768,
+                  ['extended hidden mobile', 'retracted', $$.navContainer.offset().left],
+                  ['', 'extended hidden mobileAtTop', 0]
+                );
+            }
+        });
+      },
 
-          return new ScrollMagic.Scene({
-            triggerElement: '#' + elId,
-            triggerHook: .5,
-            duration: $$.win.outerHeight()*3
+      // 🌧️ Set when weather is shown during scrolling
+      Weather: function() {
+        var el = '#section-natur';
+        var $el = $(el);
+        var $weatherElement = $el.find('.weather');
+
+        return new ScrollMagic.Scene({
+          triggerElement: el,
+          triggerHook: 1,
+          duration: $$.section.natur.outerHeight()
+        })
+        .addTo(magic.Controller)
+        // .addIndicators({ name: 'weather' })
+        .on('progress leave', function(e) {
+          var progress = e.progress.toFixed(1);
+
+          if (0.1 < progress && progress <= 0.9 && e.type !== 'leave') {
+            $weatherElement.css('opacity', 1);
+          } else {
+            $weatherElement.css('opacity', 0);
+          }
+        });
+      },
+
+      // 🏙️ Set city skyline
+      City: function() {
+        var el = '#section-natur';
+        var $el = $(el);
+        var $cityElement = $el.find('.city');
+
+        return new ScrollMagic.Scene({
+          triggerElement: el,
+          triggerHook: 1,
+          duration: $$.section.natur.outerHeight()
+        })
+        .addTo(magic.Controller)
+        // .addIndicators({ name: 'city' })
+        .on('progress', function(e) {
+          var progress = e.progress.toFixed(2);
+
+          // console.log(progress);
+
+          if (progress < 1) {
+            $cityElement.css('position', 'fixed');
+          } else {
+            $cityElement.css('position', 'absolute');
+          }
+        });
+      },
+
+      // 🌊 Insert a flood effect to elemenet
+      Flood: function() {
+        var $el = $$.wide;
+        return $el.each(function(i, el) {
+          var $this = $(el);
+
+          new ScrollMagic.Scene({
+            triggerElement: el,
+            triggerHook: .6,
+            duration: $this.outerHeight()
           })
           .addTo(magic.Controller)
-          // .addIndicators({ name: 'weather' })
-          .on('progress leave', function(e) {
-            var progress = e.progress.toFixed(1);
+          // .addIndicators({ name: 'flood' + i })
+          .on('progress', function(e) {
+            var progress = e.progress.toFixed(4);
 
-            if (0.1 < progress && progress <= 0.9 && e.type !== 'leave') {
-              $weatherElement.css('opacity', 1);
+            $this
+              .children('.flood')
+              .children('.circle')
+              .css({
+                'transform': 'scale(' + progress*1.5 + ')'
+              });
+
+            if (progress >= 0.25) {
+              $this
+                .addClass('showText');
             } else {
-              $weatherElement.css('opacity', 0);
+              $this
+                .removeClass('showText');
+            }
+          })
+          .on('update leave', function(e) {
+            if (e.type === 'leave' && e.target.controller().info('scrollDirection') === 'FORWARD') {
+              $this
+                .next('.container')
+                .css('opacity', 1);
             }
           });
-        },
+        });
+      },
 
-        // insert a flood effect to elemenet
-        Flood: function($el) {
-          return $el.each(function(i, el) {
-            var $this = $(el);
+      // 🚰 Set waterpipe that flows downward while scrolling
+      Waterpipe: function() {
+        var $el = $('.waterpipe');
+        var $iconPositionsArr = water.iconPositionsArr.mainIcons;
+        // colors sequence
+        var color = [
+          water.colors.natur,
+          water.colors.gewinnung,
+          water.colors.versorgung,
+          water.colors.reinigung,
+          water.colors.natur
+        ];
 
-            // magic here
-            new ScrollMagic.Scene({
-              triggerElement: el,
-              triggerHook: .6,
-              duration: $this.outerHeight()
-            })
-            .addTo(magic.Controller)
-            // .addIndicators({ name: 'flood' + i })
-            .on('progress', function(e) {
-              var progress = e.progress.toFixed(4);
+        return $el.each(function(i, el) {
+          var $this = $(el);
 
-              $this
-                .children('.flood')
-                .children('.circle')
-                .css({
-                  'transform': 'scale(' + progress*1.5 + ')'
-                });
-
-              if (progress >= 0.25) {
-                $this
-                  .addClass('showText');
-              } else {
-                $this
-                  .removeClass('showText');
-              }
-            })
-            .on('update leave', function(e) {
-              if (e.type === 'leave' && e.target.controller().info('scrollDirection') === 'FORWARD') {
-                $this
-                  .next('.container')
-                  .css('opacity', 1);
-              }
-            });
-          });
-        },
-
-        Waterpipe: function($el, $iconPositionsArr) {
-          // colors sequence
-          var color = [
-            water.colors.natur,
-            water.colors.gewinnung,
-            water.colors.versorgung,
-            water.colors.reinigung,
-            water.colors.natur
+          var rgbDiff = [
+            color[i+1][0] - color[i][0],
+            color[i+1][1] - color[i][1],
+            color[i+1][2] - color[i][2]
           ];
 
-          return $el.each(function(i, el) {
-            var $this = $(el);
-
-            var rgbDiff = [
-              color[i+1][0] - color[i][0],
-              color[i+1][1] - color[i][1],
-              color[i+1][2] - color[i][2]
-            ];
-
-            // magic here
-            var scene = new ScrollMagic.Scene({
-              triggerElement: el,
-              triggerHook: water.offset.fromTop
-            })
-            .addTo(magic.Controller)
-            // .addIndicators({ name: 'Waterpipe' + i })
-            .on('progress', function(e) {
-              var progress = e.progress.toFixed(4);
-              var prog     = (progress * 100);
-
-              var progLin = prog + '%';
-              var progExp = prog * progress + '%';
-
-              var indicatorColor = [
-                Math.round(color[i][0] + rgbDiff[0] * progress),
-                Math.round(color[i][1] + rgbDiff[1] * progress),
-                Math.round(color[i][2] + rgbDiff[2] * progress)
-              ]
-
-              var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
-
-
-              // water in main waterpipe
-              $this
-                .children('.water')
-                .css({
-                  background: backgroundGradient,
-                  height: progExp
-                });
-
-              // water in navigation waterpipe
-              $$.navMain.icon._this
-                .eq(i)
-                .children('.waterpipeNav')
-                .children('.water')
-                .css({
-                  background: backgroundGradient,
-                  height: progLin
-                });
-            });
-
-            $$.win.on('resize', function() {
-              scene.duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
-              scene.refresh();
-            });
-          });
-
-        // TODO: sticky city
-        }/*,
-
-        City: function() {
-          return new ScrollMagic.Scene({
-            triggerElement: '#' + elId,
-            triggerHook: .5,
-            duration: $$.win.outerHeight()*3
+          // magic here
+          var scene = new ScrollMagic.Scene({
+            triggerElement: el,
+            triggerHook: water.offset.fromTop
           })
           .addTo(magic.Controller)
-          .addIndicators({ name: 'weather' })
-          ;
-        }*/
+          // .addIndicators({ name: 'Waterpipe' + i })
+          .on('progress', function(e) {
+            var progress = e.progress.toFixed(4);
+            var prog     = (progress * 100);
+
+            var progLin = prog + '%';
+            var progExp = prog * progress + '%';
+
+            var indicatorColor = [
+              Math.round(color[i][0] + rgbDiff[0] * progress),
+              Math.round(color[i][1] + rgbDiff[1] * progress),
+              Math.round(color[i][2] + rgbDiff[2] * progress)
+            ]
+
+            var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
+
+
+            // water in main waterpipe
+            $this
+              .children('.water')
+              .css({
+                background: backgroundGradient,
+                height: progExp
+              });
+
+            // water in navigation waterpipe
+            $$.navMain.icon._this
+              .eq(i)
+              .children('.waterpipeNav')
+              .children('.water')
+              .css({
+                background: backgroundGradient,
+                height: progLin
+              });
+          });
+
+          $$.win.on('resize', function() {
+            scene.duration(getPipeLength($iconPositionsArr[i], $iconPositionsArr[i+1]));
+            scene.refresh();
+          });
+        });
+      }
     }
   };
 
@@ -416,6 +447,8 @@
 
   $(function() { // The $ is now locally scoped
 
+    // 🏗️ Create elements with jQuery
+    //
     // add main waterpipe to icons and container-animation
     $$.icon._this.append('<div class="waterpipe"><div class="water"></div></div>');
 
@@ -429,18 +462,25 @@
 
     // add rain element
     $$.section.natur.prepend('<div class="weather"><div class="rain"></div></div>');
-      // weather height because ScrollMagic doesn't like height: 100%
+
+    // add city element
+    $$.section.natur.prepend('<div class="city"><div class="skyline"></div></div>');
 
 
-    // click events for main nav
+
+
+    // 🖱️ click events for main nav
     //
     // create overlays
     $$.bod.prepend('<div class="click-overlay"></div>');
     $$.navMain._this.prepend('<div class="click-navOverlay"></div>');
 
+
     // smooth scroll anchor menu for nav-main
     $('.nav-main:not(.hidden) a[href^="#"]').bind('click.smoothscroll', function(e) {
       e.preventDefault();
+
+      console.log('clicked', e.currentTarget.hash);
 
       var target = this.hash;
       var $target = $(target);
@@ -453,14 +493,18 @@
       }, 900, 'swing', function() {
         window.location.hash = target;
 
-        $$.navMain._this.addClass('hidden');
+        $$.navMain._this.not('.retracted').addClass('hidden');
       });
     });
+
 
     // click on the nav to open it when closed
     $$.navMain._this.children('.click-navOverlay')
     .on('click', function(e) {
       e.preventDefault();
+
+      console.log('click-dots');
+
       var parent = $(this).parent();
 
       if ( parent.hasClass('hidden') ) {
@@ -476,6 +520,8 @@
     $('.click-overlay').on('click', function(e) {
       e.preventDefault();
 
+      console.log('click-overlay');
+
       $(this).removeClass('visible');
       $$.navMain._this.not('.retracted').addClass('hidden');
     });
@@ -483,25 +529,7 @@
 
 
 
-    // ScrollMagic
-    magic.cast.Weather( $('#section-natur') );
-    magic.cast.Waterpipe( $('.waterpipe'), water.iconPositionsArr.mainIcons, 'exponential');
-    magic.cast.Flood( $$.wide );
-    magic.cast.NavSticky();
-
-
-
-    /**
-     * baseline-element plug-in
-     */
-    // $$.baselineElements.baseline(function() {
-    //   // Get the current font-size from the HTML tag – the root font-size `rem` – which may change through to some CSS media queries
-    //   return parseFloat(getComputedStyle(document.documentElement, null).getPropertyLiter('line-height'));
-    // });
-
-
-
-    // D3
+    // ✨📊 init D3 functions
     d3PieChart(d3s.wVerteilung);
     d3MultiLineChart(d3s.wVerbrauch);
     d3BarChart(d3s.wVerbrauch2);
@@ -511,34 +539,48 @@
 
 
 
-    // triggers
-    $$.win.trigger('resize');
-    // $$.navMain._this.trigger('resize');
 
-    // Loading page overlay
+    // ✨🎩 Cast some ScrollMagic (need to be before resize event)
+    magic.cast.Waterpipe();
+
+
+
+
+    // 🔫 Event triggers
+    $$.win.trigger('resize');
+
+
+
+
+    // ✨🎩 Cast some more ScrollMagic
+    magic.cast.Flood();
+    magic.cast.NavSticky();
+    magic.cast.Weather();
+    magic.cast.City();
+
+
+
+    // ▶️ Loading page overlay
     $$.win.on('load', function() {
       $('.loadWrapper').animate({opacity: 0}, 500, function() {$(this).hide();});
     });
-
 
   }); // END $ (locally)
 
 
 
 
-  //---------------------------------------//
-  //** The rest of your code goes here!  **//
 
 
-
-
+  // 🎟️ Events
+  //
   $$.win.on('resize', function() {
     // set section-intro's height to 100%
     $$.section.intro.css('min-height', $$.win.outerHeight());
 
     // set section-natur's height to 200% and margin-bottom 100%
     $$.section.natur.css({
-      'height': $$.win.outerHeight()*3.5,
+      'height': $$.win.outerHeight()*2,
       'marginBottom' : $$.win.outerHeight()
     });
 
@@ -550,7 +592,6 @@
       $(el)
         .css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
     });
-
 
     // reposition flood effect
     $$.wide.each(function(i, el) {
@@ -583,7 +624,6 @@
           'height': flood.size()*2
         });
     });
-
   });
 
 
@@ -603,6 +643,9 @@
 
 
 
+
+  // 🛠️ Functions
+  //
 
   /**
    * Resize the Waterpipes in the nav
@@ -638,7 +681,7 @@
   /**
    * Function to handle what the navigation will do in relation to screensize
    */
-  function navMobileFirst(biggerThanWidth, $element, ifArray, elseArray, removeNavOverlay) {
+  function navMobileFirst($element, biggerThanWidth, ifArray, elseArray, removeNavOverlay) {
     if (removeNavOverlay === 'undefined' || removeNavOverlay === null) {
       removeNavOverlay = false
     }

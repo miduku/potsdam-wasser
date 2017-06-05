@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i|PT+Serif:400,400i,700,700i");
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i");
 @media screen and (min-width: 480px) {
   body {
     overflow-x: hidden; } }
@@ -2587,7 +2587,7 @@ body,
 button,
 input,
 textarea {
-  font-family: "PT Serif", Georgia, "Times New Roman", serif;
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   color: #333; }
@@ -2665,6 +2665,8 @@ h6 {
     margin-top: 0; }
 
 h1,
+h2,
+h3,
 h4,
 h5,
 h6 {
@@ -2699,7 +2701,7 @@ strong {
   font-weight: bold; }
 
 blockquote {
-  font-family: "PT Serif", Georgia, "Times New Roman", serif;
+  font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
   font-style: italic;
   font-weight: 400;
   margin-left: 0;
@@ -3246,6 +3248,13 @@ header.header-main {
   width: 100%; }
   header.header-main section#section-intro {
     padding-bottom: 4.00002rem; }
+    header.header-main section#section-intro header {
+      position: static;
+      z-index: 999;
+      background: linear-gradient(to bottom, white 0%, white 90%, rgba(255, 255, 255, 0) 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 );
+      /* IE6-9 */ }
 
 .click-overlay {
   background: linear-gradient(to right, white 0%, rgba(255, 255, 255, 0.75) 20%, rgba(255, 255, 255, 0.1) 100%);
@@ -3480,14 +3489,7 @@ main section .icon {
 
 main section#section-natur {
   position: relative;
-  background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
-  background-size: 759px 130px, 292px 149px, 216px 365px;
-  background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
-  background-repeat: no-repeat;
   border-bottom: 40px solid #2E9CCC; }
-  @media screen and (min-width: 768px) {
-    main section#section-natur {
-      background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0; } }
   main section#section-natur .container-natur {
     position: relative;
     height: 100%; }
@@ -3573,6 +3575,20 @@ footer .wide {
     background-position: 64px 0; }
   to {
     background-position: 64px 1024px; } }
+
+.city {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
+  background-size: 759px 130px, 292px 149px, 216px 365px;
+  background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
+  background-repeat: no-repeat; }
+  @media screen and (min-width: 768px) {
+    .city {
+      background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0; } }
 
 .d3GroupedBarChart .axis-x path,
 .d3MultiLineChart .axis-x path {
