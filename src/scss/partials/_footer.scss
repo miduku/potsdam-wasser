@@ -1,12 +1,164 @@
 footer {
-  .wide {
-    background: $color-natur;
-    // @extend .clear;
+  $bgr-height: 12;
 
-    .content {
-      @extend .span10;
-      @extend .offset1;
+  position: relative;
+  @include vr(
+    $margin-top: $bgr-height
+  );
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    @include vr(
+      $padding-top: $bgr-height,
+      $margin-top: -$bgr-height
+    );
+    background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
+    background-size: 759px 130px, 292px 149px, 216px 365px;
+    background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
+    background-repeat: no-repeat;
+
+    @include mobilefirst($bp-tablet) {
+      background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0;
     }
   }
 
+  article {
+    @extend .group;
+
+    header {
+      margin-bottom: 0;
+    }
+
+    .text {
+      @extend .span6;
+    }
+
+    .text-wide,
+    header {
+      @extend .span12;
+    }
+  }
+
+  .wide {
+    // background: $color-natur;
+    position: relative;
+    @extend .animations;
+
+    .container {
+      position: relative;
+      opacity: 0;
+    }
+
+    &.showText {
+      background: $color-natur;
+
+      // .content {
+      //   opacity: 1;
+      // }
+    }
+
+      .flood {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        .circle {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          border-radius: 50%;
+          transform: scale(0);
+          background-color: $color-natur;
+        }
+      }
+
+      .content {
+        @extend .span10;
+        @extend .offset1;
+
+
+      }
+  }
+
+      h2 {
+        @include vr(
+          $font-size: 2
+        );
+      }
+
+      h3 {
+        @include vr(
+          $font-size: 1
+        );
+
+        &:first-child {
+          @include vr(
+            $margin-top: 1
+          );
+        }
+      }
+
+      a {
+        color: darken($color-natur, 25);
+        text-decoration: none;
+
+        &:focus,
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      table {
+        margin-top: 0;
+
+        tr {
+          &:focus,
+          &:hover{
+            background: lighten($color-natur, 5%);
+          }
+        }
+
+        td {
+          vertical-align: top;
+          @include vr(
+            $font-size: -1
+          );
+
+          a {
+            display: block;
+            @include vr(
+              $line-height: .5,
+              $padding: .25 0
+            );
+          }
+
+          .fa:before {
+            @include vr(
+              $line-height: .5
+            );
+          }
+        }
+
+        th {
+          font-weight: bold;
+          border-bottom: 1px solid darken($color-natur, 10%);
+        }
+
+        tr {
+          border-bottom: 1px solid darken($color-natur, 5%);
+        }
+
+        th,
+        td {
+          &:first-child {
+            width: 100%/12 * 7;
+          }
+        }
+      }
 }

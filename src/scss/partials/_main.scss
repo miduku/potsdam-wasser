@@ -1,9 +1,7 @@
 main {
   section {
-    header/*,
-    article*/ {
+    header {
       @extend .span8;
-      // @extend .offset2;
       @include vr($margin-bottom: 1);
     }
 
@@ -60,6 +58,7 @@ main {
     }
 
       .icon {
+        z-index: 0;
         @extend .span1;
         @extend .offset1;
         @include vr( $margin-top: 2 );
@@ -69,6 +68,7 @@ main {
         }
 
         & + header {
+          z-index: 1;
           @extend .offset0;
           @include vr( $margin-bottom: 1 );
         }

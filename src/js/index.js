@@ -11,6 +11,8 @@
     bod: $('body'),
     navContainer: $('.nav-container'),
     wide: $('main .wide'),
+    wideFooter: $('footer .wide'),
+    main: $('main'),
 
     navMain: {
       _this: $('.nav-main'),
@@ -191,7 +193,7 @@
       h: 470,
       margin: {
         top: 70,
-        right: 0,
+        right: 30,
         bottom: 40,
         left: 60
       },
@@ -340,29 +342,68 @@
           .on('progress', function(e) {
             var progress = e.progress.toFixed(4);
 
-            $this
-              .children('.flood')
+            $this.children('.flood')
               .children('.circle')
               .css({
                 'transform': 'scale(' + progress*1.5 + ')'
               });
 
             if (progress >= 0.25) {
-              $this
-                .addClass('showText');
+              $this.addClass('showText');
             } else {
-              $this
-                .removeClass('showText');
+              $this.removeClass('showText');
             }
           })
           .on('update leave', function(e) {
             if (e.type === 'leave' && e.target.controller().info('scrollDirection') === 'FORWARD') {
-              $this
-                .next('.container')
+              $this.next('.container')
                 .css('opacity', 1);
             }
           });
         });
+      },
+
+      // 🌊 Insert a flood effect to elemenet
+      FloodFooter: function() {
+        var el = $$.wideFooter;
+        var $this = $(el);
+
+        new ScrollMagic.Scene({
+          triggerElement: el,
+          triggerHook: .6,
+          duration: $this.outerHeight()
+        })
+        .addTo(magic.Controller)
+        // .addIndicators({ name: 'floodFooter' })
+        .on('progress', function(e) {
+          var progress = e.progress.toFixed(4);
+
+          $this.children('.flood')
+            .children('.circle')
+            .css({
+              'transform': 'scale(' + progress*1.5 + ')'
+            });
+
+          var opacity = progress*4;
+          $this.children('.container')
+            .css({
+              opacity: function() {
+                if (opacity > 1) {
+                  return 1;
+                }
+
+                return opacity;
+              }
+            });
+
+          if (progress >= 0.25) {
+            $this.addClass('showText');
+          } else {
+            $this.removeClass('showText');
+          }
+
+        })
+        ;
       },
 
       // 🚰 Set waterpipe that flows downward while scrolling
@@ -411,8 +452,7 @@
 
 
             // water in main waterpipe
-            $this
-              .children('.water')
+            $this.children('.water')
               .css({
                 background: backgroundGradient,
                 height: progExp
@@ -459,6 +499,7 @@
 
     // add flood element
     $$.wide.prepend('<div class="flood"><div class="circle"></div></div>');
+    $$.wideFooter.prepend('<div class="flood"><div class="circle"></div></div>');
 
     // add rain element
     $$.section.natur.prepend('<div class="weather"><div class="rain"></div></div>');
@@ -554,6 +595,7 @@
 
     // ✨🎩 Cast some more ScrollMagic
     magic.cast.Flood();
+    magic.cast.FloodFooter();
     magic.cast.NavSticky();
     magic.cast.Weather();
     magic.cast.City();
@@ -589,41 +631,13 @@
 
     // waterpipe length
     $('.waterpipe').each(function(i, el) {
-      $(el)
-        .css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
+      $(el).css('height', getPipeLength( water.iconPositionsArr.mainIcons[i], water.iconPositionsArr.mainIcons[i+1] ));
     });
 
-    // reposition flood effect
-    $$.wide.each(function(i, el) {
-      var $this = $(el);
 
-      var $icon = {
-        _this: $this.find('.icon i'),
-        size: $this.find('.icon i').outerWidth()
-      };
-
-      var flood = {
-        posTop:  $icon._this.position().top,
-        posLeft: $icon._this.offset().left,
-        size:  function() {
-          if ($this.outerWidth() > $this.outerHeight()) {
-            return $this.outerWidth();
-          }
-
-          return $this.outerHeight();
-        }
-      };
-
-      $this
-        .children('.flood')
-        .children('.circle')
-        .css({
-          'left': flood.posLeft + $icon.size/2 - (flood.size()),
-          'top': flood.posTop + $icon.size/2 - (flood.size()),
-          'width': flood.size()*2,
-          'height': flood.size()*2
-        });
-    });
+    repositionFloodEffect();
+    repositionFloodEffectFooter();
+    setNavWidth();
   });
 
 
@@ -646,6 +660,83 @@
 
   // 🛠️ Functions
   //
+
+  /**
+   * Set width of nav
+   */
+  function setNavWidth() {
+    $$.navMain._this.children('ul')
+      .children('li')
+      .find('span')
+      .css({
+        width: function() {
+          return $$.navContainer.outerWidth() - $(this).parent().outerWidth();
+        }
+      });
+  }
+
+  /**
+   * Reposition Flood Effect
+   */
+  function repositionFloodEffect() {
+    $$.wide.each(function(i, el) {
+      var $this = $(el);
+
+      var $icon = {
+        _this: $this.find('.icon i'),
+        size: $this.find('.icon i').outerWidth()
+      };
+
+      var flood = {
+        posTop:  $icon._this.position().top,
+        posLeft: $icon._this.offset().left,
+        size:  function() {
+          if ($this.outerWidth() > $this.outerHeight()) {
+            return $this.outerWidth();
+          }
+
+          return $this.outerHeight();
+        }
+      };
+
+      $this.children('.flood')
+        .children('.circle')
+        .css({
+          top: flood.posTop + $icon.size/2 - (flood.size()),
+          left: flood.posLeft + $icon.size/2 - (flood.size()),
+          width: flood.size()*2,
+          height: flood.size()*2
+        });
+    });
+  }
+
+  /**
+   * Reposition Flood Effect for footer
+   */
+  function repositionFloodEffectFooter() {
+    var $el = $$.wideFooter;
+    var lastWaterPipe = $$.main.children('section').find('.waterpipe').last();
+
+    var flood = {
+      posLeft: lastWaterPipe.offset().left + lastWaterPipe.outerWidth()/2,
+      size:  function() {
+        if ($el.outerWidth() > $el.outerHeight()) {
+          return $el.outerWidth();
+        }
+
+        return $el.outerHeight();
+      }
+    };
+
+    $el.children('.flood')
+      .children('.circle')
+      .css({
+        top: 0 - (flood.size()),
+        left: flood.posLeft - (flood.size()),
+        width: flood.size()*2,
+        height: flood.size()*2
+      });
+  }
 
   /**
    * Resize the Waterpipes in the nav

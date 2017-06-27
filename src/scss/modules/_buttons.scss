@@ -97,6 +97,25 @@ a.btn {
       border-color: darken($color-primary, 10);
       color: #fff;
     }
+
+    footer & {
+      background-color: transparent;
+      border-color: darken($color-natur, 10);
+      color: $text-black;
+
+      &:hover,
+      &:focus {
+        background: darken($color-natur, 5);
+        border-color: darken($color-natur, 15);
+        color: $text-black;
+      }
+
+      &:active {
+        background: darken($color-natur, 10);
+        border-color: darken($color-natur, 20);
+        color: $text-black;
+      }
+    }
   }
 
   // Larger button

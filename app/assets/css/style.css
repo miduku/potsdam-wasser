@@ -41,7 +41,7 @@ body {
   height: 100%;
   min-height: 100%; }
 
-.animations, .click-overlay, nav.nav-main, nav.nav-main ul, nav.nav-main li, nav.nav-main li a, nav.nav-main li a i, main section .wide + .container, main section .wide h1, main section .wide p, .weather {
+.animations, .click-overlay, nav.nav-main, nav.nav-main ul, nav.nav-main li, nav.nav-main li a, nav.nav-main li a i, main section .wide + .container, main section .wide h1, main section .wide p, footer .wide, .weather {
   transition: all 0.5s; }
 
 .animations-quick, nav.nav-main li a i .waterpipeNav, nav.nav-main li a span, main section .icon i {
@@ -98,15 +98,15 @@ body {
     box-shadow: 0 2.5em 0 0; } }
 
 /*!
- *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+  src: url("../fonts/fontawesome-webfont.eot?v=4.6.3");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.6.3") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.6.3") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.6.3") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -1924,7 +1924,6 @@ body {
   content: ""; }
 
 .fa-battery-4:before,
-.fa-battery:before,
 .fa-battery-full:before {
   content: ""; }
 
@@ -2270,143 +2269,6 @@ body {
 .fa-fa:before,
 .fa-font-awesome:before {
   content: ""; }
-
-.fa-handshake-o:before {
-  content: ""; }
-
-.fa-envelope-open:before {
-  content: ""; }
-
-.fa-envelope-open-o:before {
-  content: ""; }
-
-.fa-linode:before {
-  content: ""; }
-
-.fa-address-book:before {
-  content: ""; }
-
-.fa-address-book-o:before {
-  content: ""; }
-
-.fa-vcard:before,
-.fa-address-card:before {
-  content: ""; }
-
-.fa-vcard-o:before,
-.fa-address-card-o:before {
-  content: ""; }
-
-.fa-user-circle:before {
-  content: ""; }
-
-.fa-user-circle-o:before {
-  content: ""; }
-
-.fa-user-o:before {
-  content: ""; }
-
-.fa-id-badge:before {
-  content: ""; }
-
-.fa-drivers-license:before,
-.fa-id-card:before {
-  content: ""; }
-
-.fa-drivers-license-o:before,
-.fa-id-card-o:before {
-  content: ""; }
-
-.fa-quora:before {
-  content: ""; }
-
-.fa-free-code-camp:before {
-  content: ""; }
-
-.fa-telegram:before {
-  content: ""; }
-
-.fa-thermometer-4:before,
-.fa-thermometer:before,
-.fa-thermometer-full:before {
-  content: ""; }
-
-.fa-thermometer-3:before,
-.fa-thermometer-three-quarters:before {
-  content: ""; }
-
-.fa-thermometer-2:before,
-.fa-thermometer-half:before {
-  content: ""; }
-
-.fa-thermometer-1:before,
-.fa-thermometer-quarter:before {
-  content: ""; }
-
-.fa-thermometer-0:before,
-.fa-thermometer-empty:before {
-  content: ""; }
-
-.fa-shower:before {
-  content: ""; }
-
-.fa-bathtub:before,
-.fa-s15:before,
-.fa-bath:before {
-  content: ""; }
-
-.fa-podcast:before {
-  content: ""; }
-
-.fa-window-maximize:before {
-  content: ""; }
-
-.fa-window-minimize:before {
-  content: ""; }
-
-.fa-window-restore:before {
-  content: ""; }
-
-.fa-times-rectangle:before,
-.fa-window-close:before {
-  content: ""; }
-
-.fa-times-rectangle-o:before,
-.fa-window-close-o:before {
-  content: ""; }
-
-.fa-bandcamp:before {
-  content: ""; }
-
-.fa-grav:before {
-  content: ""; }
-
-.fa-etsy:before {
-  content: ""; }
-
-.fa-imdb:before {
-  content: ""; }
-
-.fa-ravelry:before {
-  content: ""; }
-
-.fa-eercast:before {
-  content: ""; }
-
-.fa-microchip:before {
-  content: ""; }
-
-.fa-snowflake-o:before {
-  content: ""; }
-
-.fa-superpowers:before {
-  content: ""; }
-
-.fa-wpexplorer:before {
-  content: ""; }
-
-.fa-meetup:before {
-  content: ""; }
 
 .sr-only {
   position: absolute;
@@ -2989,6 +2851,18 @@ a.btn {
       background: #171c1e;
       border-color: #171c1e;
       color: #fff; }
+    footer .btn.btn-primary {
+      background-color: transparent;
+      border-color: #257ca2;
+      color: #333; }
+      footer .btn.btn-primary:hover, footer .btn.btn-primary:focus {
+        background: #298cb7;
+        border-color: #206c8e;
+        color: #333; }
+      footer .btn.btn-primary:active {
+        background: #257ca2;
+        border-color: #1b5c79;
+        color: #333; }
   .btn.btn-lg {
     font-size: 1.25rem;
     line-height: 2.00001rem;
@@ -3194,6 +3068,32 @@ figure {
     figure figcaption .btn {
       margin-bottom: 0; }
 
+table {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-spacing: 0;
+  /* Removes the cell spacing via CSS */
+  border-collapse: collapse;
+  /* Optional - if you don't want to have double border where cells touch */
+  margin: 2.00001rem 0; }
+  table caption {
+    font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
+    font-weight: bold; }
+  table thead,
+  table tbody {
+    padding: 0;
+    margin: 0; }
+  table tr:focus, table tr:hover {
+    background: #9daab1; }
+  table th,
+  table td {
+    padding: 0 5px;
+    text-align: left; }
+  table th {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: -1px; }
+
 ::-moz-selection {
   background: #333;
   color: #fff;
@@ -3214,14 +3114,15 @@ figure {
 
 .span1, main section .icon,
 .span2,
-.nav-container,
 .span3,
+.nav-container,
 .span4,
 .span5,
 header.header-main section#section-intro header,
 header.header-main section#section-intro article,
 .span6,
 main section article .text,
+footer article .text,
 .span7,
 .span8,
 figure,
@@ -3231,30 +3132,33 @@ main section header,
 .span10,
 footer .wide .content,
 .span11,
-.span12 {
+.span12,
+footer article .text-wide,
+footer article header {
   margin-bottom: 2.00001rem;
   margin-left: 3.00002rem; }
 
-.group, main section article {
+.group, main section article, footer article {
   display: flex;
   flex: 0 1 auto;
   flex-direction: row;
   flex-wrap: wrap; }
 
 @media screen and (min-width: 768px) {
-  .group, main section article {
+  .group, main section article, footer article {
     flex-direction: row;
     margin-left: -2.1277%; }
   .span1, main section .icon,
   .span2,
-  .nav-container,
   .span3,
+  .nav-container,
   .span4,
   .span5,
   header.header-main section#section-intro header,
   header.header-main section#section-intro article,
   .span6,
   main section article .text,
+  footer article .text,
   .span7,
   .span8,
   figure,
@@ -3264,7 +3168,9 @@ footer .wide .content,
   .span10,
   footer .wide .content,
   .span11,
-  .span12 {
+  .span12,
+  footer article .text-wide,
+  footer article header {
     flex: 0 0 auto; }
   .offset0, header.header-main section#section-intro header,
   header.header-main section#section-intro article, main section .icon + header {
@@ -3273,15 +3179,15 @@ footer .wide .content,
     flex-basis: 6.20563%;
     margin-left: 2.1277%;
     max-width: 6.20563%; }
-  .offset1, main section .icon, footer .wide .content {
+  .offset1, .nav-container, main section .icon, footer .wide .content {
     margin-left: 10.46103% !important; }
-  .span2, .nav-container {
+  .span2 {
     flex-basis: 14.53897%;
     margin-left: 2.1277%;
     max-width: 14.53897%; }
-  .offset2, figure, figure figcaption, .nav-container {
+  .offset2, figure, figure figcaption {
     margin-left: 18.79437% !important; }
-  .span3 {
+  .span3, .nav-container {
     flex-basis: 22.8723%;
     margin-left: 2.1277%;
     max-width: 22.8723%; }
@@ -3300,7 +3206,7 @@ footer .wide .content,
     max-width: 39.53897%; }
   .offset5 {
     margin-left: 43.79437% !important; }
-  .span6, main section article .text {
+  .span6, main section article .text, footer article .text {
     flex-basis: 47.8723%;
     margin-left: 2.1277%;
     max-width: 47.8723%; }
@@ -3336,7 +3242,8 @@ footer .wide .content,
     max-width: 89.53897%; }
   .offset11 {
     margin-left: 93.79437% !important; }
-  .span12 {
+  .span12, footer article .text-wide,
+  footer article header {
     flex-basis: 97.8723%;
     margin-left: 2.1277%;
     max-width: 97.8723%; }
@@ -3600,11 +3507,13 @@ main section .wide {
     background-size: 72px !important; }
 
 main section .icon {
+  z-index: 0;
   margin-top: 4.00002rem; }
   @media screen and (max-width: 768px) {
     main section .icon {
       margin-bottom: 0; } }
   main section .icon + header {
+    z-index: 1;
     margin-bottom: 2.00001rem; }
   main section .icon i {
     position: relative;
@@ -3631,7 +3540,7 @@ main section#section-natur {
   main section#section-natur .container-natur {
     position: relative;
     height: 100%; }
-    main section#section-natur .container-natur .group, main section#section-natur .container-natur article {
+    main section#section-natur .container-natur .group, main section#section-natur .container-natur article, main section#section-natur .container-natur footer article, footer main section#section-natur .container-natur article {
       position: absolute;
       width: 100%;
       bottom: 0; }
@@ -3670,8 +3579,81 @@ main section#section-reinigung .flood .circle {
     .anim-rain .cloud + .cloudFromLeft {
       text-align: right; }
 
-footer .wide {
-  background: #2E9CCC; }
+footer {
+  position: relative;
+  margin-top: 24.00012rem; }
+  footer:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    margin-top: -24.00012rem;
+    padding-top: 24.00012rem;
+    background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
+    background-size: 759px 130px, 292px 149px, 216px 365px;
+    background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
+    background-repeat: no-repeat; }
+    @media screen and (min-width: 768px) {
+      footer:before {
+        background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0; } }
+  footer article header {
+    margin-bottom: 0; }
+  footer .wide {
+    position: relative; }
+    footer .wide .container {
+      position: relative;
+      opacity: 0; }
+    footer .wide.showText {
+      background: #2E9CCC; }
+    footer .wide .flood {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; }
+      footer .wide .flood .circle {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        border-radius: 50%;
+        transform: scale(0);
+        background-color: #2E9CCC; }
+  footer h2 {
+    font-size: 1.5625rem;
+    line-height: 2.00001rem; }
+  footer h3 {
+    font-size: 1.25rem;
+    line-height: 2.00001rem; }
+    footer h3:first-child {
+      margin-top: 2.00001rem; }
+  footer a {
+    color: #174c64;
+    text-decoration: none; }
+    footer a:focus, footer a:hover {
+      text-decoration: underline; }
+  footer table {
+    margin-top: 0; }
+    footer table tr:focus, footer table tr:hover {
+      background: #40a7d4; }
+    footer table td {
+      vertical-align: top;
+      font-size: 0.8rem;
+      line-height: 2.00001rem; }
+      footer table td a {
+        display: block;
+        line-height: 1.00001rem;
+        padding: 0.5rem 0; }
+      footer table td .fa:before {
+        line-height: 1.00001rem; }
+    footer table th {
+      font-weight: bold;
+      border-bottom: 1px solid #257ca2; }
+    footer table tr {
+      border-bottom: 1px solid #298cb7; }
+    footer table th:first-child,
+    footer table td:first-child {
+      width: 58.33333%; }
 
 .weather {
   position: absolute;
