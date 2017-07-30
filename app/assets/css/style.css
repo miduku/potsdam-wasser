@@ -98,15 +98,15 @@ body {
     box-shadow: 0 2.5em 0 0; } }
 
 /*!
- *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=4.6.3");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.6.3") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.6.3") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.6.3") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular") format("svg");
+  src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -1924,6 +1924,7 @@ body {
   content: ""; }
 
 .fa-battery-4:before,
+.fa-battery:before,
 .fa-battery-full:before {
   content: ""; }
 
@@ -2269,6 +2270,143 @@ body {
 .fa-fa:before,
 .fa-font-awesome:before {
   content: ""; }
+
+.fa-handshake-o:before {
+  content: ""; }
+
+.fa-envelope-open:before {
+  content: ""; }
+
+.fa-envelope-open-o:before {
+  content: ""; }
+
+.fa-linode:before {
+  content: ""; }
+
+.fa-address-book:before {
+  content: ""; }
+
+.fa-address-book-o:before {
+  content: ""; }
+
+.fa-vcard:before,
+.fa-address-card:before {
+  content: ""; }
+
+.fa-vcard-o:before,
+.fa-address-card-o:before {
+  content: ""; }
+
+.fa-user-circle:before {
+  content: ""; }
+
+.fa-user-circle-o:before {
+  content: ""; }
+
+.fa-user-o:before {
+  content: ""; }
+
+.fa-id-badge:before {
+  content: ""; }
+
+.fa-drivers-license:before,
+.fa-id-card:before {
+  content: ""; }
+
+.fa-drivers-license-o:before,
+.fa-id-card-o:before {
+  content: ""; }
+
+.fa-quora:before {
+  content: ""; }
+
+.fa-free-code-camp:before {
+  content: ""; }
+
+.fa-telegram:before {
+  content: ""; }
+
+.fa-thermometer-4:before,
+.fa-thermometer:before,
+.fa-thermometer-full:before {
+  content: ""; }
+
+.fa-thermometer-3:before,
+.fa-thermometer-three-quarters:before {
+  content: ""; }
+
+.fa-thermometer-2:before,
+.fa-thermometer-half:before {
+  content: ""; }
+
+.fa-thermometer-1:before,
+.fa-thermometer-quarter:before {
+  content: ""; }
+
+.fa-thermometer-0:before,
+.fa-thermometer-empty:before {
+  content: ""; }
+
+.fa-shower:before {
+  content: ""; }
+
+.fa-bathtub:before,
+.fa-s15:before,
+.fa-bath:before {
+  content: ""; }
+
+.fa-podcast:before {
+  content: ""; }
+
+.fa-window-maximize:before {
+  content: ""; }
+
+.fa-window-minimize:before {
+  content: ""; }
+
+.fa-window-restore:before {
+  content: ""; }
+
+.fa-times-rectangle:before,
+.fa-window-close:before {
+  content: ""; }
+
+.fa-times-rectangle-o:before,
+.fa-window-close-o:before {
+  content: ""; }
+
+.fa-bandcamp:before {
+  content: ""; }
+
+.fa-grav:before {
+  content: ""; }
+
+.fa-etsy:before {
+  content: ""; }
+
+.fa-imdb:before {
+  content: ""; }
+
+.fa-ravelry:before {
+  content: ""; }
+
+.fa-eercast:before {
+  content: ""; }
+
+.fa-microchip:before {
+  content: ""; }
+
+.fa-snowflake-o:before {
+  content: ""; }
+
+.fa-superpowers:before {
+  content: ""; }
+
+.fa-wpexplorer:before {
+  content: ""; }
+
+.fa-meetup:before {
+  content: ""; }
 
 .sr-only {
   position: absolute;
@@ -3453,7 +3591,7 @@ nav {
           transform: scale(0.2);
           transform-origin: 50%;
           margin: 0;
-          box-shadow: 0 0 12px #fff;
+          box-shadow: 0 0 1px 6px #fff;
           margin-top: -0.5rem; }
           nav.nav-main.hidden li a i .waterpipeNav {
             opacity: 0;
@@ -3590,14 +3728,7 @@ footer {
     width: 100%;
     z-index: -1;
     margin-top: -24.00012rem;
-    padding-top: 24.00012rem;
-    background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
-    background-size: 759px 130px, 292px 149px, 216px 365px;
-    background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
-    background-repeat: no-repeat; }
-    @media screen and (min-width: 768px) {
-      footer:before {
-        background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0; } }
+    padding-top: 24.00012rem; }
   footer article header {
     margin-bottom: 0; }
   footer .wide {
@@ -3701,14 +3832,18 @@ footer {
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 100%;
-  background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
-  background-size: 759px 130px, 292px 149px, 216px 365px;
-  background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
+  height: 100%; }
+
+.city,
+footer:before {
+  background-image: url(../img/potsdam2.svg);
+  background-position: 100% 100%;
+  background-size: 150%;
   background-repeat: no-repeat; }
   @media screen and (min-width: 768px) {
-    .city {
-      background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0; } }
+    .city,
+    footer:before {
+      background-size: 70%; } }
 
 .d3GroupedBarChart .axis-x path,
 .d3MultiLineChart .axis-x path {

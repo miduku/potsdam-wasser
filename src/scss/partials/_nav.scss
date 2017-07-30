@@ -277,7 +277,7 @@ nav {
               transform: scale(.2);
               transform-origin: 50%;
               margin: 0;
-              box-shadow: 0 0 12px #fff;
+              box-shadow: 0 0 1px 6px #fff;
               @include vr(
                 $margin-top: -($size / 2)
               );

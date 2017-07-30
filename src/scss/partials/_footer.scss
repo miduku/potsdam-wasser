@@ -17,14 +17,6 @@ footer {
       $padding-top: $bgr-height,
       $margin-top: -$bgr-height
     );
-    background-image: url(../img/potsdam-sans.svg), url(../img/potsdam-nauener.svg), url(../img/potsdam-nikolai.svg);
-    background-size: 759px 130px, 292px 149px, 216px 365px;
-    background-position: right -560px bottom 0,right 160px bottom 0,right 90px bottom 0;
-    background-repeat: no-repeat;
-
-    @include mobilefirst($bp-tablet) {
-      background-position: right -250px bottom 0, right 650px bottom 0, right 486px bottom 0;
-    }
   }
 
   article {

@@ -257,7 +257,7 @@
   var d3s = {
     // 🔸 Pie charts
     wVerteilung: {
-      element: '.d3Verteilung > .d3',
+      element: '#d3Verteilung > .d3',
       w: 800,
       h: 470,
       colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF'],
@@ -272,7 +272,7 @@
     },
 
     wFoerderkapazitaet: {
-      element: '.d3Foerderkapazitaet > .d3',
+      element: '#d3Foerderkapazitaet > .d3',
       w: 850,
       h: 470,
       colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF', '#f44336'],
@@ -289,7 +289,7 @@
 
     // 🔸 Multiline chart
     wVerbrauch: {
-      element: '.d3Verbrauch > .d3',
+      element: '#d3Verbrauch > .d3',
       w: 800,
       h: 490,
       margin: {
@@ -315,7 +315,7 @@
     },
 
     wAbgabe: {
-      element: '.d3Wasserabgabe > .d3',
+      element: '#d3Wasserabgabe > .d3',
       w: 800,
       h: 470,
       margin: {
@@ -343,7 +343,7 @@
 
     // 🔸 Bar charts
     wVerbrauch2: {
-      element: '.d3Verbrauch2 > .d3',
+      element: '#d3Verbrauch2 > .d3',
       w: 800,
       h: 470,
       margin: {
@@ -363,7 +363,7 @@
     },
 
     wAuslastungsgrenze: {
-      element: '.d3Auslastungsgrenze > .d3',
+      element: '#d3Auslastungsgrenze > .d3',
       w: 880,
       h: 470,
       margin: {
@@ -693,7 +693,7 @@
 
 
     // smooth scroll anchor menu for nav-main
-    $('.nav-main:not(.hidden) a[href^="#"]').bind('click.smoothscroll', function(e) {
+    $('a[href^="#"]').bind('click.smoothscroll', function(e) {
       e.preventDefault();
 
       console.log('clicked', e.currentTarget.hash);
@@ -797,8 +797,8 @@
 
     // set section-natur's height to 200% and margin-bottom 100%
     $$.section.natur.css({
-      'height': $$.win.outerHeight()*2,
-      'marginBottom' : $$.win.outerHeight()
+      'height': $$.win.outerHeight(),
+      'marginBottom' : $$.win.outerHeight()/2
     });
 
     // weather height because ScrollMagic doesn't like height: 100%
@@ -986,7 +986,7 @@
     // Settings example:
     //
     // wVerteilung: {
-    //   element: '.d3Verteilung > .d3',
+    //   element: '#d3Verteilung > .d3',
     //   w: 600,
     //   h: 600,
     //   colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF"],
@@ -1089,7 +1089,7 @@
     // Settings example:
     //
     // wVerbrauch2: {
-    //   element: '.d3Verbrauch2 > .d3',
+    //   element: '#d3Verbrauch2 > .d3',
     //   w: 600,
     //   h: 680,
     //   margin: {
@@ -1337,7 +1337,7 @@
     // Settings example:
     //
     // wAbgabe: {
-    //   element: '.d3Wasserabgabe > .d3',
+    //   element: '#d3Wasserabgabe > .d3',
     //   w: 600,
     //   h: 700,
     //   margin: {
