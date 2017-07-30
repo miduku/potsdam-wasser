@@ -354,6 +354,7 @@
       },
       colors: ['#3873B8','#f44336'],
       data: 'assets/data/wasserverbrauch-vergleich-partnerstaedte.csv',
+      dataSets: ['Stadt', 'Liter'],
       dataType: function type(d) {
         // tell d3 that these are numbers
         d.Liter = +d.Liter;
@@ -373,16 +374,53 @@
         left: 60
       },
       colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF', '#f44336'],
-      data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047.csv',
-      dataKeyString: 'Jahr (Auslastung in %)',
-      dataType: function dataType(d, _, columns) {
+      // data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047.csv',
+      data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047-bevoelkerung.csv',
+      dataSets: ['Jahr (Auslastung in %)', 'Bevölkerung'],
+      // dataKeyString: 'Jahr (Auslastung in %)',
+      // dataType: function dataType(d, _, columns) {
+      //   // tell d3 that these are numbers
+      //   for (var i = 1, n = columns.length, c; i < n; ++i) {
+      //     d[c = columns[i]] = (d[c] !== 'NaN') ? +d[c] : null;
+      //   }
+      //   return d;
+      // },
+      dataType: function type(d) {
         // tell d3 that these are numbers
-        for (var i = 1, n = columns.length, c; i < n; ++i) {
-          d[c = columns[i]] = (d[c] !== 'NaN') ? +d[c] : null;
-        }
+        d['Bevölkerung'] = +d['Bevölkerung'];
         return d;
       },
-      yAxisLabel: 'm³/Tag'
+      yAxisLabel: 'Bevölkerung'
+    },
+
+    wAuslastungsgrenze2: {
+      element: '#d3Auslastungsgrenze > .d3-2',
+      w: 880,
+      h: 470,
+      margin: {
+        top: 70,
+        right: 30,
+        bottom: 40,
+        left: 60
+      },
+      colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF', '#f44336'],
+      // data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047.csv',
+      data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047-foerderkapazitaet.csv',
+      dataSets: ['Jahr (Auslastung in %)', 'Förderkapazitäten (m³)'],
+      // dataKeyString: 'Jahr (Auslastung in %)',
+      // dataType: function dataType(d, _, columns) {
+      //   // tell d3 that these are numbers
+      //   for (var i = 1, n = columns.length, c; i < n; ++i) {
+      //     d[c = columns[i]] = (d[c] !== 'NaN') ? +d[c] : null;
+      //   }
+      //   return d;
+      // },
+      dataType: function type(d) {
+        // tell d3 that these are numbers
+        d['Bevölkerung'] = +d['Bevölkerung'];
+        return d;
+      },
+      yAxisLabel: 'Förderkapazität m³/Tag'
     }
   };
 
@@ -751,7 +789,9 @@
     d3BarChart(d3s.wVerbrauch2);
     d3MultiLineChart(d3s.wAbgabe, true);
     d3PieChart(d3s.wFoerderkapazitaet);
-    d3GroupedBarChart(d3s.wAuslastungsgrenze);
+    // d3GroupedBarChart(d3s.wAuslastungsgrenze);
+    d3BarChart(d3s.wAuslastungsgrenze);
+    d3BarChart(d3s.wAuslastungsgrenze2);
 
 
 
@@ -1135,8 +1175,8 @@
     d3.csv(settings.data, settings.dataType, function(error, data) {
       if (error) throw error;
 
-      scaleX.domain(data.map(function(d) { return d.Stadt; }));
-      scaleY.domain([0, d3.max(data, function(d) { return d.Liter; })]);
+      scaleX.domain(data.map(function(d) { return d[settings.dataSets[0]]; }));
+      scaleY.domain([0, d3.max(data, function(d) { return d[settings.dataSets[1]]; })]);
 
       svgBar.append('g')
         .attr('class', 'axis');
@@ -1169,14 +1209,14 @@
 
       bar.append('rect')
         .attr('class', 'bar')
-        .attr('x', function(d) { return scaleX(d.Stadt); })
-        .attr('y', function(d) { return scaleY(d.Liter); })
+        .attr('x', function(d) { return scaleX(d[settings.dataSets[0]]); })
+        .attr('y', function(d) { return scaleY(d[settings.dataSets[1]]); })
         .attr('width', scaleX.bandwidth())
-        .attr('height', function(d) { return innerHeight - scaleY(d.Liter); });
+        .attr('height', function(d) { return innerHeight - scaleY(d[settings.dataSets[1]]); });
 
       d3.selectAll(element + ' .bar').each(function(d, i) {
         $(this).attr('fill', function() {
-          if (d.Stadt === 'Potsdam') {
+          if (d[settings.dataSets[0]] === 'Potsdam') {
             return settings.colors[1];
           }
 
@@ -1194,9 +1234,9 @@
         .attr('dy', '.35em')
         .attr('text-anchor', 'middle')
         .attr('transform', 'translate(0, -10)')
-        .attr('x', function(d) { return scaleX(d.Stadt) + scaleX.bandwidth()/2; })
-        .attr('y', function(d) { return scaleY(d.Liter); })
-        .text(function(d) { return d.Liter; });
+        .attr('x', function(d) { return scaleX(d[settings.dataSets[0]]) + scaleX.bandwidth()/2; })
+        .attr('y', function(d) { return scaleY(d[settings.dataSets[1]]); })
+        .text(function(d) { return d[settings.dataSets[1]]; });
     });
   }
 

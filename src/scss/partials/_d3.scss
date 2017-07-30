@@ -20,7 +20,8 @@
   .line { stroke: #333; }
 }
 
-  .d3 {
+  .d3,
+  .d3-2 {
     text {
       font-family: $font-sans;
       fill: lighten(#333, 25);
@@ -29,7 +30,7 @@
 
 
 
-.d3Wasserabgabe {
+#d3Wasserabgabe {
   .lines {
     .dotsJahresdurchschnitt {
       circle { fill: #3873B8 }

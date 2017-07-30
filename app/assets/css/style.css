@@ -3873,15 +3873,16 @@ footer:before {
 .d3PieChart .line {
   stroke: #333; }
 
-.d3 text {
+.d3 text,
+.d3-2 text {
   font-family: "Nunito", "PT Sans", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, sans-serif;
   fill: #737373; }
 
-.d3Wasserabgabe .lines .dotsJahresdurchschnitt circle {
+#d3Wasserabgabe .lines .dotsJahresdurchschnitt circle {
   fill: #3873B8; }
 
-.d3Wasserabgabe .lines .dotsTagesspitze circle {
+#d3Wasserabgabe .lines .dotsTagesspitze circle {
   fill: #f44336; }
 
-.d3Wasserabgabe .lines .dotsBevölkerung circle {
+#d3Wasserabgabe .lines .dotsBevölkerung circle {
   fill: #2889B3; }
