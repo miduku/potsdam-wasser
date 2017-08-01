@@ -3,6 +3,7 @@
 //----------------------------------*/
 
 img,
+svg,
 video,
 audio,
 iframe,
@@ -18,13 +19,14 @@ object {
 }
 
 // Responsive Fluid Layout for Videos
-.embed {
+%embed {
   display: inline-block;
   overflow: hidden;
   padding-top: 0;
   position: relative;
 
-  iframe {
+  iframe,
+  svg {
     height: 100%;
     left: 0;
     position: absolute;
@@ -34,44 +36,87 @@ object {
   }
 }
 
+$aspect-ratios: (16,9),
+                (21,9),
+                (4,3),
+                (1,1);
 
-.media-ratio {
-  &-16by9{
-    @include maintain-ratio(16 9);
-    @extend .embed;
-  }
-
-  &-21by9{
-    @include maintain-ratio(21 9);
-    @extend .embed;
-  }
-
-  &-4by3{
-    @include maintain-ratio(1 1.25);
-    @extend .embed;
-
-    @include mobilefirst($bp-tablet) {
-      @include maintain-ratio(4 3);
-    }
+@each $this,$that in $aspect-ratios {
+  .media-ratio-#{$this}by#{$that} {
+    @include maintain-ratio($this $that);
+    @extend %embed;
   }
 }
 
+
+
 figure {
-  @include vr( $margin: 0 0 2 0 );
-  @extend .group;
+  font-family: $font-sans;
+  // border: 1px solid lighten(#333, 60);
+  border-radius: $br;
+  @extend .span8;
+  @extend .offset2;
+  @include vr(
+    $margin: 0 0 1
+  );
+
+  #section-gewinnung & {
+    // border-color: rgba($color-gewinnung, .25);
+    // background-color: rgba($color-gewinnung, .05);
+  }
+  #section-versorgung & {
+    // border-color: rgba($color-versorgung, .25);
+    // background-color: rgba($color-versorgung, .05);
+  }
+  #section-reinigung & {
+    // border-color: rgba($color-reinigung, .25);
+    // background-color: rgba($color-reinigung, .05);
+  }
+
+  svg {
+    @include vr(
+      $padding-top: .5
+    );
+  }
 
   img {
-    @extend .l;
+    @include vr(
+      $margin: .5
+    );
   }
 
   figcaption {
-    @extend .r;
-    @extend aside.r;
+    border-top: 1px solid lighten(#333, 60);
+    color: lighten($text-black, 25);
+    @extend .span8;
+    @extend .offset2;
+    @include vr(
+      $padding: .75 .6 0,
+      $margin-top: .25
+    );
+
+    a,
+    .btn {
+      color: lighten($text-black, 25);
+    }
 
     h4,
     h5,
     h6 {
+      font-weight: bold;
       margin-top: 0;
+      hyphens: none;
+    }
+
+    h4,
+    h5,
+    h6,
+    p {
+      @extend .font-small;
+    }
+
+    .btn {
+      margin-bottom: 0;
     }
   }
 }

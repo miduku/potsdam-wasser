@@ -1,97 +1,27 @@
-.header {
-  // background: hotpink;
+header {
+  &.header-main {
+    width: 100%;
 
-  .container {
-    @include vr( $padding-top: 5 );
-    @extend .animations-quick;
-    // background: lightpink;
-  }
-
-    .header-sticky {
-      width: 100%;
-      background: #fff;
-
-      .logo {
-        text-align: center;
-        margin-top: 0;
-        font-family: $font-sans;
-        font-weight: bold;
-        @include vr( $font-size: 2 );
-        @extend .uppercase;
-        @extend .animations;
-
-        @include mobilefirst($bp-tablet) {
-          @include vr( $font-size: 4 );
-        }
-
-        a {
-          text-decoration: none;
-          display: block;
-        }
-      }
-
-      .header-stream {
-        $thisHeight: 4;
-        display: none;
-        position: absolute;
-        z-index: 9;
-        width: 100%;
-        top: 50%;
-        margin-top: -($thisHeight / 2);
-
-        > div {
-          margin: auto;
-          max-width: 50%;
-          @include vr(
-            $padding: 0 .5
-          );
-
-          > div {
-            display: block;
-            float: left;
-            width: 100%;
-            max-width: (100 / 2) + %;
-
-            > div {
-              height: $thisHeight + px;
-              display: block;
-              // background: darkred;
-            }
-          }
-        }
-      }
-    }
-
-    .intro-text {
-      text-align: center;
-
-      p {
-        @include vr( $margin-top: 1 );
-      }
-    }
-
-    .sticking {
-      position: fixed;
-      top: 0;
-      left: 0;
-      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.15);
-      z-index: 999;
-
-      .logo {
-        transform: translateY(-4rem);
-        // font-size: 0;
+    section {
+      &#section-intro {
         @include vr(
-          $margin: 0,
-          $line-height: 0
+          $padding-bottom: 2
         );
-      }
 
-      .header-stream {
-        display: block;
-        // background: greenyellow;
-        width: 100%;
-        transform: translateY(-50%);
+        header,
+        article {
+          @extend .span5;
+          @extend .offset0;
+        }
+
+        header {
+          position: static;
+          z-index: 999;
+          background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 90%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+        }
       }
     }
-}
+  }
+} // header
 

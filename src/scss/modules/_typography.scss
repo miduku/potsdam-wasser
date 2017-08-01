@@ -3,18 +3,9 @@
 //----------------------------------*/
 
 /* Import fonts from Google */
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i|Noto+Serif:400,700);
+// @import url('https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i|PT+Serif:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i');
 
-// @font-face {
-//   font-family: 'Font-Name';
-//   src: url('../fonts/font-name.eot');
-//   src: url('../fonts/font-name.eot?#iefix') format('embedded-opentype'),
-//        url('../fonts/font-name.woff') format('woff'),
-//        url('../fonts/font-name.ttf') format('truetype'),
-//        url('../fonts/font-name.svg#font-name') format('svg');
-//   font-weight: normal;
-//   font-style: normal;
-// }
 
 // vertical-rhythm-reset
 @include vr-reset();
@@ -28,10 +19,15 @@ body,
 button,
 input,
 textarea {
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-style: normal;
   font-weight: 400;
   color: $text-black;
+}
+
+nav {
+  font-family: $font-sans;
+  @extend .letter-spacing;
 }
 
 blockquote,
@@ -59,12 +55,14 @@ h4,
 h5,
 h6 {
   font-family: $font-sans;
+  hyphens: auto;
+  @extend .uppercase;
   @include vr(
     $padding: 0,
     $margin-top: 2
   );
 
-  section > &:first-child ,
+
   & + h1,
   & + h2,
   & + h3,
@@ -74,13 +72,23 @@ h6 {
   & + p {
     margin-top: 0
   }
+}
 
-  .heading & {
-    margin-bottom: 0;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
 
-  > a {
-    line-height: inherit;
+h5,
+h6 {
+  + p {
+    @include vr(
+      $margin-top: -1
+    );
   }
 }
 
@@ -102,33 +110,19 @@ h5 {
 h6 {
 }
 
-// h5,
-h6 {
-  @include vr(
-    $margin-bottom: 0
-  );
-}
-
-.l,
-.m,
-.header-article .r {
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @include vr(
-      $margin-left: 1,
-      $margin-right: 1
-    );
-
-    &:first-child {
-      margin-top: 0;
-    }
+p {
+  main section header & {
+    // font-family: $font-sans;
+    @extend .letter-spacing;
   }
 }
+
+p,
+ul,
+ol {
+  // letter-spacing: .05em;
+}
+
 
 small,
 .font-small {
@@ -136,13 +130,12 @@ small,
   @include vr(
     $font-size: -1,
     $line-height: 0.5,
-    $margin: 0 0 1
+    $margin: 0 0 .5
   );
 
-  @include mobilefirst($bp-tablet) {
+  br {
     @include vr(
-      $margin: 0 0 .7,
-      $padding-top: .3
+      $line-height: 0.5
     );
   }
 }
@@ -156,7 +149,7 @@ strong {
 }
 
 blockquote {
-  font-family: $font-serif;
+  font-family: $font-sans;
   font-style: italic;
   font-weight: 400;
   margin-left: 0;
@@ -258,9 +251,17 @@ hr {
 
 .uppercase {
   text-transform: uppercase;
-  letter-spacing: .05em;
+  @extend .letter-spacing;
 }
 
 .margin-top-0 {
   margin-top: 0;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.letter-spacing {
+  letter-spacing: .06em;
 }

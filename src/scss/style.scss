@@ -25,14 +25,14 @@
 // OBJECTS & MODULES
 //----------------------------------*/
 @import 'modules/baseline-helper';
-@import 'modules/app';
+// @import 'modules/app';
 @import 'modules/typography';
 @import 'modules/buttons';
 @import 'modules/inputs';
 @import 'modules/lists';
 @import 'modules/alerts';
 @import 'modules/media';
-// @import 'modules/tables';
+@import 'modules/tables';
 @import 'modules/misc';
 
 // Enhancement modules
@@ -49,6 +49,9 @@
 @import 'partials/main';
 @import 'partials/main-anims';
 @import 'partials/footer';
+@import 'partials/weather';
+@import 'partials/city';
+@import 'partials/d3';
 
 //----------------------------------*\
 // VENDOR

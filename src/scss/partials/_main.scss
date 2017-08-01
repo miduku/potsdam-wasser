@@ -1,151 +1,171 @@
-.main {
-  aside.r {
-    color: lighten($color-primary, 25);
-    @include vr(
-      $font-size: 0,
-      $padding-left: 1,
-      $padding-right: 1
-    );
-
-    @include mobilefirst($bp-tablet) {
-      padding: 0;
+main {
+  section {
+    header {
+      @extend .span8;
+      @include vr($margin-bottom: 1);
     }
 
-    .border {
-      @include vr(
-        $padding-left: 0
-      );
+    article {
+      @extend .group;
 
-      @include mobilefirst($bp-tablet) {
-        border-left: 1px solid lighten($color-primary, 25);
-        @include vr(
-          $padding-left: .5
-        );
+      .text {
+        @extend .span6;
+        @extend .offset3;
       }
     }
-  }
 
-  .container {
-    position: relative;
-    z-index: 1;
-  }
-
-    .header-article {
+    .wide {
       position: relative;
-      width: 100%;
-      display: inline-block;
-      color: #fff;
-      overflow: hidden;
-      @include vr(
-        $padding-top: 2,
-        $padding-bottom: 1
-      );
 
-      .circle {
+      .container { position: relative; }
+
+      .flood {
         position: absolute;
-        top: 0;
-        padding: 200%;
-        margin-left: -200%;
-        margin-top: -200%;
-        background: pink;
-        border-radius: 100%;
-        height: 0;
-        font-size: 0;
-        z-index: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        .circle {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          border-radius: 50%;
+          transform: scale(0);
+        }
       }
 
-      .l {
-        text-align: center;
-        @extend .span3;
+      & + .container {
+        opacity: 0;
+        @extend .animations;
+      }
 
-        @include mobilefirst($bp-tablet) {
-          text-align: right;
-          @include vr(
-            $padding-top: .5,
-            $padding-bottom: .5
-          );
+      h1 {
+        @extend .animations;
+      }
+
+      p {
+        color: #fff;
+        opacity: 0;
+        @extend .animations;
+      }
+
+      &.showText {
+        h1 { color: #fff; }
+        p { opacity: 1; }
+
+          .icon i { background-size: 72px !important; }
+      }
+    }
+
+      .icon {
+        z-index: 0;
+        @extend .span1;
+        @extend .offset1;
+        @include vr( $margin-top: 2 );
+
+        @include mobilelast($bp-tablet) {
+          margin-bottom: 0;
         }
 
-        img {
-          width: 32px*4;
+        & + header {
+          z-index: 1;
+          @extend .offset0;
+          @include vr( $margin-bottom: 1 );
+        }
 
-          @include mobilefirst($bp-tablet) {
-            width: 50%;
+        i {
+          position: relative;
+          // background-color: rgba(hotpink, .2);/**/
+          background-size: 56px !important;
+          width: 4rem;
+          display: inline-block;
+          border-radius: 50%;
+          @extend .animations-quick;
+          @include vr(
+            $margin-right: .5,
+            $height: 2
+          );
+
+          .waterpipe {
+            width: 0;
+            z-index: 999;
+
+            @include mobilefirst($bp-tablet) {
+              $width: 6px;
+              position: absolute;
+              width: $width;
+              top: 4rem;
+              left: 50%;
+              margin-left: -($width / 2);
+              // background-color: rgba(grey, .2);/**/
+            }
           }
         }
       }
 
-      .r {
-        text-align: center;
-        @extend .span9;
+    &#section-natur {
+      // background: $color-natur;
+      position: relative;
+      border-bottom: 40px solid $color-natur;
 
-        @include mobilefirst($bp-tablet) {
-          text-align: left;
-        }
-
-        h2 {
-          @include vr( $margin-top: 0 );
-        }
-      }
-    }
-
-  .section-gewinnung,
-  .section-versorgung,
-  .section-reinigung {
-    @include vr( $padding-bottom: 2 );
-  }
-
-  .section-gewinnung {
-    //  background: lighten($color-gewinnung, 25);
-    .header-article .circle {
-      background: $color-gewinnung;
-    }
-  }
-
-  .section-versorgung {
-    //  background: lighten($color-versorgung, 25);
-    .header-article .circle {
-      background: $color-versorgung;
-    }
-  }
-
-  .section-reinigung {
-    //  background: lighten($color-reinigung, 25);
-    .header-article .circle {
-      background: $color-reinigung;
-    }
-  }
-
-  .section {
-    article {
-      .content {
+      .container-natur {
         position: relative;
+        height: 100%;
+        // background: pink;
 
-        > .container {
-          @include vr( $padding-top: 2 );
+        .group {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+        }
+
+        .icon {
+          margin-bottom: 0;
         }
       }
     }
-  }
 
-    .stream {
-      box-sizing: border-box !important;
-      position: absolute;
-      display: block;
-      width: 10px;
-      height: 100%;
-      left: 0;
-      top: 0;
-      z-index: 9;
-      @include vr(
-        $padding-top: 1.5
-      );
+    &#section-gewinnung {
+      .icon {
+        i {
+          background: $color-gewinnung url(../img/i-gewinnung.svg) 50% 50% no-repeat;
+        }
+      }
 
-      .water {
-        display: block;
-        width: 100%;
-        height: 0;
-        background: dodgerblue;
+      .flood {
+        .circle {
+          background-color: $color-gewinnung;
+        }
       }
     }
-} // .main
+
+    &#section-versorgung {
+      .icon {
+        i {
+          background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat;
+        }
+      }
+
+      .flood {
+        .circle {
+          background-color: $color-versorgung;
+        }
+      }
+    }
+
+    &#section-reinigung {
+      .icon {
+        i {
+          background: $color-reinigung url(../img/i-reinigung.svg) 50% 50% no-repeat;
+        }
+      }
+
+      .flood {
+        .circle {
+          background-color: $color-reinigung;
+        }
+      }
+    }
+
+  }
+} // main

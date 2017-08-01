@@ -6,7 +6,7 @@
 
 a.btn {
   @include vr(
-    $height: 1
+    $line-height: 1
   );
 }
 
@@ -29,11 +29,24 @@ a.btn {
     $margin: 0 0 1 0
   );
 
+  #section-gewinnung & {
+    border-color: rgba($color-gewinnung, .33);
+    background-color: rgba($color-gewinnung, .1);
+  }
+  #section-versorgung & {
+    border-color: rgba($color-versorgung, .33);
+    background-color: rgba($color-versorgung, .1);
+  }
+  #section-reinigung & {
+    border-color: rgba($color-reinigung, .33);
+    background-color: rgba($color-reinigung, .1);
+  }
+
   // Mobile first styles
   @include mobilefirst($bp-tablet) {
     width: auto;
     @include vr(
-      $margin: 0 .25 1
+      $margin: 0 .25 1 0
     );
   }
 
@@ -43,6 +56,22 @@ a.btn {
     border-color: $color-primary;
     color: #fff;
     text-decoration: none;
+
+    #section-gewinnung & {
+      border-color: rgba($color-gewinnung, .66);
+      background-color: rgba($color-gewinnung, .2);
+      color: $text-black;
+    }
+    #section-versorgung & {
+      border-color: rgba($color-versorgung, .66);
+      background-color: rgba($color-versorgung, .2);
+      color: $text-black;
+    }
+    #section-reinigung & {
+      border-color: rgba($color-reinigung, .66);
+      background-color: rgba($color-reinigung, .2);
+      color: $text-black;
+    }
   }
 
   &:active {
@@ -67,6 +96,25 @@ a.btn {
       background: darken($color-primary, 10);
       border-color: darken($color-primary, 10);
       color: #fff;
+    }
+
+    footer & {
+      background-color: transparent;
+      border-color: darken($color-natur, 10);
+      color: $text-black;
+
+      &:hover,
+      &:focus {
+        background: darken($color-natur, 5);
+        border-color: darken($color-natur, 15);
+        color: $text-black;
+      }
+
+      &:active {
+        background: darken($color-natur, 10);
+        border-color: darken($color-natur, 20);
+        color: $text-black;
+      }
     }
   }
 
