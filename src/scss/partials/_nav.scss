@@ -1,108 +1,325 @@
-$this-size: 1.5;
+.click-overlay {
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0.75) 20%,rgba(255,255,255,0.1) 100%);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9998;
+  @extend .animations;
+  transform: translateX(-100%);
 
-.nav-main {
-  list-style: none;
-  text-align: center;
-  overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: 99;
-  position: relative;
-  @include vr(
-    $margin-top: 2,
-    $margin-bottom: 2
-  );
-  // background-color: lawngreen;
-
-  ul {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    justify-content: space-around;
-  }
-
-  li {
-    flex: 0 0 auto;
-
-    a {
-      display: block;
-      // background-color: palegreen;
-      text-decoration: none;
-      text-align: center;
-      height: auto;
-      @extend .animations-quick;
-      @include vr(
-        $line-height: $this-size
-      );
-
-      &:before {
-        content: '';
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        // background-color: pink;
-        background-size: 55%;
-        border-radius: 100%;
-        display: block;
-        width: $this-size*2.5 + rem;
-        height: $this-size*2.5 + rem;
-        margin: auto;
-        @extend .animations-quick;
-        // @include vr(
-        //   $margin: 0 2
-        // );
-      }
-
-      em {
-        border: none;
-        font-style: normal;
-        font-weight: bold;
-        @extend .animations;
-      }
-    }
-  }
-
-  .nav-gewinnung a:before {
-    background-image: url(../img/icon-gewinnung-active-32.svg);
-    background-color: $color-gewinnung;
-  }
-
-  .nav-versorgung a:before {
-    background-image: url(../img/icon-versorgung-active-32.svg);
-    background-color: $color-versorgung;
-  }
-
-  .nav-reinigung a:before {
-    background-image: url(../img/icon-reinigung-active-32.svg);
-    background-color: $color-reinigung;
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
   }
 }
 
-.sticking {
-  .nav-main {
-    max-width: 66%;
-    @include vr(
-      $margin-top: .25,
-      $margin-bottom: .25
-    );
+.nav-container {
+  @extend .span3;
+  @extend .offset1;
+  position: relative;
+}
 
-    @include mobilefirst($bp-tablet) {
-      max-width: 50%;
-    }
+
+
+nav {
+  position: relative;
+  height: 0;
+  top: 0;
+  // background: pink;
+
+  .click-navOverlay {
+    display: none;
+  }
+
+  // normal "small" state of the main navigation
+  &.nav-main {
+    position: fixed;
+    z-index: 9999;
+    @extend .animations;
 
     ul {
-      justify-content: space-between;
+      @extend .animations;
     }
 
-    a,
-    a:before {
-      width: $this-size*1.5 + rem;
-      height: $this-size*1.5 + rem;
+      li {
+        @extend .animations;
+
+        a {
+          @extend .animations;
+
+          i {
+            @extend .animations;
+
+            .waterpipeNav {
+              @extend .animations-quick;
+            }
+          }
+
+          span {
+            @extend .animations-quick;
+          }
+        }
+      }
+
+    // RETACTED navigation
+    &.retracted {
+      @include vr( $margin-top: 5 );
     }
 
-    a {
-      em {
-        font-size: 0;
+      ul {
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        height: 0;
+        // @include vr( $padding: .5 0 );
+      }
+
+        li {
+          position: relative;
+          flex: 0 1 auto;
+
+          &.nav-main-versorgung {
+            margin: 0;
+          }
+
+          &.nav-main-gewinnung a  { color: $color-gewinnung; }
+          &.nav-main-versorgung a { color: $color-versorgung; }
+          &.nav-main-reinigung a  { color: $color-reinigung; }
+          &.nav-main-natur a      { color: $color-natur; }
+
+            &.nav-main-gewinnung i  { background: $color-gewinnung  url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
+            &.nav-main-versorgung i { background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat; }
+            &.nav-main-reinigung i  { background: $color-reinigung  url(../img/i-reinigung.svg) 50% 50% no-repeat; }
+            &.nav-main-natur i {
+              background: $color-natur;
+              transform: scale(.2);
+
+              .waterpipeNav {
+                transform: scale(5);
+                transform-origin: top;
+              }
+            }
+
+          a {
+            top: 0;
+            display: block;
+            text-decoration: none;
+            @include vr(
+              $margin-bottom: .5,
+              $padding-left: .5,
+              $height: 1
+            );
+
+            i {
+              position: relative;
+              width: 2rem;
+              display: inline-block;
+              border-radius: 50%;
+              @include vr(
+                $margin-right: .5,
+                $height: 1
+              );
+
+              .waterpipeNav {
+                $width: 2px;
+                position: absolute;
+                // display: none;
+                opacity: 0;
+                visibility: hidden;
+                width: $width;
+                top: 2em;
+                left: 50%;
+                margin-left: -($width / 2);
+              }
+            }
+
+            span {
+              position: absolute;
+              z-index: -1;
+            }
+          }
+
+          &:last-child a {
+            margin-bottom: 0;
+          }
+        }
+
+
+    // EXTENDED navigation
+    &.extended {
+      height: 100%;
+      top: 0;
+      left: 0;
+      @include vr(
+        $padding: .25
+      );
+
+      ul {
+        height: 100%;
+        // background: pink;
+      }
+
+        li {
+          margin: 1% 0;
+
+          &.nav-main-versorgung {
+            @include mobilefirst($bp-tablet) {
+              margin: 30% 0;
+            }
+          }
+
+          a {
+            visibility: visible;
+            opacity: 1;
+
+            &:focus,
+            &:hover {
+              span {
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(0);
+              }
+            }
+
+            i {
+              background-size: 24px !important;/**/
+
+              .waterpipeNav {
+                // display: block;
+                opacity: 1;
+                visibility: visible;
+              }
+            }
+
+            span {
+              visibility: hidden;
+              opacity: 0;
+              transform: translateX(-200%);
+              @include vr(
+                $padding: 0 .5
+              );
+              // background-color: rgba(#fff, .75);
+            }
+          }
+        }
+    }
+
+    // hidden navigation
+    &.hidden {
+      // background: lightgray;
+      @include vr(
+        $height: 2,
+        $padding: .25 .5,
+        $margin-top: .5
+      );
+
+      .click-navOverlay {
+        background: transparent;
+        cursor: pointer;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+      }
+
+      ul {
+      }
+
+        li {
+          &.nav-main-versorgung {
+            margin: 0;
+          }
+
+          // &.nav-main-gewinnung i  { background: $color-gewinnung  url(../img/i-gewinnung.svg) 50% 50% no-repeat; }
+          // &.nav-main-versorgung i { background: $color-versorgung url(../img/i-versorgung.svg) 50% 50% no-repeat; }
+          // &.nav-main-reinigung i  { background: $color-reinigung  url(../img/i-reinigung.svg) 50% 50% no-repeat; }
+          &.nav-main-natur {
+
+            a {
+              height: 0;
+
+              i {
+                visibility: hidden;
+                transform: scale(0);
+              }
+            }
+          }
+
+          a {
+            $size: .5;
+            margin: 0;
+            padding: 0;
+            width: $size * 4 + rem;
+            // background: pink;
+            @include vr(
+              $height: $size,
+              $line-height: $size
+            );
+
+            &:focus,
+            &:hover {
+              span {
+                visibility: hidden;
+                transform: translateX(-200%);
+              }
+            }
+
+            i {
+              background-image: none;
+              transform: scale(.2);
+              transform-origin: 50%;
+              margin: 0;
+              box-shadow: 0 0 1px 6px #fff;
+              @include vr(
+                $margin-top: -($size / 2)
+              );
+
+              .waterpipeNav {
+                // display: none;
+                opacity: 0;
+                visibility: hidden;
+              }
+            }
+
+            span {
+              @include vr(
+                $height: $size,
+                $line-height: $size
+              );
+            }
+          }
+        }
+    }
+
+    // hidden navigation when mombile and at the top of page
+    &.hidden.mobileAtTop {
+      @include vr( $margin-top: 3 );
+      animation-name: navWiggle;
+      animation-duration: 5s;
+      animation-delay: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes navWiggle {
+      0%, 40% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(-.5rem);
+      }
+
+      60%, 100% {
+        transform: translateX(0);
       }
     }
   }
-}
+} // nav

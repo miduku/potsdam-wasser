@@ -1,13 +1,8 @@
-# FastShell
-# https://HosseinKarami.github.io/fastshell
-# @author Hossein Karami
-
-
 ## Node.js
 lib-cov
 *.seed
 *.log
-*.csv
+##*.csv
 *.dat
 *.out
 *.pid
