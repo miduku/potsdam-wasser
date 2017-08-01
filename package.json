@@ -1,13 +1,13 @@
 {
-  "name": "fastplate",
-  "title": "Barebones Responsive SCSS Boilerplate with vertical rhythm",
+  "name": "Potsdamwasser",
+  "title": "Analyse und Visualisierung des Wasserversorgungsnetzes Potsdams",
   "author": "Dustin Kummer",
-  "url": "http://miduku.github.io/fastplate/example.html",
-  "version": "0.0.1",
+  "url": "https://incom.org/workspace/6224/2",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:miduku/fastplate.git"
+    "url": ""
   },
   "devDependencies": {
     "browser-sync": "^2.14.0",
