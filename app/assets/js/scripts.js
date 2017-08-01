@@ -1,9 +1,9 @@
 /*!
- * fastplate
- * Barebones Responsive SCSS Boilerplate with vertical rhythm
- * http://miduku.github.io/fastplate/example.html
+ * Potsdamwasser
+ * Analyse und Visualisierung des Wasserversorgungsnetzes Potsdams
+ * https://incom.org/workspace/6224/2
  * @author Dustin Kummer
- * @version 0.0.1
+ * @version 1.0.0
  * Copyright 2017. MIT licensed.
  */
 /*!
@@ -29,8 +29,8 @@
      */
 
     var _base = 0,
-      _breakpoints = {},
-      _dynamicBase;
+        _breakpoints = {},
+        _dynamicBase;
 
     /**
      * @name     _setBase
@@ -45,7 +45,7 @@
 
     function _setBase (element) {
       var height = element.offsetHeight,
-        current, old;
+          current, old;
 
       if( _dynamicBase ) {
 
@@ -54,7 +54,7 @@
            * This could be used to get the current grid size for different breakpoints
            * from an actual element property instead of defining those breakpoints in the options.
            */
-        _base = _dynamicBase();
+          _base = _dynamicBase();
 
       }
       else {
@@ -122,7 +122,7 @@
        */
 
       var targets = typeof elements === 'string' ? document.querySelectorAll(elements) : elements,
-        len = targets.length;
+          len = targets.length;
 
       /**
        * Decide whether to set the `_breakpoints` or `_dynamicBase` variables or not.
@@ -132,7 +132,7 @@
       if (typeof options === 'number') {
         _base = parseInt(options, 10);
       } else if (typeof options === 'function') {
-        _dynamicBase = options;
+          _dynamicBase = options;
       } else if (typeof options === 'object') {
         var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
 
@@ -161,7 +161,7 @@
    * otherwise export as a browser global.
    */
 
-  if (typeof $ !== 'undefined') {
+  if (typeof $ !== "undefined") {
     $.extend($.fn, {
       baseline: function (options) {
         return baseline(this, options);
@@ -260,7 +260,7 @@
       element: '#d3Verteilung > .d3',
       w: 800,
       h: 470,
-      colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF'],
+      colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF"],
       data: 'assets/data/taeglicher-gesamt-wasserbedarf-potsdams.csv',
       dataType: function typeIsNumbers(d) {
         // tell d3 that these are numbers, not strings
@@ -275,7 +275,7 @@
       element: '#d3Foerderkapazitaet > .d3',
       w: 850,
       h: 470,
-      colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF', '#f44336'],
+      colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF", "#f44336"],
       data: 'assets/data/foerderkapazitaet-wasserwerke-potsdam.csv',
       dataType: function typeIsNumbers(d) {
         // tell d3 that these are numbers, not strings
@@ -298,15 +298,15 @@
         bottom: 20,
         left: 50
       },
-      colors: ['#3873B8', '#f44336', '#2889B3', '#2E9CCC', '#829AAF'],
+      colors: ["#3873B8", "#f44336", "#2889B3", "#2E9CCC", "#829AAF"],
       data: 'assets/data/wasserverbrauch-proportianal-bevoelkerungsdichte.csv',
       dataType: function type(d, _, columns) {
         // tell d3 that these are dates and numbers
-        var parseTime = d3.timeParse('%Y');
+        var parseTime = d3.timeParse("%Y");
         d.Jahr = parseTime(d.Jahr);
 
         for (var i = 1, n = columns.length, c; i < n; ++i) {
-          d[c = columns[i]] = +d[c];
+          d[c = columns[i]] = +d[c]
         }
         return d;
       },
@@ -324,11 +324,11 @@
         bottom: 120,
         left: 50
       },
-      colors: ['#3873B8', '#f44336', '#2889B3', '#2E9CCC', '#829AAF'],
+      colors: ["#3873B8", "#f44336", "#2889B3", "#2E9CCC", "#829AAF"],
       data: 'assets/data/wasserabgabe-versorgungsgebiet-potsdam-einwohner.csv',
       dataType: function type(d, _, columns) {
         // tell d3 that these are dates and numbers
-        var parseTime = d3.timeParse('%Y');
+        var parseTime = d3.timeParse("%Y");
         d.Jahr = parseTime(d.Jahr);
 
         for (var i = 1, n = columns.length, c; i < n; ++i) {
@@ -352,7 +352,7 @@
         bottom: 40,
         left: 50
       },
-      colors: ['#3873B8','#f44336'],
+      colors: ["#3873B8","#f44336"],
       data: 'assets/data/wasserverbrauch-vergleich-partnerstaedte.csv',
       dataSets: ['Stadt', 'Liter'],
       dataType: function type(d) {
@@ -373,7 +373,7 @@
         bottom: 40,
         left: 60
       },
-      colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF', '#f44336'],
+      colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF", "#f44336"],
       // data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047.csv',
       data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047-bevoelkerung.csv',
       dataSets: ['Jahr (Auslastung in %)', 'Bevölkerung'],
@@ -403,7 +403,7 @@
         bottom: 40,
         left: 60
       },
-      colors: ['#3873B8', '#2889B3', '#2E9CCC', '#829AAF', '#f44336'],
+      colors: ["#3873B8", "#2889B3", "#2E9CCC", "#829AAF", "#f44336"],
       // data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047.csv',
       data: 'assets/data/auslastungsgrenze-wasserwerke-potsdam-einwohner-szenario2047-foerderkapazitaet.csv',
       dataSets: ['Jahr (Auslastung in %)', 'Förderkapazitäten (m³)'],
@@ -461,7 +461,7 @@
 
             // AT INSIDE
             if (0.5 <= progress && progress < 1) {
-              navMobileFirst(
+                navMobileFirst(
                   $$.navMain._this,
                   768,
                   ['retracted hidden mobileAtTop', 'extended', 0, true],
@@ -470,7 +470,7 @@
             }
             // AT AFTER
             else if (progress === 1) {
-              navMobileFirst(
+                navMobileFirst(
                   $$.navMain._this,
                   768,
                   ['retracted mobileAtTop', 'hidden extended', 0],
@@ -479,14 +479,14 @@
             }
             // AT TOP
             else {
-              navMobileFirst(
+                navMobileFirst(
                   $$.navMain._this,
                   768,
                   ['extended hidden mobile', 'retracted', $$.navContainer.offset().left],
                   ['', 'extended hidden mobileAtTop', 0]
                 );
             }
-          });
+        });
       },
 
       // 🌧️ Set when weather is shown during scrolling
@@ -659,7 +659,7 @@
               Math.round(color[i][0] + rgbDiff[0] * progress),
               Math.round(color[i][1] + rgbDiff[1] * progress),
               Math.round(color[i][2] + rgbDiff[2] * progress)
-            ];
+            ]
 
             var backgroundGradient = 'linear-gradient(to bottom, rgb(' + color[i][0] + ',' + color[i][1] + ',' + color[i][2] + ') 0%, rgb(' + indicatorColor.join(',') + ') 100%)';
 
@@ -989,7 +989,7 @@
    */
   function navMobileFirst($element, biggerThanWidth, ifArray, elseArray, removeNavOverlay) {
     if (removeNavOverlay === 'undefined' || removeNavOverlay === null) {
-      removeNavOverlay = false;
+      removeNavOverlay = false
     }
 
     if ($$.win.outerWidth() >= biggerThanWidth) {
@@ -1060,7 +1060,7 @@
 
     var d3Pie = d3.pie()
       .sort(null)
-      .value(function(d) { return d[settings.dataValueString]; });
+      .value(function(d) { return d[settings.dataValueString]; })
 
 
     // data
@@ -1096,10 +1096,10 @@
       text.append('text')
         .attr('class', 'label')
         .attr('dy', '.35em')
-        .attr('text-anchor', 'middle')
+        .attr("text-anchor", "middle")
         .attr('transform', function(d) { return 'translate(' + pieLabelArc.centroid(d) + ')'; })
         .style('font-size', '1.25em')
-        .text(function(d) { return d.data[settings.dataKeyString] + ': ' + d.data[settings.dataValueString]; });
+        .text(function(d) { return d.data[settings.dataKeyString] + ': ' + d.data[settings.dataValueString] });
 
 
       var line = svgPie.select('.lines')
@@ -1232,11 +1232,11 @@
       label.append('text')
         .attr('class', 'label')
         .attr('dy', '.35em')
-        .attr('text-anchor', 'middle')
+        .attr("text-anchor", "middle")
         .attr('transform', 'translate(0, -10)')
         .attr('x', function(d) { return scaleX(d[settings.dataSets[0]]) + scaleX.bandwidth()/2; })
         .attr('y', function(d) { return scaleY(d[settings.dataSets[1]]); })
-        .text(function(d) { return d[settings.dataSets[1]]; });
+        .text(function(d) { return d[settings.dataSets[1]] });
     });
   }
 
@@ -1330,23 +1330,23 @@
               };
             });
           })
-          .enter();
+          .enter()
 
       bar.append('rect')
         .attr('x', function(d) { return scaleX1(d.key); })
         .attr('y', function(d) { return scaleY(d.value); })
         .attr('width', scaleX1.bandwidth())
         .attr('height', function(d) { return innerHeight - scaleY(d.value); })
-        .attr('fill', function(d) { return scaleZ(d.key); });
+        .attr('fill', function(d) { return scaleZ(d.key); })
 
       bar.append('text')
         .attr('class', 'label')
         .attr('dy', '.35em')
-        .attr('text-anchor', 'middle')
+        .attr("text-anchor", "middle")
         .attr('transform', 'translate(0, -10)')
         .attr('x', function(d) { return scaleX1(d.key) + scaleX1.bandwidth()/2; })
         .attr('y', function(d) { return scaleY(d.value); })
-        .text(function(d) { return d.value; });
+        .text(function(d) { return d.value });
 
 
       var label = svgBar.select('.labels')
@@ -1355,19 +1355,19 @@
         .enter()
           .append('g')
           .attr('class', 'label')
-          .attr('text-anchor', 'end')
+          .attr("text-anchor", "end")
           .attr('transform', function(d, i) { return 'translate(0,' + ((i+1) * (-20)-30) + ')'; });
 
-      label.append('rect')
-          .attr('x', innerWidth - 19)
-          .attr('width', 19)
-          .attr('height', 19)
-          .attr('fill', scaleZ);
+      label.append("rect")
+          .attr("x", innerWidth - 19)
+          .attr("width", 19)
+          .attr("height", 19)
+          .attr("fill", scaleZ);
 
-      label.append('text')
-          .attr('x', innerWidth - 24)
-          .attr('y', 9.5)
-          .attr('dy', '0.32em')
+      label.append("text")
+          .attr("x", innerWidth - 24)
+          .attr("y", 9.5)
+          .attr("dy", "0.32em")
           .text(function(d) { return d; });
     });
   }
@@ -1449,7 +1449,7 @@
                 liter: d[id]
               };
             })
-          };
+          }
         });
 
 
@@ -1528,18 +1528,18 @@
         var dots = svgLine.select('.lines')
           .selectAll('.dots')
           .data(kategorien)
-          .enter();
+          .enter()
 
         var dot = dots.append('g')
           .attr('class', function(d) { return 'dots dots' + d.id; })
           .selectAll('circle')
           .data(function(d) { return d.values; })
-          .enter();
+          .enter()
 
         dot.append('circle')
-          .attr('cx', function(d) { return scaleX(d.date); })
-          .attr('cy', function(d) { return scaleY((d.liter !== null) ? d.liter : '0'); })
-          .attr('r', function(d) { return (d.liter !== null) ? '2' : '0'; })
+          .attr('cx', function(d) { return scaleX(d.date) })
+          .attr('cy', function(d) { return scaleY((d.liter !== null) ? d.liter : '0') })
+          .attr('r', function(d) { return (d.liter !== null) ? '2' : '0' })
           .style('stroke', 'none');
       }
 
@@ -1561,7 +1561,7 @@
         .attr('x', 3)
         .attr('dy', '0.35em')
         .style('font-size', '1.1em')
-        .text(function(d) { return d.id; });
+        .text(function(d) { return d.id });
 
 
       // mouse over effect
@@ -1587,7 +1587,7 @@
       mousePerLine.append('circle')
         .attr('class', 'moCircle')
         .attr('r', 4)
-        .style('fill', function(d) { return scaleZ(d.id); })
+        .style('fill', function(d) { return scaleZ(d.id) })
         .style('opacity', '0');
 
       mousePerLine.append('rect')
@@ -1609,7 +1609,7 @@
             boxHeight: 20,
             translateX: 10,
             translateY: 3
-          };
+          }
         });
 
       // append a rect to catch mouse movements on canvas
@@ -1689,7 +1689,7 @@
                 pos = $lines[i].getPointAtLength(target);
 
                 if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-                  break;
+                    break;
                 }
 
                 if (pos.x > mouse[0]) {
@@ -1705,7 +1705,7 @@
                 .select('text')
                 .text(scaleY.invert(pos.y).toFixed(0));
 
-              return 'translate(' + mouse[0] + ',' + pos.y + ')';
+              return 'translate(' + mouse[0] + ',' + pos.y + ')'
             });
         });
     });

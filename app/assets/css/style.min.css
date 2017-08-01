@@ -1,9 +1,9 @@
 /*!
- * fastplate
- * Barebones Responsive SCSS Boilerplate with vertical rhythm
- * http://miduku.github.io/fastplate/example.html
+ * Potsdamwasser
+ * Analyse und Visualisierung des Wasserversorgungsnetzes Potsdams
+ * https://incom.org/workspace/6224/2
  * @author Dustin Kummer
- * @version 0.0.1
+ * @version 1.0.0
  * Copyright 2017. MIT licensed.
  */
 @charset "UTF-8";@import url("https://fonts.googleapis.com/css?family=Nunito:400,400i,700,700i");@media screen and (min-width:480px){body{overflow-x:hidden}}@media screen and (min-width:768px){body{overflow-x:auto}}.alert:after,.alert:before,.clear:after,.clear:before{content:' ';display:table}.alert,.clear{*zoom:1}.alert:after,.clear:after{clear:both}*{font-smoothing:antialiased;text-rendering:optimizeLegibility}body,html,nav ul{margin:0;padding:0}nav ul{list-style:none}.kellumIR{text-indent:100%;white-space:nowrap;overflow:hidden}.fullscreen,body,html{height:100%;min-height:100%}.animations,.click-overlay,.weather,footer .wide,main section .wide+.container,main section .wide h1,main section .wide p,nav.nav-main,nav.nav-main li,nav.nav-main li a,nav.nav-main li a i,nav.nav-main ul{transition:all .5s}.animations-quick,main section .icon i,nav.nav-main li a i .waterpipeNav,nav.nav-main li a span{transition:all .2s}.loadWrapper{position:fixed;left:0;top:0;width:100%;height:100%;background:#fff;z-index:99999}.loadWrapper .loader,.loadWrapper .loader:after,.loadWrapper .loader:before{border-radius:50%;width:.5em;height:.5em;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation:a 1.8s infinite ease-in-out;animation:a 1.8s infinite ease-in-out}.loadWrapper .loader{color:#3873b8;font-size:1em;margin-top:-4em;margin-left:-.25em;position:absolute;text-indent:-9999em;transform:translateZ(0);animation-delay:-.16s;left:50%;top:50%}.loadWrapper .loader:after,.loadWrapper .loader:before{content:'';position:absolute;top:0}.loadWrapper .loader:before{left:-2em;animation-delay:-.32s;color:#2889b3}.loadWrapper .loader:after{left:2em;color:#829aaf}@keyframes a{0%,80%,to{box-shadow:0 2.5em 0 -1.3em}40%{box-shadow:0 2.5em 0 0}}
